@@ -1,0 +1,533 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiny Moon Labs — productos para la era de los modelos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#07090f; --bg2:#0c101a; --ink:#f5f1e8; --soft:#a9a59b; --rule:rgba(245,241,232,.14); --teal:#3fd0b6; --gold:#f6c96b; --violet:#8b7bff; --blue:#5aa9ff; --red:#ff8a65;
+    --serif:"Playfair Display", Georgia, serif; --sans:"Karla", system-ui, sans-serif; --mono:ui-monospace, "Cascadia Code", Consolas, Menlo, monospace; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg)}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);font-weight:500}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.015em}
+  .btn{position:relative;z-index:5;display:inline-block;white-space:nowrap;background:linear-gradient(100deg,var(--teal),#8ae6cf);color:#04130f;text-decoration:none;border-radius:99px;padding:12px 24px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border:0;cursor:pointer;box-shadow:0 8px 30px -8px rgba(63,208,182,.6);transition:transform .2s, box-shadow .2s, background .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px -8px rgba(63,208,182,.85)}
+  .btn.ghost{background:rgba(255,255,255,.04);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(245,241,232,.35)}
+  .btn.ghost:hover{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px var(--ink)}
+
+  header{display:flex;justify-content:space-between;align-items:center;padding:20px 28px;max-width:1120px;margin:0 auto;position:relative;z-index:6}
+  header .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:20px;white-space:nowrap}
+  header nav a{color:var(--ink);text-decoration:none;margin-left:22px;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+  header nav a:not(.btn):hover{color:var(--teal)}
+
+  /* the traveller: one moon that follows a dotted road down the whole page */
+  #road{position:absolute;top:0;left:0;width:100%;pointer-events:none;z-index:4;overflow:visible}
+  #road path{fill:none;stroke:var(--gold);stroke-width:1.4;stroke-dasharray:2 9;stroke-linecap:round;opacity:.45}
+  #traveller{position:absolute;top:0;left:0;width:74px;height:74px;z-index:5;pointer-events:none;will-change:transform;filter:drop-shadow(0 0 16px rgba(246,201,107,.6)) drop-shadow(0 0 46px rgba(246,201,107,.28))}
+
+  /* hero: a night sky, three drifting lights and the flowing paths */
+  .hero{text-align:center;position:relative;overflow:hidden;margin-top:-84px;padding:calc(84px + 11vh) 0 17vh;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:30%;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+  .hero .wrap{z-index:2}
+  .hero h1{font-size:clamp(46px,7.6vw,108px);line-height:.98;max-width:13ch;margin:0 auto}
+  .hero h1 em{background:linear-gradient(100deg,var(--teal) 10%,var(--gold) 90%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+  .hero p{max-width:46ch;margin:22px auto 24px;color:#cfcabf;font-size:18px}
+  .hero .btn{margin:6px 2px}
+  .stars{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+  .aurora{position:absolute;inset:0;pointer-events:none;filter:blur(90px);opacity:.75}
+  .aurora i{position:absolute;border-radius:50%}
+  .aurora i:nth-child(1){width:46vw;height:46vw;left:-8vw;top:-6vw;background:radial-gradient(circle,rgba(63,208,182,.75),transparent 65%)}
+  .aurora i:nth-child(2){width:42vw;height:42vw;right:-6vw;top:8vh;background:radial-gradient(circle,rgba(139,123,255,.75),transparent 65%)}
+  .aurora i:nth-child(3){width:38vw;height:38vw;left:32vw;bottom:-18vw;background:radial-gradient(circle,rgba(246,201,107,.5),transparent 65%)}
+  /* flowing paths behind the hero and the closing band (Background Paths, 21st.dev) */
+  .paths{position:absolute;inset:0;pointer-events:none;opacity:.55;-webkit-mask-image:linear-gradient(#000 55%,transparent);mask-image:linear-gradient(#000 55%,transparent)}
+  .paths svg{position:absolute;inset:0;width:100%;height:100%}
+  .paths path{stroke:var(--teal);vector-effect:non-scaling-stroke}
+  .paths path:nth-child(3n){stroke:var(--gold)}
+  .paths path:nth-child(5n){stroke:var(--violet)}
+
+  .logos{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 0;display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;font-family:var(--serif);font-style:italic;color:var(--soft);font-size:18px}
+
+  /* bands: each one is lit from a different side */
+  .band{padding:12vh 0;position:relative;overflow:clip}
+  .mint{background:radial-gradient(70% 70% at 50% 0%,rgba(63,208,182,.16),transparent 70%)}
+  .butter{background:radial-gradient(60% 90% at 0% 50%,rgba(246,201,107,.13),transparent 70%)}
+  .peach{background:radial-gradient(70% 60% at 50% 100%,rgba(139,123,255,.18),transparent 70%)}
+  .intro{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+  .intro h2{font-size:clamp(30px,3.6vw,48px);line-height:1.08;margin:12px 0 18px}
+  .intro p{color:#cfcabf}
+  .intro .sig{font-family:var(--serif);font-style:italic;font-size:24px;margin-top:18px;color:var(--gold)}
+
+  /* the model at the centre, with what it needs in orbit */
+  .orbit{position:relative;aspect-ratio:1;width:100%;max-width:440px;margin:0 auto}
+  .orbit .ring{position:absolute;inset:12%;border-radius:50%;border:1px solid var(--rule)}
+  .orbit .ring.two{inset:27%;border:1px dashed rgba(245,241,232,.22);animation:spin 70s linear infinite reverse}
+  .orbit .core{position:absolute;inset:37%;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 34% 30%,#fff7e0,var(--gold) 46%,#b47c26);box-shadow:0 0 60px 8px rgba(246,201,107,.4),0 0 150px 50px rgba(63,208,182,.2);color:#1c1406;font-family:var(--serif);font-style:italic;font-size:clamp(17px,2vw,23px)}
+  .orbit .spin{position:absolute;inset:12%;animation:spin 48s linear infinite}
+  .orbit .sat{position:absolute;translate:-50% -50%}
+  .orbit .sat span{display:block;padding:8px 15px;border-radius:99px;border:1px solid rgba(245,241,232,.28);background:var(--bg2);font-size:12px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;animation:spin 48s linear infinite reverse}
+  .orbit .s1{left:50%;top:0} .orbit .s2{left:100%;top:50%} .orbit .s3{left:50%;top:100%} .orbit .s4{left:0;top:50%}
+  @keyframes spin{to{rotate:360deg}}
+
+  /* glass surfaces with a light that follows the cursor (Spotlight Card, 21st.dev) */
+  .card,.proj,.clip,.console{position:relative;overflow:hidden;border:1px solid var(--rule);border-radius:18px;background:linear-gradient(165deg,rgba(255,255,255,.085),rgba(255,255,255,.02)),var(--bg2)}
+  .card::before,.proj::before,.clip::before,.console::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(63,208,182,.26),transparent 62%);opacity:0;transition:opacity .35s;pointer-events:none}
+  .card:hover::before,.proj:hover::before,.clip:hover::before,.console:hover::before{opacity:1}
+  .card > *,.proj > *,.clip > *{position:relative}
+
+  /* three cards */
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .card{padding:28px}
+  .card .n{font-family:var(--serif);font-size:44px;line-height:1;background:linear-gradient(120deg,var(--teal),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+  .card h3{font-size:23px;margin:12px 0 8px}
+  .card p{color:var(--soft);font-size:15.5px}
+
+  /* pathways */
+  .ways{padding:13vh 0 6vh;text-align:center}
+  .ways h2{font-size:clamp(34px,4.6vw,62px);line-height:1.04;max-width:16ch;margin:12px auto 14px}
+  .ways > .wrap > p{max-width:50ch;margin:0 auto;color:var(--soft)}
+  .way{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:8vh 0;text-align:left}
+  .way:nth-of-type(even) .art{order:2}
+  .way h3{font-size:clamp(28px,3.2vw,40px);line-height:1.08;margin:8px 0 12px}
+  .way p{color:var(--soft);max-width:42ch;margin-bottom:18px}
+  .way .time{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:20px}
+  /* what Friday logged at each stop */
+  .console{box-shadow:0 40px 90px -40px var(--tint),0 0 0 1px rgba(255,255,255,.03) inset}
+  .console::before{background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),color-mix(in srgb,var(--tint) 30%,transparent),transparent 62%)}
+  .console .bar{position:relative;display:flex;align-items:center;gap:10px;padding:13px 18px;border-bottom:1px solid var(--rule);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+  .console .bar i{width:9px;height:9px;border-radius:50%;background:var(--tint);box-shadow:0 0 14px 2px var(--tint)}
+  .console .bar time{margin-left:auto;font-family:var(--mono);letter-spacing:.06em;color:var(--ink)}
+  .console ul{position:relative;list-style:none;padding:20px 22px 26px;font-family:var(--mono);font-size:14.5px;min-height:210px}
+  .console li{display:flex;gap:12px;padding:8px 0;color:#d8d3c8}
+  .console li b{color:var(--tint);font-weight:400;flex:none;width:1em;text-align:center}
+  .console .ghost{position:absolute;right:-6px;bottom:-34px;font-family:var(--serif);font-weight:700;font-size:clamp(90px,12vw,150px);line-height:1;color:var(--tint);opacity:.13;pointer-events:none}
+
+  /* latam: the cities as a constellation */
+  .sky{position:relative}
+  .sky::before{content:"";position:absolute;inset:-8%;border-radius:50%;background:radial-gradient(circle at 66% 78%,rgba(246,201,107,.2),transparent 50%),radial-gradient(circle at 36% 32%,rgba(63,208,182,.16),transparent 55%);-webkit-mask-image:radial-gradient(circle,#000 30%,transparent 68%);mask-image:radial-gradient(circle,#000 30%,transparent 68%);pointer-events:none}
+  .sky svg{position:relative;width:100%;max-width:520px;display:block;margin:0 auto;overflow:visible}
+  .sky .ln{stroke-width:1.6}
+  .sky .city circle{fill:var(--teal);filter:drop-shadow(0 0 6px var(--teal))}
+  .sky .city text{fill:#d8d3c8;font-family:var(--sans);font-size:12.5px;letter-spacing:.04em}
+  .sky .home circle{fill:var(--gold);filter:drop-shadow(0 0 10px var(--gold))}
+  .sky .home text{fill:var(--gold);font-weight:700}
+  .sky .pulse{fill:none;stroke:var(--gold);stroke-width:1;transform-box:fill-box;transform-origin:center;animation:ping 3s ease-out infinite}
+  @keyframes ping{from{transform:scale(.3);opacity:.9}to{transform:scale(1);opacity:0}}
+  .pts{list-style:none;margin:18px 0 0}
+  .pts li{padding:11px 0;border-top:1px solid var(--rule);color:#cfcabf}
+  .pts li b{color:var(--ink)}
+  .pts li:last-child{border-bottom:1px solid var(--rule)}
+  .places{margin-top:20px;font-family:var(--serif);font-style:italic;font-size:19px;color:var(--gold)}
+  .latam h2{font-size:clamp(30px,3.8vw,52px);line-height:1.06;margin:12px 0 16px}
+  .latam p{color:#cfcabf}
+
+  .shelf{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .proj{padding:24px 22px 26px;transition:border-color .25s}
+  /* transform only transitions on hover: a resting transition makes GSAP read a mid-flight value as the entrance's end state */
+  .proj:hover{transform:translateY(-4px);border-color:rgba(63,208,182,.55);transition:transform .25s, border-color .25s}
+  .proj h3{font-size:25px;line-height:1.08;margin:16px 0 8px}
+  .proj p{color:var(--soft);font-size:15.5px}
+  .state{display:inline-block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border:1px solid rgba(245,241,232,.4);border-radius:99px;padding:4px 10px}
+  .state.now{background:var(--teal);color:#04130f;border-color:var(--teal);box-shadow:0 0 18px -2px var(--teal)}
+  .state.idea{border-style:dashed}
+  .next{max-width:56ch;margin:38px auto 0;text-align:center;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.4;color:#e4dfd3}
+
+  /* menciones: two rails of clippings drifting in opposite directions */
+  .press{padding:11vh 0 12vh;border-top:1px solid var(--rule);overflow:hidden;background:radial-gradient(60% 50% at 50% 0%,rgba(90,169,255,.12),transparent 70%)}
+  .press .head{text-align:center;margin-bottom:38px}
+  .press h2{font-size:clamp(34px,4.6vw,62px);line-height:1.04;max-width:17ch;margin:12px auto 12px}
+  .press .head p{max-width:52ch;margin:0 auto 22px;color:var(--soft)}
+  .rail{overflow:hidden;padding:8px 0 16px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .rail + .rail{margin-top:6px}
+  .track{display:flex;width:max-content;animation:drift 80s linear infinite}
+  .rail.rev .track{animation-direction:reverse}
+  .rail:hover .track,.rail:focus-within .track{animation-play-state:paused}
+  @keyframes drift{to{transform:translateX(-50%)}}
+  .clip{flex:none;width:310px;margin-right:18px;display:flex;flex-direction:column;padding:20px 20px 16px;color:var(--ink);text-decoration:none;transition:transform .25s, border-color .25s}
+  .clip:hover,.clip:focus-visible{transform:translateY(-4px);border-color:rgba(63,208,182,.55);outline:0}
+  .clip h3{font-size:22px;line-height:1.12;margin:10px 0 8px}
+  .clip p{color:var(--soft);font-size:15px}
+  .clip .src{margin-top:auto;padding-top:14px;display:flex;justify-content:space-between;gap:10px;font-family:var(--serif);font-style:italic;font-size:17px;color:var(--teal)}
+
+  /* faq + ask */
+  .ask{text-align:center}
+  .ask h2{font-size:clamp(34px,4.6vw,60px);line-height:1.05;margin:10px 0 26px}
+  .faq{max-width:760px;margin:0 auto;text-align:left;border-top:1px solid var(--rule)}
+  .faq details{border-bottom:1px solid var(--rule);padding:18px 4px}
+  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;font-family:var(--serif);font-size:22px}
+  .faq summary::after{content:"+";font-family:var(--sans);color:var(--teal);font-size:24px;line-height:1}
+  .faq details[open] summary::after{content:"–"}
+  .faq p{color:var(--soft);margin-top:10px;max-width:60ch}
+  .jar{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center;max-width:860px;margin:10vh auto 0;text-align:left}
+  .jar form{display:flex;border:1px solid rgba(245,241,232,.3);border-radius:99px;overflow:hidden;background:rgba(255,255,255,.05);margin-top:18px;max-width:440px}
+  .jar input{flex:1;border:0;background:transparent;color:var(--ink);padding:14px 20px;font-family:var(--sans);font-size:16px;outline:none;min-width:0}
+  .jar input::placeholder{color:var(--soft)}
+  .jar h3{font-size:36px;line-height:1.05}
+  /* where the moon lands */
+  .dock{position:relative;aspect-ratio:1;width:100%;max-width:250px;margin:0 auto;display:grid;place-items:center}
+  .dock span{position:absolute;inset:0;border-radius:50%;border:1px solid rgba(246,201,107,.6);animation:ping 3.6s ease-out infinite}
+  .dock span:nth-child(2){animation-delay:1.2s} .dock span:nth-child(3){animation-delay:2.4s}
+  .dock::after{content:"";position:absolute;inset:22%;border-radius:50%;background:radial-gradient(circle,rgba(246,201,107,.4),transparent 70%)}
+  .dock svg{display:none;width:74px;height:74px;position:relative;z-index:1}
+
+  .end{text-align:center;padding:17vh 0 19vh;position:relative;overflow:hidden;border-top:1px solid var(--rule)}
+  .end h2{font-size:clamp(40px,6.4vw,90px);line-height:1;max-width:13ch;margin:0 auto 26px}
+  .end .aurora{opacity:.5}
+  footer{background:#030408;color:var(--ink);border-top:1px solid var(--rule);padding:26px 28px;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;flex-wrap:wrap;gap:8px 24px}
+  /* the badge ships on black; lighten drops that black into the footer */
+  footer img{display:block;width:250px;height:58px;object-fit:cover;mix-blend-mode:lighten}
+  @media (max-width:860px){
+    .intro,.way,.jar{grid-template-columns:1fr;gap:30px}
+    .way:nth-of-type(even) .art{order:0}
+    .trio,.shelf{grid-template-columns:1fr}
+    .clip{width:264px}
+    header nav a:not(.btn){display:none}
+    header .btn{padding:9px 14px;font-size:11px;margin-left:0}
+    #road,#traveller{display:none}
+    .dock svg{display:block}
+    .orbit{max-width:300px}
+    .aurora{filter:blur(60px)}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .track,.orbit .spin,.orbit .sat span,.orbit .ring.two,.dock span,.sky .pulse{animation:none}
+    .rail{overflow-x:auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- shared engraving textures: every shaded area on the page is one of these line patterns -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="h1" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="5" stroke="#22201c" stroke-width=".9"/></pattern>
+    <pattern id="h2" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(-52)"><line x1="0" y1="0" x2="0" y2="3.2" stroke="#22201c" stroke-width=".8"/></pattern>
+    <pattern id="h3" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(12)"><line x1="0" y1="0" x2="0" y2="7" stroke="#22201c" stroke-width=".7"/></pattern>
+    <pattern id="dots" width="6" height="6" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r=".8" fill="#22201c"/></pattern>
+    <pattern id="hw" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(38)"><line x1="0" y1="0" x2="0" y2="5" stroke="#fbf5ea" stroke-width=".8"/></pattern>
+    <g id="pine"><path d="M0-44 L11-22 H5 L15-6 H7 L19 14 H-19 L-7-6 H-15 L-5-22 H-11Z" fill="url(#h2)" stroke="#22201c" stroke-width="1.1" stroke-linejoin="round"/><line x1="0" y1="14" x2="0" y2="26" stroke="#22201c" stroke-width="2"/></g>
+    <g id="moon"><circle r="30" fill="#fbf5ea" stroke="#22201c" stroke-width="1.6"/><path d="M0-30a30 30 0 0 1 0 60a40 40 0 0 0 0-60z" fill="url(#h2)"/><circle cx="-11" cy="-8" r="5" fill="none" stroke="#22201c" stroke-width="1"/><circle cx="-4" cy="12" r="3.2" fill="none" stroke="#22201c" stroke-width="1"/><circle cx="-17" cy="8" r="2" fill="none" stroke="#22201c" stroke-width="1"/></g>
+  </defs>
+</svg>
+
+<svg id="road" aria-hidden="true"><path id="roadPath" d=""/></svg>
+<svg id="traveller" viewBox="-37 -37 74 74" aria-hidden="true"><use href="#moon"/></svg>
+
+<header>
+  <div class="logo"><svg width="26" height="26" viewBox="-37 -37 74 74"><use href="#moon"/></svg>Tiny Moon Labs</div>
+  <nav><a href="#etapa">La etapa</a><a href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Friday</a><a href="#latam">Latinoamérica</a><a href="#taller">En el taller</a><a href="#ask">Preguntas</a><a class="btn" href="#seat" style="margin-left:22px">Pedir un lugar</a></nav>
+</header>
+
+<section class="hero">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <canvas class="stars" aria-hidden="true"></canvas>
+  <div class="paths" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow">Tiny Moon Labs · laboratorio de productos con IA · Montevideo</span>
+    <h1 style="margin-top:14px">Productos para la era de los <em>modelos.</em></h1>
+    <p>Los LLM y los modelos de IA pasaron a ser el centro de la tecnología. En Tiny Moon Labs construimos productos pequeños y confiables alrededor de ellos. El primero se llama Friday; no será el último.</p>
+    <a class="btn" href="#etapa">Leer la carta</a> &nbsp; <a class="btn ghost" href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Conocer a Friday</a>
+  </div>
+</section>
+
+<div class="wrap"><div class="logos"><span>el modelo al centro</span><span>productos pequeños y confiables</span><span>construidos a la vista</span><span>Friday, el primero: 196 estrellas en GitHub</span><span>hecho en Montevideo</span></div></div>
+
+<section class="band" id="etapa">
+  <div class="wrap intro">
+    <div>
+      <span class="eyebrow">Una carta del taller</span>
+      <h2>El centro de la tecnología se movió.</h2>
+      <p>Durante décadas un programa hizo exactamente lo que alguien le había escrito. Hoy en el centro hay un modelo de lenguaje que lee, razona y decide, y casi todo lo demás se está reordenando a su alrededor.</p>
+      <p style="margin-top:12px">Pero un modelo solo no es un producto. Le faltan reloj, memoria, herramientas y criterio para saber cuándo callar. Ese trabajo es el nuestro, y Friday es la primera vez que lo hacemos completo.</p>
+      <div class="sig">— El taller de Tiny Moon Labs</div>
+    </div>
+    <div class="orbit" id="plate" role="img" aria-label="Un modelo al centro, rodeado de reloj, memoria, herramientas y criterio">
+      <div class="ring"></div><div class="ring two"></div>
+      <div class="core">modelo</div>
+      <div class="spin"><div class="sat s1"><span>reloj</span></div><div class="sat s2"><span>memoria</span></div><div class="sat s3"><span>herramientas</span></div><div class="sat s4"><span>criterio</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band mint" style="padding-top:8vh" id="friday">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:34px"><span class="eyebrow">Producto n.º 1 · el primero de varios</span><h2 style="font-size:clamp(40px,6vw,84px);line-height:1;margin:10px 0 12px">Friday.</h2><p style="max-width:52ch;margin:0 auto;color:var(--soft)">Un asistente personal que vive en tu propia computadora y te habla por Telegram. De código abierto, funcionando todos los días desde hace meses. Es nuestra primera prueba de que un modelo bien acompañado puede sostener un trabajo real.</p></div>
+    <div class="trio">
+      <div class="card"><div class="n">i.</div><h3>Tiene un reloj</h3><p>Resumen a las 8:30. Correo cada hora. Investigación a las 4:11, cuando nadie la está esperando.</p></div>
+      <div class="card"><div class="n">ii.</div><h3>Tiene un cuaderno</h3><p>Cada error se convierte en una regla escrita, con fecha, que vuelve a leer al día siguiente.</p></div>
+      <div class="card"><div class="n">iii.</div><h3>Sabe callar</h3><p>Sin novedades no hay mensaje. Te despierta solo por lo que de verdad te necesita.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="ways" id="ways">
+  <div class="wrap">
+    <span class="eyebrow">El primer producto, en uso · una noche de Friday</span>
+    <h2>Cuatro paradas entre el anochecer y el desayuno.</h2>
+    <p>Sigue a la luna por la página. Cada parada es algo que Friday hizo anoche de verdad.</p>
+
+    <div class="way">
+      <div class="art" aria-hidden="true"><div class="console" style="--tint:#8b7bff"><div class="bar"><i></i><span>friday · repaso diario</span><time>23:35</time></div><ul><li><b>›</b>repasa qué supuso y qué salió mal</li><li><b>✓</b>2 predicciones resueltas</li><li><b>✓</b>1 regla nueva en el cuaderno</li></ul><span class="ghost">23:35</span></div></div>
+      <div><span class="time">23:35</span><h3>Repasa su propio día.</h3><p>Qué supuso, qué salió mal y qué hará distinto. Dos predicciones resueltas y una regla nueva en el cuaderno.</p><a class="btn" href="#menciones">Leer una página</a></div>
+    </div>
+
+    <div class="way">
+      <div class="art" aria-hidden="true"><div class="console" style="--tint:#5aa9ff"><div class="bar"><i></i><span>friday · ayudantes</span><time>03:30</time></div><ul><li><b>›</b>4 ayudantes en paralelo</li><li><b>✓</b>noticias · memoria</li><li><b>✓</b>cabos sueltos · prioridades</li><li><b>●</b>segunda mirada antes de guardar</li></ul><span class="ghost">03:30</span></div></div>
+      <div><span class="time">03:30</span><h3>Manda cuatro ayudantes.</h3><p>Noticias, memoria, cabos sueltos y prioridades. Vuelven con notas; se queda solo con lo que resiste una segunda mirada.</p><a class="btn" href="#menciones">Ver qué trajeron</a></div>
+    </div>
+
+    <div class="way">
+      <div class="art" aria-hidden="true"><div class="console" style="--tint:#3fd0b6"><div class="bar"><i></i><span>friday · radar de modelos</span><time>04:11</time></div><ul><li><b>›</b>modelo nuevo detectado</li><li><b>✓</b>página oficial abierta</li><li><b>✓</b>fecha confirmada</li><li><b>✓</b>registro actualizado</li></ul><span class="ghost">04:11</span></div></div>
+      <div><span class="time">04:11</span><h3>Detecta lo nuevo.</h3><p>Salió un modelo durante la noche. Abre la página oficial, confirma la fecha y actualiza el registro antes de que te levantes.</p><a class="btn" href="#menciones">Verificado en la fuente</a></div>
+    </div>
+
+    <div class="way">
+      <div class="art" aria-hidden="true"><div class="console" style="--tint:#f6c96b"><div class="bar"><i></i><span>friday · carta de la mañana</span><time>08:30</time></div><ul><li><b>✓</b>clima y dólar</li><li><b>✓</b>5 lecturas, cada enlace abierto</li><li><b>●</b>1 decisión que depende de ti</li><li><b>›</b>carta enviada</li></ul><span class="ghost">08:30</span></div></div>
+      <div><span class="time">08:30</span><h3>Te deja una carta.</h3><p>El clima, el dólar, cinco cosas que vale la pena leer y la única decisión que depende de ti. Cada enlace, abierto antes de enviártelo.</p><a class="btn" href="#seat">Recibir la carta</a></div>
+    </div>
+  </div>
+</section>
+
+<section class="band butter latam" id="latam">
+  <div class="wrap intro">
+    <div class="sky"><svg viewBox="0 0 420 420" role="img" aria-label="Ciudades de Latinoamérica conectadas entre sí, con Montevideo destacada">
+      <defs><linearGradient id="skyg" gradientUnits="userSpaceOnUse" x1="40" y1="40" x2="380" y2="380"><stop offset="0" stop-color="#3fd0b6"/><stop offset="1" stop-color="#f6c96b"/></linearGradient></defs>
+      <g fill="none" stroke="url(#skyg)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity=".8">
+        <path class="ln" d="M63 61L201 143L185 235L220 354L288 360L300 362L354 299"/>
+        <path class="ln" d="M201 143L354 299"/><path class="ln" d="M185 235L293 309"/><path class="ln" d="M293 309L288 360"/><path class="ln" d="M293 309L354 299"/>
+      </g>
+      <g class="city"><circle cx="63" cy="61" r="4"/><text x="75" y="65">Ciudad de México</text></g>
+      <g class="city"><circle cx="201" cy="143" r="4"/><text x="213" y="140">Bogotá</text></g>
+      <g class="city"><circle cx="185" cy="235" r="4"/><text x="173" y="239" text-anchor="end">Lima</text></g>
+      <g class="city"><circle cx="354" cy="299" r="4"/><text x="364" y="284" text-anchor="end">São Paulo</text></g>
+      <g class="city"><circle cx="293" cy="309" r="4"/><text x="281" y="305" text-anchor="end">Asunción</text></g>
+      <g class="city"><circle cx="220" cy="354" r="4"/><text x="208" y="358" text-anchor="end">Santiago</text></g>
+      <g class="city"><circle cx="288" cy="360" r="4"/><text x="284" y="386" text-anchor="end">Buenos Aires</text></g>
+      <g class="city home"><circle class="pulse" cx="300" cy="362" r="26"/><circle cx="300" cy="362" r="6"/><text x="316" y="374">Montevideo</text></g>
+    </svg></div>
+    <div>
+      <span class="eyebrow">Desde el sur, para el sur</span>
+      <h2>Hecho en Latinoamérica, pensado para Latinoamérica.</h2>
+      <p>La mayoría de los productos de IA se diseña para otra vida: otro idioma, otros horarios, otra forma de pagar, otro papeleo. Nosotros partimos de la nuestra.</p>
+      <ul class="pts">
+        <li><b>En español primero.</b> Y en portugués. No traducido después.</li>
+        <li><b>Por mensajería.</b> Donde la región ya conversa, sin otra aplicación que instalar.</li>
+        <li><b>Con lo nuestro.</b> El dólar del día, el feriado, el trámite, el clima de tu ciudad.</li>
+        <li><b>En equipos modestos.</b> Una computadora común alcanza; no pide infraestructura cara.</li>
+      </ul>
+      <div class="places">Montevideo · Buenos Aires · São Paulo · Santiago · Asunción · Lima · Bogotá · Ciudad de México</div>
+    </div>
+  </div>
+</section>
+
+<section class="band taller" id="taller">
+  <div class="wrap">
+    <div style="text-align:center;margin-bottom:38px"><span class="eyebrow">Lo que sigue</span><h2 style="font-size:clamp(34px,4.6vw,62px);line-height:1.04;margin:12px auto 12px;max-width:17ch">Lo que hay ahora en el taller.</h2><p style="max-width:52ch;margin:0 auto;color:var(--soft)">Friday abre el camino y por ahora ocupa casi toda la mesa. Nada de esto está a la venta todavía; lo mostramos porque preferimos construir a la vista.</p></div>
+    <div class="shelf">
+      <article class="proj"><span class="state now">En construcción</span><h3>Friday alojado</h3><p>El mismo Friday, sin instalar nada. Lo encendemos nosotros; tú solo le escribes.</p></article>
+      <article class="proj"><span class="state">En diseño</span><h3>Paquetes de habilidades</h3><p>Rutinas listas para sumar: viajes, finanzas del hogar, seguimiento de estrenos, trámites.</p></article>
+      <article class="proj"><span class="state">En diseño</span><h3>Friday para equipos pequeños</h3><p>Un asistente compartido para un estudio o una pyme, con memoria común y turnos de noche.</p></article>
+      <article class="proj"><span class="state idea">Idea</span><h3>El cuaderno, por separado</h3><p>El motor de memoria que usa Friday, para quien construye su propio asistente.</p></article>
+    </div>
+    <p class="next">Y después de Friday, productos nuevos, con otros nombres y sobre la misma idea: un modelo al centro y todo lo que necesita para trabajar bien. Los iremos mostrando aquí.</p>
+  </div>
+</section>
+
+<section class="press" id="menciones">
+  <div class="wrap head">
+    <span class="eyebrow">Menciones del primer producto</span>
+    <h2>Otros también hablan de Friday.</h2>
+    <p>Veinte páginas ajenas que analizan, citan o continúan el repositorio abierto. Detén la cinta con el cursor y abre la que quieras.</p>
+    <a class="btn ghost" href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Ver el repositorio</a>
+  </div>
+  <div class="rail">
+    <div class="track">
+      <a class="clip" href="https://heyaican.com/en/projects/friday/" target="_blank" rel="noopener"><span class="eyebrow">Artículo · análisis</span><h3>heyaican — Friday</h3><p>Ficha dedicada: arquitectura, commits, memoria y rutinas programadas.</p><span class="src"><span>heyaican.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://bitroot.org/guides/build-ai-agent-claude-code-no-code-setup/" target="_blank" rel="noopener"><span class="eyebrow">Guía</span><h3>Bitroot — Build Your Own AI Agent</h3><p>Usa Friday como ejemplo de agente construido sobre Claude Code.</p><span class="src"><span>bitroot.org</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://relatedrepos.com/gh/robonuggets/seedance-skill" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — seedance-skill</h3><p>Friday aparece como repositorio relacionado.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://www.te9.dev/digest/last10-2026-08-15" target="_blank" rel="noopener"><span class="eyebrow">Curación · análisis</span><h3>te9.dev — Last 10 Analyzed</h3><p>Ficha propia del repo: qué es y para qué casos resulta útil.</p><span class="src"><span>te9.dev</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://ainewssmoothie.com/a/personal-assistant-integration-combines-messaging-with-continuous-memo" target="_blank" rel="noopener"><span class="eyebrow">Agregador · editorial</span><h3>AI News Smoothie</h3><p>Friday como fuente de una nota sobre asistentes con memoria continua.</p><span class="src"><span>ainewssmoothie.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://relatedrepos.com/gh/robonuggets/marp-slides" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — marp-slides</h3><p>Friday entre las alternativas y repos relacionados.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://setka.ru/posts/01a00f7e-babe-76f3-94bd-776ce04ae19e" target="_blank" rel="noopener"><span class="eyebrow">Red social tecnológica</span><h3>Setka / hh.ru</h3><p>Publicación en ruso sobre Telegram, memoria y tareas programadas.</p><span class="src"><span>setka.ru</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://t.me/s/open_source_friend?before=5891" target="_blank" rel="noopener"><span class="eyebrow">Canal de open source</span><h3>Telegram — Open Source</h3><p>Publicación completa sobre Friday, con enlace directo a GitHub.</p><span class="src"><span>t.me</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://relatedrepos.com/gh/reysu/ai-life-skills" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — ai-life-skills</h3><p>Junto a proyectos de asistentes, skills y second brains.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://videohighlight.com/v/I41WFsHIlak" target="_blank" rel="noopener"><span class="eyebrow">Video · índice</span><h3>VideoHighlight — 35 Claude Code skills</h3><p>Friday aparece hacia el minuto 10:57 de la selección.</p><span class="src"><span>videohighlight.com</span><span aria-hidden="true">↗</span></span></a>
+    </div>
+  </div>
+  <div class="rail rev">
+    <div class="track">
+      <a class="clip" href="https://github.com/26medias/awesome-ai-repos/blob/main/domains/productivity.md" target="_blank" rel="noopener"><span class="eyebrow">Awesome list</span><h3>26medias / awesome-ai-repos</h3><p>Incluido en Productivity, junto a otros proyectos de agentes.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://x.com/DanKornas/status/2089484918602551423" target="_blank" rel="noopener"><span class="eyebrow">Publicación social</span><h3>X — Dan Kornas</h3><p>Publicación con la tarjeta directa del repositorio.</p><span class="src"><span>x.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://relatedrepos.com/gh/blurred-machine/public-apis" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — public-apis</h3><p>Friday como repositorio comparable.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://github.com/tom-doerr/repo_posts/blob/main/docs/_posts/2026-08-15-missingus3r-friday-showcase.md" target="_blank" rel="noopener"><span class="eyebrow">Publicación · 15 ago 2026</span><h3>tom-doerr / repo_posts</h3><p>Entrada dedicada: un asistente autoevolutivo hecho con Claude Code.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://github.com/LeiGagit/personal-secretary" target="_blank" rel="noopener"><span class="eyebrow">Inspiración · 28 may 2026</span><h3>LeiGagit / personal-secretary</h3><p>Su README reconoce a Friday como inspiración.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://relatedrepos.com/gh/cindiekinzz-coder/NESTstack" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — NESTstack</h3><p>Friday dentro de las recomendaciones relacionadas.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://github.com/vibewatch/vibewatch.github.io/blob/main/docs/twitter/ai-agent/2026-08-18.md" target="_blank" rel="noopener"><span class="eyebrow">Digest · 18 ago 2026</span><h3>VibeWatch — AI Agent Digest</h3><p>Analiza su arquitectura, memoria persistente e integraciones.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://x.com/DanKornas/status/2089485089788821932" target="_blank" rel="noopener"><span class="eyebrow">Publicación social</span><h3>X — Dan Kornas, continuación</h3><p>Segundo post del hilo, con enlace explícito a GitHub.</p><span class="src"><span>x.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://github.com/cunningfolkmedia/claude-jarvis" target="_blank" rel="noopener"><span class="eyebrow">Fork de GitHub</span><h3>cunningfolkmedia / claude-jarvis</h3><p>Fork público que conserva contenido y atribución del proyecto.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
+      <a class="clip" href="https://relatedrepos.com/gh/heyu-233/engineering-figure-agent" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — engineering-figure-agent</h3><p>Otra página del índice donde Friday aparece recomendado.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
+    </div>
+  </div>
+</section>
+
+<section class="band peach ask" id="ask">
+  <div class="wrap">
+    <span class="eyebrow">Está bien detenerse a preguntar</span>
+    <h2>¿Tienes preguntas?</h2>
+    <div class="faq">
+      <details><summary>¿Tiny Moon Labs es solo Friday?</summary><p>No. Friday es el primer producto. El laboratorio existe para construir varios, todos alrededor de modelos de IA.</p></details>
+      <details><summary>¿Por qué ahora?</summary><p>Porque los modelos de lenguaje ya son capaces de sostener trabajo real, y casi todo lo que los rodea está todavía por construirse.</p></details>
+      <details><summary>¿Friday necesita una granja de servidores?</summary><p>No. Friday vive en una computadora común y te habla donde ya estás: en Telegram.</p></details>
+      <details><summary>¿Y si un modelo se equivoca?</summary><p>Se va a equivocar. Friday anota qué pasó y qué hacer la próxima vez, y lee esa nota antes del siguiente turno.</p></details>
+      <details><summary>¿Me va a escribir a las 3 de la mañana?</summary><p>Solo si algo es realmente urgente. Todo lo demás espera a la carta de la mañana.</p></details>
+      <details><summary>¿Funciona en español?</summary><p>Nació en español. Friday trabaja todos los días en español rioplatense, y entiende portugués e inglés.</p></details>
+      <details><summary>¿Puedo ver el código?</summary><p>Sí. La arquitectura de Friday está publicada en GitHub, con sus aciertos y sus errores.</p></details>
+    </div>
+    <div class="jar" id="seat">
+      <div class="dock" aria-hidden="true"><span></span><span></span><span></span><svg viewBox="-37 -37 74 74"><use href="#moon"/></svg><i id="jarMoon"></i></div>
+      <div><span class="eyebrow">Lista de espera</span><h3 style="margin-top:8px">Ten una luna pequeña para ti.</h3><p style="color:var(--soft);margin-top:10px">Déjanos un correo y te escribimos cuando haya lugar en Friday o salga algo nuevo del taller.</p>
+        <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Anotado';"><input type="email" placeholder="tu@correo.com" aria-label="Correo" required><button class="btn" type="submit" style="border-radius:0">Enviar</button></form></div>
+    </div>
+  </div>
+</section>
+
+<section class="end">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="paths" aria-hidden="true"></div>
+  <div class="wrap"><h2>El primero se llama Friday. Vienen más.</h2><a class="btn" href="#seat">Pedir un lugar</a></div>
+</section>
+<footer><span>Tiny Moon Labs — Montevideo, Uruguay · tinymoon.ai</span><img src="LATAM%20e-acc.jfif" alt="Latam Accelerationism" width="250" height="58"><span>Prueba de concepto · octubre 2026</span></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/MotionPathPlugin.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/DrawSVGPlugin.min.js"></script>
+<script>
+(function(){
+  gsap.registerPlugin(ScrollTrigger, MotionPathPlugin, DrawSVGPlugin);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- flowing paths: the Background Paths field from 21st.dev, drawn with GSAP DrawSVG ---------- */
+  document.querySelectorAll('.paths').forEach(box => {
+    let h = '';
+    [1,-1].forEach(pos => {
+      h += '<svg viewBox="0 0 696 316" preserveAspectRatio="xMidYMid slice" fill="none">';
+      for(let i=0;i<36;i++){ const a = i*5*pos, b = i*6;
+        h += `<path d="M-${380-a} -${189+b}C-${380-a} -${189+b} -${312-a} ${216-b} ${152-a} ${343-b}C${616-a} ${470-b} ${684-a} ${875-b} ${684-a} ${875-b}" stroke-width="${(.5+i*.03).toFixed(2)}" stroke-opacity="${(.1+i*.03).toFixed(2)}"/>`; }
+      h += '</svg>';
+    });
+    box.innerHTML = h;
+    if(reduce) return;
+    // a long stroke travels down each curve and back; they only run while their band is on screen
+    const runs = [...box.querySelectorAll('path')].map((p,i) => gsap.fromTo(p, {drawSVG:'0% 45%'}, {drawSVG:'55% 100%', duration:20 + i*7%10, ease:'none', repeat:-1, yoyo:true, paused:true}).progress(i*37%100/100));
+    ScrollTrigger.create({trigger:box, start:'top bottom', end:'bottom top', onToggle:st => runs.forEach(r => st.isActive ? r.play() : r.pause())});
+  });
+
+  /* ---------- night sky: twinkling stars and the odd shooting star ---------- */
+  const cv = document.querySelector('.stars'), cx = cv.getContext('2d');
+  let stars = [], W = 0, H = 0, shot = null, nextShot = 2.5, skyOn = true;
+  function sizeSky(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    W = cv.clientWidth; H = cv.clientHeight; cv.width = W*dpr; cv.height = H*dpr; cx.setTransform(dpr,0,0,dpr,0,0);
+    stars = Array.from({length:Math.round(W*H/4800)}, () => ({x:Math.random()*W, y:Math.random()*H, r:Math.random()*1.25 + .25, p:Math.random()*6.28, s:.4 + Math.random()*1.5}));
+    drawSky(0);
+  }
+  function drawSky(t){
+    cx.clearRect(0,0,W,H); cx.fillStyle = '#f5f1e8';
+    for(const s of stars){ cx.globalAlpha = reduce ? .7 : .25 + .75*Math.abs(Math.sin(s.p + t*s.s)); cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 6.28); cx.fill(); }
+    if(reduce) return;
+    if(!shot && t > nextShot) shot = {x:W*(.35 + Math.random()*.6), y:H*Math.random()*.3, life:0};
+    if(shot){
+      shot.life += .022; shot.x -= 11; shot.y += 5.2;
+      const g = cx.createLinearGradient(shot.x, shot.y, shot.x + 150, shot.y - 71);
+      g.addColorStop(0, 'rgba(255,248,224,1)'); g.addColorStop(1, 'rgba(255,248,224,0)');
+      cx.globalAlpha = Math.sin(Math.min(shot.life,1)*3.14); cx.strokeStyle = g; cx.lineWidth = 1.6; cx.lineCap = 'round';
+      cx.beginPath(); cx.moveTo(shot.x, shot.y); cx.lineTo(shot.x + 150, shot.y - 71); cx.stroke();
+      if(shot.life >= 1){ shot = null; nextShot = t + 3 + Math.random()*5; }
+    }
+  }
+  sizeSky();
+  if(!reduce){
+    gsap.ticker.add(t => { if(skyOn) drawSky(t); });
+    ScrollTrigger.create({trigger:'.hero', start:'top bottom', end:'bottom top', onToggle:st => skyOn = st.isActive});
+    // the three lights drift slowly and sink a little as you scroll away
+    gsap.utils.toArray('.aurora i').forEach((b,i) => gsap.to(b, {x:i%2 ? -90 : 90, y:i%3 ? 60 : -50, scale:1.2, duration:10 + i*3, ease:'sine.inOut', repeat:-1, yoyo:true}));
+    gsap.to('.hero .aurora', {yPercent:18, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
+  }
+
+  // each rail holds its clippings twice, so the -50% drift loops without a seam
+  if(!reduce) document.querySelectorAll('.track').forEach(t => [...t.children].forEach(c => { const k = c.cloneNode(true); k.setAttribute('aria-hidden','true'); k.tabIndex = -1; t.appendChild(k); }));
+
+  // the light inside each glass surface follows the cursor
+  document.querySelectorAll('.card,.proj,.clip,.console').forEach(el => el.addEventListener('pointermove', e => {
+    const r = el.getBoundingClientRect(); el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+
+  /* ---------- the road: a dotted path through the page's own landmarks ---------- */
+  const road = document.getElementById('road'), pathEl = document.getElementById('roadPath'), trav = document.getElementById('traveller');
+  let tween;
+  function buildRoad(){
+    if(innerWidth <= 860) return;
+    const H = document.documentElement.scrollHeight, W = document.documentElement.clientWidth;
+    road.setAttribute('width', W); road.setAttribute('height', H); road.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    const top = el => el.getBoundingClientRect().top + scrollY, mid = el => top(el) + el.offsetHeight/2;
+    const pts = [[W*.80, 150]];
+    pts.push([W*.86, top(document.querySelector('.logos')) - 70]);
+    pts.push([W*.06, mid(document.querySelector('.intro'))]);
+    pts.push([W*.94, mid(document.querySelector('.trio'))]);
+    document.querySelectorAll('.way').forEach((w,i) => pts.push([i%2 ? W*.05 : W*.95, mid(w)]));
+    pts.push([W*.95, mid(document.querySelector('.latam'))]);
+    pts.push([W*.04, mid(document.querySelector('.shelf'))]);
+    pts.push([W*.93, top(document.querySelector('.press')) + 120]);
+    pts.push([W*.07, mid(document.querySelector('.faq'))]);
+    const jm = document.getElementById('jarMoon').getBoundingClientRect();
+    pts.push([jm.left + jm.width/2, jm.top + scrollY + jm.height/2]);
+    let d = `M${pts[0][0]} ${pts[0][1]}`;
+    for(let i=1;i<pts.length;i++){ const [x0,y0] = pts[i-1], [x1,y1] = pts[i], my = (y0+y1)/2; d += ` C${x0} ${my} ${x1} ${my} ${x1} ${y1}`; }
+    pathEl.setAttribute('d', d);
+    if(tween){ tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill(); }
+    gsap.set(trav, {xPercent:-50, yPercent:-50});
+    tween = gsap.to(trav, {ease:'none', motionPath:{path:pathEl, align:pathEl, alignOrigin:[.5,.5]},
+      rotation:reduce ? 0 : 300,
+      scrollTrigger:{trigger:document.body, start:'top top', end:'bottom bottom', scrub:1.2}});
+    // the dotted line is drawn ahead of the moon as you go
+    gsap.fromTo(pathEl, {strokeDasharray:'2 9', strokeDashoffset:0, clipPath:'inset(0 0 100% 0)'}, {clipPath:'inset(0 0 0% 0)', ease:'none',
+      scrollTrigger:{trigger:document.body, start:'top top', end:'bottom bottom', scrub:.6}});
+  }
+  addEventListener('load', () => { buildRoad(); ScrollTrigger.refresh(); });
+  let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { sizeSky(); buildRoad(); ScrollTrigger.refresh(); }, 250); });
+
+  /* ---------- entrances ---------- */
+  gsap.from('.hero .wrap > *', {y:30, opacity:0, filter:'blur(10px)', duration:1.1, ease:'power3.out', stagger:.11, delay:.15});
+  gsap.from('.logos span', {opacity:0, y:10, stagger:.08, duration:.6, scrollTrigger:{trigger:'.logos', start:'top 92%'}});
+  gsap.from('.intro > div:first-child > *', {y:22, opacity:0, stagger:.09, duration:.8, ease:'power3.out', scrollTrigger:{trigger:'#etapa', start:'top 72%'}});
+  gsap.from('#plate', {scale:.7, opacity:0, duration:1.3, ease:'power3.out', scrollTrigger:{trigger:'#etapa', start:'top 70%'}});
+  gsap.from('#plate .sat', {opacity:0, scale:0, stagger:.15, duration:.6, ease:'back.out(2)', scrollTrigger:{trigger:'#etapa', start:'top 60%'}});
+  gsap.from('.card', {y:40, opacity:0, stagger:.12, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.trio', start:'top 82%'}});
+
+  gsap.utils.toArray('.way').forEach((w,i) => {
+    const art = w.querySelector('.art'), copy = w.querySelector(':scope > div:last-child');
+    gsap.from(art, {x:i%2 ? 60 : -60, opacity:0, duration:1.1, ease:'power3.out', scrollTrigger:{trigger:w, start:'top 76%'}});
+    gsap.from(copy.children, {y:24, opacity:0, stagger:.08, duration:.8, ease:'power3.out', scrollTrigger:{trigger:w, start:'top 72%'}});
+    // the log lines arrive one by one, as they were written
+    gsap.from(art.querySelectorAll('li'), {x:-14, opacity:0, stagger:.22, duration:.5, delay:.3, ease:'power2.out', scrollTrigger:{trigger:w, start:'top 70%'}});
+  });
+
+  gsap.from('.latam .intro > div:last-child > *', {y:22, opacity:0, stagger:.08, duration:.8, ease:'power3.out', scrollTrigger:{trigger:'.latam', start:'top 72%'}});
+  gsap.from('.pts li', {x:-18, opacity:0, stagger:.09, duration:.6, scrollTrigger:{trigger:'.pts', start:'top 84%'}});
+  gsap.from('.sky .ln', {drawSVG:'0%', duration:1.4, ease:'power2.inOut', stagger:.18, scrollTrigger:{trigger:'.sky', start:'top 76%'}});
+  gsap.from('.sky .city', {opacity:0, stagger:.1, duration:.6, scrollTrigger:{trigger:'.sky', start:'top 76%'}});
+  gsap.from('.proj', {y:46, opacity:0, stagger:.1, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.shelf', start:'top 84%'}});
+  gsap.from('.press .head > *', {y:22, opacity:0, stagger:.09, duration:.8, ease:'power3.out', scrollTrigger:{trigger:'.press', start:'top 75%'}});
+  gsap.from('.rail', {y:30, opacity:0, stagger:.15, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.rail', start:'top 88%'}});
+  gsap.from('.faq details', {y:16, opacity:0, stagger:.08, duration:.6, scrollTrigger:{trigger:'.faq', start:'top 84%'}});
+  gsap.from('.end .wrap > *', {y:30, opacity:0, stagger:.12, duration:1, ease:'power3.out', scrollTrigger:{trigger:'.end', start:'top 72%'}});
+})();
+</script>
+</body>
+</html>
