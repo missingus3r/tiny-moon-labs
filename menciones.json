@@ -112,13 +112,6 @@
     "descripcion": "Otro post de la misma difusión enlaza explícitamente GitHub y muestra la preview de Friday."
   },
   {
-    "titulo": "Reddit — r/ArtificialInteligence",
-    "etiqueta": "Post de Reddit",
-    "resumen": "“I built my own 24/7 AI assistant using just Claude Code”, con enlace al repo.",
-    "url": "https://www.reddit.com/r/ArtificialInteligence/comments/1sjo4wu/tired_of_claws_i_built_my_own_247_ai_assistant/",
-    "descripcion": "Post “I built my own 24/7 AI assistant using just Claude Code”, con enlace explícito a missingus3r/friday-showcase."
-  },
-  {
     "titulo": "Reddit — r/openclaw",
     "etiqueta": "Post de Reddit",
     "resumen": "El mismo “Tired of Claws”, publicado en otra comunidad, enlazando Friday.",
@@ -193,5 +186,21 @@
     "fecha": "2026-04-19",
     "url": "https://github.com/Ouou-Aobai/ai-knowledge-base/blob/main/v1-skeleton/knowledge/enriched/github-2026-04-19-enriched.json",
     "descripcion": "Una base de conocimiento sobre IA incorporó Friday con descripción técnica, metadatos y una puntuación de relevancia de 0,9."
+  },
+  {
+    "titulo": "git-awesome — 35 Claude Code skills",
+    "etiqueta": "Índice · GitHub",
+    "resumen": "Indexa Friday entre los repositorios mencionados en un video de Claude Code.",
+    "url": "https://github.com/sirbrasscat/git-awesome/blob/master/content/videos/2026-04-19-35-claude-code-skills-on-github.md",
+    "fecha": "2026-04-19",
+    "descripcion": "Archivo independiente que registra el video de 35 herramientas de Claude Code y enlaza explícitamente missingus3r/friday-showcase."
+  },
+  {
+    "titulo": "github-trend-monitor — métricas de GitHub",
+    "etiqueta": "Datos · GitHub Trending",
+    "resumen": "Registro histórico de Friday con 34 estrellas en la categoría AI Agent.",
+    "url": "https://github.com/nottobeaproblem/github-trend-monitor/blob/main/data/metrics/metrics_2026-04-13.csv",
+    "fecha": "2026-04-13",
+    "descripcion": "Dataset de seguimiento de GitHub que incluye missingus3r/friday-showcase con 34 estrellas el 13 de abril de 2026 y la categoría AI Agent."
   }
 ]
