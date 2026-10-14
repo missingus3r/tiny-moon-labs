@@ -1,0 +1,197 @@
+[
+  {
+    "titulo": "heyaican — Friday",
+    "etiqueta": "Artículo · análisis",
+    "resumen": "Ficha dedicada: arquitectura, commits, memoria y rutinas programadas.",
+    "url": "https://heyaican.com/en/projects/friday/",
+    "descripcion": "Ficha dedicada a Friday. Analiza arquitectura, commits, cognition harness, memoria, cron jobs y menciona a Bruno Silveira como builder."
+  },
+  {
+    "titulo": "Bitroot — Build Your Own AI Agent",
+    "etiqueta": "Guía",
+    "resumen": "Usa Friday como ejemplo de agente construido sobre Claude Code.",
+    "url": "https://bitroot.org/guides/build-ai-agent-claude-code-no-code-setup/",
+    "descripcion": "Usa missingus3r/friday-showcase como ejemplo de agente construido sobre Claude Code y lo incluye entre sus fuentes."
+  },
+  {
+    "titulo": "te9.dev — Last 10 Analyzed",
+    "etiqueta": "Curación · análisis",
+    "resumen": "Ficha propia del repo: qué es y para qué casos resulta útil.",
+    "url": "https://www.te9.dev/digest/last10-2026-08-15",
+    "descripcion": "Tiene una ficha dedicada al repo, lo clasifica como Open Source AI Project y explica para qué casos resulta útil."
+  },
+  {
+    "titulo": "AI News Smoothie",
+    "etiqueta": "Agregador · editorial",
+    "resumen": "Friday como fuente de una nota sobre asistentes con memoria continua.",
+    "url": "https://ainewssmoothie.com/a/personal-assistant-integration-combines-messaging-with-continuous-memo",
+    "descripcion": "Incluye Friday como ingrediente/fuente de una nota sobre asistentes personales con memoria continua."
+  },
+  {
+    "titulo": "Setka / hh.ru",
+    "etiqueta": "Red social tecnológica",
+    "resumen": "Publicación en ruso sobre Telegram, memoria y tareas programadas.",
+    "url": "https://setka.ru/posts/01a00f7e-babe-76f3-94bd-776ce04ae19e",
+    "descripcion": "Publicación dedicada a friday-showcase, en ruso, describiendo Telegram, memoria, tareas programadas y Claude Code. Enlaza directamente el repo."
+  },
+  {
+    "titulo": "Telegram — Open Source",
+    "etiqueta": "Canal de open source",
+    "resumen": "Publicación completa sobre Friday, con enlace directo a GitHub.",
+    "url": "https://t.me/s/open_source_friend?before=5891",
+    "descripcion": "Publicación completa sobre Friday con enlace directo a GitHub."
+  },
+  {
+    "titulo": "VideoHighlight — 35 Claude Code skills",
+    "etiqueta": "Video · índice",
+    "resumen": "Friday aparece hacia el minuto 10:57 de la selección.",
+    "url": "https://videohighlight.com/v/I41WFsHIlak",
+    "descripcion": "Friday aparece específicamente alrededor del minuto 10:57 de una selección de 35 repositorios relacionados con Claude Code."
+  },
+  {
+    "titulo": "26medias / awesome-ai-repos",
+    "etiqueta": "Awesome list",
+    "resumen": "Incluido en Productivity, junto a otros proyectos de agentes.",
+    "url": "https://github.com/26medias/awesome-ai-repos/blob/main/domains/productivity.md",
+    "descripcion": "Incluye missingus3r/friday-showcase dentro de Productivity, junto a otros proyectos de agentes/productividad."
+  },
+  {
+    "titulo": "RelatedRepos — seedance-skill",
+    "etiqueta": "Índice automático",
+    "resumen": "Friday aparece como repositorio relacionado.",
+    "url": "https://relatedrepos.com/gh/robonuggets/seedance-skill",
+    "descripcion": "Friday aparece como repositorio relacionado."
+  },
+  {
+    "titulo": "RelatedRepos — marp-slides",
+    "etiqueta": "Índice automático",
+    "resumen": "Friday entre las alternativas y repos relacionados.",
+    "url": "https://relatedrepos.com/gh/robonuggets/marp-slides",
+    "descripcion": "Friday aparece entre alternativas/repos relacionados."
+  },
+  {
+    "titulo": "RelatedRepos — ai-life-skills",
+    "etiqueta": "Índice automático",
+    "resumen": "Junto a proyectos de asistentes, skills y second brains.",
+    "url": "https://relatedrepos.com/gh/reysu/ai-life-skills",
+    "descripcion": "Indexa Friday junto a proyectos de asistentes, skills y second brains."
+  },
+  {
+    "titulo": "RelatedRepos — public-apis",
+    "etiqueta": "Índice automático",
+    "resumen": "Friday como repositorio comparable.",
+    "url": "https://relatedrepos.com/gh/blurred-machine/public-apis",
+    "descripcion": "Muestra Friday como repositorio comparable/relacionado."
+  },
+  {
+    "titulo": "RelatedRepos — NESTstack",
+    "etiqueta": "Índice automático",
+    "resumen": "Friday dentro de las recomendaciones relacionadas.",
+    "url": "https://relatedrepos.com/gh/cindiekinzz-coder/NESTstack",
+    "descripcion": "Incluye Friday dentro de recomendaciones relacionadas."
+  },
+  {
+    "titulo": "RelatedRepos — engineering-figure-agent",
+    "etiqueta": "Índice automático",
+    "resumen": "Otra página del índice donde Friday aparece recomendado.",
+    "url": "https://relatedrepos.com/gh/heyu-233/engineering-figure-agent",
+    "descripcion": "Otra página del índice donde Friday aparece recomendado."
+  },
+  {
+    "titulo": "X — Dan Kornas",
+    "etiqueta": "Publicación social",
+    "resumen": "Publicación con la tarjeta directa del repositorio.",
+    "url": "https://x.com/DanKornas/status/2089484918602551423",
+    "descripcion": "Publicación externa que genera una tarjeta directa del repo de Friday."
+  },
+  {
+    "titulo": "X — Dan Kornas, continuación",
+    "etiqueta": "Publicación social",
+    "resumen": "Segundo post del hilo, con enlace explícito a GitHub.",
+    "url": "https://x.com/DanKornas/status/2089485089788821932",
+    "descripcion": "Otro post de la misma difusión enlaza explícitamente GitHub y muestra la preview de Friday."
+  },
+  {
+    "titulo": "Reddit — r/ArtificialInteligence",
+    "etiqueta": "Post de Reddit",
+    "resumen": "“I built my own 24/7 AI assistant using just Claude Code”, con enlace al repo.",
+    "url": "https://www.reddit.com/r/ArtificialInteligence/comments/1sjo4wu/tired_of_claws_i_built_my_own_247_ai_assistant/",
+    "descripcion": "Post “I built my own 24/7 AI assistant using just Claude Code”, con enlace explícito a missingus3r/friday-showcase."
+  },
+  {
+    "titulo": "Reddit — r/openclaw",
+    "etiqueta": "Post de Reddit",
+    "resumen": "El mismo “Tired of Claws”, publicado en otra comunidad, enlazando Friday.",
+    "url": "https://www.reddit.com/r/openclaw/comments/1sjixkz/tired_of_claws_i_built_my_own_247_ai_assistant/",
+    "descripcion": "Otra publicación/crosspost de “Tired of Claws”, enlazando directamente Friday."
+  },
+  {
+    "titulo": "cunningfolkmedia / claude-jarvis",
+    "etiqueta": "Fork de GitHub",
+    "resumen": "Fork público que conserva contenido y atribución del proyecto.",
+    "url": "https://github.com/cunningfolkmedia/claude-jarvis",
+    "descripcion": "Fork público que GitHub identifica explícitamente como forked from missingus3r/friday-showcase; conserva contenido y atribución del proyecto."
+  },
+  {
+    "titulo": "LeiGagit / personal-secretary",
+    "etiqueta": "Inspiración",
+    "resumen": "Su README reconoce a Friday como inspiración.",
+    "fecha": "2026-05-28",
+    "url": "https://github.com/LeiGagit/personal-secretary",
+    "descripcion": "Este proyecto de asistente personal con Claude Code reconoce explícitamente a Friday como inspiración en su README, junto a otros proyectos. Es relevante porque documenta influencia sobre otro desarrollo."
+  },
+  {
+    "titulo": "VibeWatch — AI Agent Digest",
+    "etiqueta": "Digest",
+    "resumen": "Analiza su arquitectura, memoria persistente e integraciones.",
+    "fecha": "2026-08-18",
+    "url": "https://github.com/vibewatch/vibewatch.github.io/blob/main/docs/twitter/ai-agent/2026-08-18.md",
+    "descripcion": "Incluye Friday en un análisis de agentes de IA, identifica a missingus3r y describe su arquitectura, memoria persistente, tareas programadas e integraciones."
+  },
+  {
+    "titulo": "tom-doerr / repo_posts",
+    "etiqueta": "Publicación",
+    "resumen": "Entrada dedicada: un asistente autoevolutivo hecho con Claude Code.",
+    "fecha": "2026-08-15",
+    "url": "https://github.com/tom-doerr/repo_posts/blob/main/docs/_posts/2026-08-15-missingus3r-friday-showcase.md",
+    "descripcion": "Publicación dedicada específicamente al repositorio, que presenta Friday como un asistente de IA autoevolutivo construido íntegramente con Claude Code."
+  },
+  {
+    "titulo": "Soham407 / studio-kickstart",
+    "etiqueta": "Colección de recursos",
+    "resumen": "Reutiliza parte de la documentación de Friday y enlaza el repo original.",
+    "url": "https://github.com/Soham407/studio-kickstart",
+    "descripcion": "Incluye Friday Showcase como uno de sus recursos para desarrollo con IA. Contiene una carpeta business/friday-showcase-demos que reutiliza parte de la documentación del proyecto y conserva enlaces al repositorio original.",
+    "extra": "https://github.com/Soham407/studio-kickstart/commit/e582652c2f0b93a6a2cd0071fc9ae9221333dfb8"
+  },
+  {
+    "titulo": "phantomts / personal-brain-mcp",
+    "etiqueta": "Inspiración",
+    "resumen": "Su README nombra a Friday en “Origin and credit”.",
+    "url": "https://github.com/phantomts/personal-brain-mcp",
+    "descripcion": "El README reconoce explícitamente a Friday como inspiración dentro de la sección “Origin and credit”. Destaca ideas como mensajería proactiva, uso del prompt como plano de control y recuperación híbrida de memoria."
+  },
+  {
+    "titulo": "Fatih Soysal — Claude Kodlu Yapay Zeka Asistanı",
+    "etiqueta": "Artículo editorial",
+    "resumen": "Artículo en turco dedicado a Friday, con enlace al repositorio.",
+    "url": "https://fatihsoysal.com/blog/missingus3r-friday-showcase-claude-kodlu-yapay-zeka-asistani/",
+    "descripcion": "Artículo en turco dedicado a missingus3r/friday-showcase. Describe Friday como un asistente de IA capaz de evolucionar y aprender autónomamente e incluye enlace al repositorio."
+  },
+  {
+    "titulo": "IManss-ai / StartupResearch",
+    "etiqueta": "GitHub Trending",
+    "resumen": "Registro de destacados de GitHub cuando Friday tenía 21 estrellas.",
+    "fecha": "2026-04-12",
+    "url": "https://github.com/IManss-ai/StartupResearch/blob/master/outputs/2026-04-12-github-trending.md",
+    "descripcion": "Friday aparece en un registro histórico de repositorios destacados de GitHub cuando tenía 21 estrellas. Es relevante porque documenta difusión temprana del proyecto."
+  },
+  {
+    "titulo": "Ouou-Aobai / ai-knowledge-base",
+    "etiqueta": "Base de conocimiento",
+    "resumen": "La incorporó con descripción técnica y relevancia de 0,9.",
+    "fecha": "2026-04-19",
+    "url": "https://github.com/Ouou-Aobai/ai-knowledge-base/blob/main/v1-skeleton/knowledge/enriched/github-2026-04-19-enriched.json",
+    "descripcion": "Una base de conocimiento sobre IA incorporó Friday con descripción técnica, metadatos y una puntuación de relevancia de 0,9."
+  }
+]

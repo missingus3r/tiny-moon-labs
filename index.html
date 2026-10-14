@@ -54,6 +54,8 @@
   .paths path{stroke:var(--teal);vector-effect:non-scaling-stroke}
   .paths path:nth-child(3n){stroke:var(--gold)}
   .paths path:nth-child(5n){stroke:var(--violet)}
+  /* en el hero las líneas van más tenues y desenfocadas para que se lea el texto de adelante */
+  .hero .paths{opacity:.26;filter:blur(1.6px)}
 
   .logos{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);padding:18px 0;display:flex;justify-content:space-between;gap:22px;flex-wrap:wrap;font-family:var(--serif);font-style:italic;color:var(--soft);font-size:18px}
 
@@ -65,6 +67,7 @@
   .intro{display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
   .intro h2{font-size:clamp(30px,3.6vw,48px);line-height:1.08;margin:12px 0 18px}
   .intro p{color:#cfcabf}
+  .intro.solo{grid-template-columns:1fr;max-width:760px}
   .intro .sig{font-family:var(--serif);font-style:italic;font-size:24px;margin-top:18px;color:var(--gold)}
 
   /* the model at the centre, with what it needs in orbit */
@@ -79,10 +82,10 @@
   @keyframes spin{to{rotate:360deg}}
 
   /* glass surfaces with a light that follows the cursor (Spotlight Card, 21st.dev) */
-  .card,.proj,.clip,.console{position:relative;overflow:hidden;border:1px solid var(--rule);border-radius:18px;background:linear-gradient(165deg,rgba(255,255,255,.085),rgba(255,255,255,.02)),var(--bg2)}
-  .card::before,.proj::before,.clip::before,.console::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(63,208,182,.26),transparent 62%);opacity:0;transition:opacity .35s;pointer-events:none}
-  .card:hover::before,.proj:hover::before,.clip:hover::before,.console:hover::before{opacity:1}
-  .card > *,.proj > *,.clip > *{position:relative}
+  .card,.proj,.prod,.clip,.console{position:relative;overflow:hidden;border:1px solid var(--rule);border-radius:18px;background:linear-gradient(165deg,rgba(255,255,255,.085),rgba(255,255,255,.02)),var(--bg2)}
+  .card::before,.proj::before,.prod::before,.clip::before,.console::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(63,208,182,.26),transparent 62%);opacity:0;transition:opacity .35s;pointer-events:none}
+  .card:hover::before,.proj:hover::before,.prod:hover::before,.clip:hover::before,.console:hover::before{opacity:1}
+  .card > *,.proj > *,.prod > *,.clip > *{position:relative}
 
   /* three cards */
   .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -141,6 +144,25 @@
   .state.idea{border-style:dashed}
   .next{max-width:56ch;margin:38px auto 0;text-align:center;font-family:var(--serif);font-style:italic;font-size:20px;line-height:1.4;color:#e4dfd3}
 
+  /* productos: los que ya existen, cada uno con su tarjeta grande */
+  .products{background:radial-gradient(70% 60% at 50% 0%,rgba(139,123,255,.16),transparent 70%);border-top:1px solid var(--rule)}
+  .products .head{text-align:center;margin-bottom:44px}
+  .products h2{font-size:clamp(36px,5vw,68px);line-height:1.02;margin:12px auto 12px;max-width:16ch}
+  .products .head p{max-width:54ch;margin:0 auto;color:var(--soft)}
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .prod{padding:34px 32px 30px;display:flex;flex-direction:column;transition:transform .25s, border-color .25s}
+  .prod:hover{transform:translateY(-4px);border-color:rgba(63,208,182,.55)}
+  .prod .top{display:flex;align-items:center;gap:16px}
+  .prod .mark{width:64px;height:64px;border-radius:16px;flex:none}
+  .prod .num{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:18px}
+  .prod h3{font-size:clamp(34px,3.6vw,46px);line-height:1;margin:2px 0 0}
+  .prod .tag{font-size:19px;line-height:1.35;margin:22px 0 14px;color:var(--ink)}
+  .prod ul{list-style:none;margin:0 0 26px;padding:0;color:var(--soft);font-size:15.5px}
+  .prod li{padding:8px 0 8px 22px;border-top:1px solid var(--rule);position:relative}
+  .prod li::before{content:"";position:absolute;left:2px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--teal)}
+  .prod.capsule li::before{background:#ef7959}
+  .prod .cta{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
+
   /* menciones: two rails of clippings drifting in opposite directions */
   .press{padding:11vh 0 12vh;border-top:1px solid var(--rule);overflow:hidden;background:radial-gradient(60% 50% at 50% 0%,rgba(90,169,255,.12),transparent 70%)}
   .press .head{text-align:center;margin-bottom:38px}
@@ -188,7 +210,8 @@
   @media (max-width:860px){
     .intro,.way,.jar{grid-template-columns:1fr;gap:30px}
     .way:nth-of-type(even) .art{order:0}
-    .trio,.shelf{grid-template-columns:1fr}
+    .trio,.shelf,.duo{grid-template-columns:1fr}
+    .prod{padding:26px 22px 24px}
     .clip{width:264px}
     header nav a:not(.btn){display:none}
     header .btn{padding:9px 14px;font-size:11px;margin-left:0}
@@ -223,7 +246,7 @@
 
 <header>
   <div class="logo"><svg width="26" height="26" viewBox="-37 -37 74 74"><use href="#moon"/></svg>Tiny Moon Labs</div>
-  <nav><a href="#etapa">La etapa</a><a href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Friday</a><a href="#latam">Latinoamérica</a><a href="#taller">En el taller</a><a href="#ask">Preguntas</a><a class="btn" href="#seat" style="margin-left:22px">Pedir un lugar</a></nav>
+  <nav><a href="#etapa">La etapa</a><a href="#productos">Productos</a><a href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Friday</a><a href="#latam">Latinoamérica</a><a href="#taller">Lo que sigue</a><a href="#ask">Preguntas</a><a class="btn" href="#seat" style="margin-left:22px">Pedir un lugar</a></nav>
 </header>
 
 <section class="hero">
@@ -231,70 +254,57 @@
   <canvas class="stars" aria-hidden="true"></canvas>
   <div class="paths" aria-hidden="true"></div>
   <div class="wrap">
-    <span class="eyebrow">Tiny Moon Labs · laboratorio de productos con IA · Montevideo</span>
-    <h1 style="margin-top:14px">Productos para la era de los <em>modelos.</em></h1>
-    <p>Los LLM y los modelos de IA pasaron a ser el centro de la tecnología. En Tiny Moon Labs construimos productos pequeños y confiables alrededor de ellos. El primero se llama Friday; no será el último.</p>
+    <h1>Productos para la era de los <em>modelos.</em></h1>
+    <p>Los LLM y los modelos de IA pasaron a ser el centro de la tecnología. En Tiny Moon Labs construimos productos pequeños y confiables alrededor de ellos. Los dos primeros son Friday y Capsule; no serán los últimos.</p>
     <a class="btn" href="#etapa">Leer la carta</a> &nbsp; <a class="btn ghost" href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Conocer a Friday</a>
   </div>
 </section>
 
-<div class="wrap"><div class="logos"><span>el modelo al centro</span><span>productos pequeños y confiables</span><span>construidos a la vista</span><span>Friday, el primero: 196 estrellas en GitHub</span><span>hecho en Montevideo</span></div></div>
 
 <section class="band" id="etapa">
-  <div class="wrap intro">
+  <div class="wrap intro solo">
     <div>
-      <span class="eyebrow">Una carta del taller</span>
       <h2>El centro de la tecnología se movió.</h2>
       <p>Durante décadas un programa hizo exactamente lo que alguien le había escrito. Hoy en el centro hay un modelo de lenguaje que lee, razona y decide, y casi todo lo demás se está reordenando a su alrededor.</p>
       <p style="margin-top:12px">Pero un modelo solo no es un producto. Le faltan reloj, memoria, herramientas y criterio para saber cuándo callar. Ese trabajo es el nuestro, y Friday es la primera vez que lo hacemos completo.</p>
-      <div class="sig">— El taller de Tiny Moon Labs</div>
-    </div>
-    <div class="orbit" id="plate" role="img" aria-label="Un modelo al centro, rodeado de reloj, memoria, herramientas y criterio">
-      <div class="ring"></div><div class="ring two"></div>
-      <div class="core">modelo</div>
-      <div class="spin"><div class="sat s1"><span>reloj</span></div><div class="sat s2"><span>memoria</span></div><div class="sat s3"><span>herramientas</span></div><div class="sat s4"><span>criterio</span></div></div>
+      <div class="sig">— Tiny Moon Labs</div>
     </div>
   </div>
 </section>
 
-<section class="band mint" style="padding-top:8vh" id="friday">
+<section class="band products" id="productos">
   <div class="wrap">
-    <div style="text-align:center;margin-bottom:34px"><span class="eyebrow">Producto n.º 1 · el primero de varios</span><h2 style="font-size:clamp(40px,6vw,84px);line-height:1;margin:10px 0 12px">Friday.</h2><p style="max-width:52ch;margin:0 auto;color:var(--soft)">Un asistente personal que vive en tu propia computadora y te habla por Telegram. De código abierto, funcionando todos los días desde hace meses. Es nuestra primera prueba de que un modelo bien acompañado puede sostener un trabajo real.</p></div>
-    <div class="trio">
-      <div class="card"><div class="n">i.</div><h3>Tiene un reloj</h3><p>Resumen a las 8:30. Correo cada hora. Investigación a las 4:11, cuando nadie la está esperando.</p></div>
-      <div class="card"><div class="n">ii.</div><h3>Tiene un cuaderno</h3><p>Cada error se convierte en una regla escrita, con fecha, que vuelve a leer al día siguiente.</p></div>
-      <div class="card"><div class="n">iii.</div><h3>Sabe callar</h3><p>Sin novedades no hay mensaje. Te despierta solo por lo que de verdad te necesita.</p></div>
+    <div class="head">
+      <span class="eyebrow">Productos de Tiny Moon Labs</span>
+      <h2>Los dos primeros, ya funcionando.</h2>
+      <p>Friday y Capsule son los dos primeros productos de Tiny Moon Labs. Los dos son de código abierto y se pueden usar hoy.</p>
+    </div>
+    <div class="duo">
+      <article class="prod friday">
+        <div class="top"><img class="mark" src="assets/friday-logo.png" alt="" width="64" height="64"><div><div class="num">n.º 1</div><h3>Friday</h3></div></div>
+        <p class="tag">Un asistente personal que trabaja de día y de noche, sobre Claude Code, y te habla por Telegram.</p>
+        <ul>
+          <li>Tiene un reloj: resumen a las 8:30, correo cada hora, investigación de madrugada.</li>
+          <li>Tiene un cuaderno: cada error se vuelve una regla escrita que vuelve a leer al día siguiente.</li>
+          <li>Sabe callar: sin novedades no hay mensaje.</li>
+        </ul>
+        <div class="cta"><a class="btn" href="https://missingus3r.github.io/friday-showcase/" target="_blank" rel="noopener">Conocer a Friday</a><a class="btn ghost" href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Repositorio</a></div>
+      </article>
+      <article class="prod capsule">
+        <div class="top"><img class="mark" src="assets/capsule-mark.svg" alt="" width="64" height="64"><div><div class="num">n.º 2</div><h3>Capsule</h3></div></div>
+        <p class="tag">Una red libre y descentralizada para mandar archivos y publicar sitios, sin cuenta y sin pedir permiso.</p>
+        <ul>
+          <li>Los archivos se cifran en tu navegador: el servidor que los guarda no puede leerlos.</li>
+          <li>Tu sitio tiene una dirección .capsule que nadie te vende ni te puede quitar.</li>
+          <li>Funciona sin Internet: en la misma red wifi, o en un archivo que llevas en un pendrive.</li>
+        </ul>
+        <div class="cta"><a class="btn" href="https://missingus3r.github.io/CAPSULE/" target="_blank" rel="noopener">Conocer Capsule</a><a class="btn ghost" href="https://github.com/missingus3r/CAPSULE" target="_blank" rel="noopener">Repositorio</a></div>
+      </article>
     </div>
   </div>
 </section>
 
-<section class="ways" id="ways">
-  <div class="wrap">
-    <span class="eyebrow">El primer producto, en uso · una noche de Friday</span>
-    <h2>Cuatro paradas entre el anochecer y el desayuno.</h2>
-    <p>Sigue a la luna por la página. Cada parada es algo que Friday hizo anoche de verdad.</p>
 
-    <div class="way">
-      <div class="art" aria-hidden="true"><div class="console" style="--tint:#8b7bff"><div class="bar"><i></i><span>friday · repaso diario</span><time>23:35</time></div><ul><li><b>›</b>repasa qué supuso y qué salió mal</li><li><b>✓</b>2 predicciones resueltas</li><li><b>✓</b>1 regla nueva en el cuaderno</li></ul><span class="ghost">23:35</span></div></div>
-      <div><span class="time">23:35</span><h3>Repasa su propio día.</h3><p>Qué supuso, qué salió mal y qué hará distinto. Dos predicciones resueltas y una regla nueva en el cuaderno.</p><a class="btn" href="#menciones">Leer una página</a></div>
-    </div>
-
-    <div class="way">
-      <div class="art" aria-hidden="true"><div class="console" style="--tint:#5aa9ff"><div class="bar"><i></i><span>friday · ayudantes</span><time>03:30</time></div><ul><li><b>›</b>4 ayudantes en paralelo</li><li><b>✓</b>noticias · memoria</li><li><b>✓</b>cabos sueltos · prioridades</li><li><b>●</b>segunda mirada antes de guardar</li></ul><span class="ghost">03:30</span></div></div>
-      <div><span class="time">03:30</span><h3>Manda cuatro ayudantes.</h3><p>Noticias, memoria, cabos sueltos y prioridades. Vuelven con notas; se queda solo con lo que resiste una segunda mirada.</p><a class="btn" href="#menciones">Ver qué trajeron</a></div>
-    </div>
-
-    <div class="way">
-      <div class="art" aria-hidden="true"><div class="console" style="--tint:#3fd0b6"><div class="bar"><i></i><span>friday · radar de modelos</span><time>04:11</time></div><ul><li><b>›</b>modelo nuevo detectado</li><li><b>✓</b>página oficial abierta</li><li><b>✓</b>fecha confirmada</li><li><b>✓</b>registro actualizado</li></ul><span class="ghost">04:11</span></div></div>
-      <div><span class="time">04:11</span><h3>Detecta lo nuevo.</h3><p>Salió un modelo durante la noche. Abre la página oficial, confirma la fecha y actualiza el registro antes de que te levantes.</p><a class="btn" href="#menciones">Verificado en la fuente</a></div>
-    </div>
-
-    <div class="way">
-      <div class="art" aria-hidden="true"><div class="console" style="--tint:#f6c96b"><div class="bar"><i></i><span>friday · carta de la mañana</span><time>08:30</time></div><ul><li><b>✓</b>clima y dólar</li><li><b>✓</b>5 lecturas, cada enlace abierto</li><li><b>●</b>1 decisión que depende de ti</li><li><b>›</b>carta enviada</li></ul><span class="ghost">08:30</span></div></div>
-      <div><span class="time">08:30</span><h3>Te deja una carta.</h3><p>El clima, el dólar, cinco cosas que vale la pena leer y la única decisión que depende de ti. Cada enlace, abierto antes de enviártelo.</p><a class="btn" href="#seat">Recibir la carta</a></div>
-    </div>
-  </div>
-</section>
 
 <section class="band butter latam" id="latam">
   <div class="wrap intro">
@@ -330,14 +340,14 @@
 
 <section class="band taller" id="taller">
   <div class="wrap">
-    <div style="text-align:center;margin-bottom:38px"><span class="eyebrow">Lo que sigue</span><h2 style="font-size:clamp(34px,4.6vw,62px);line-height:1.04;margin:12px auto 12px;max-width:17ch">Lo que hay ahora en el taller.</h2><p style="max-width:52ch;margin:0 auto;color:var(--soft)">Friday abre el camino y por ahora ocupa casi toda la mesa. Nada de esto está a la venta todavía; lo mostramos porque preferimos construir a la vista.</p></div>
+    <div style="text-align:center;margin-bottom:38px"><span class="eyebrow">Lo que sigue</span><h2 style="font-size:clamp(34px,4.6vw,62px);line-height:1.04;margin:12px auto 12px;max-width:17ch">Lo que hay ahora en Tiny Moon Labs.</h2><p style="max-width:52ch;margin:0 auto;color:var(--soft)">Friday abre el camino y por ahora ocupa casi toda la mesa. Nada de esto está a la venta todavía; lo mostramos porque preferimos construir a la vista.</p></div>
     <div class="shelf">
       <article class="proj"><span class="state now">En construcción</span><h3>Friday alojado</h3><p>El mismo Friday, sin instalar nada. Lo encendemos nosotros; tú solo le escribes.</p></article>
       <article class="proj"><span class="state">En diseño</span><h3>Paquetes de habilidades</h3><p>Rutinas listas para sumar: viajes, finanzas del hogar, seguimiento de estrenos, trámites.</p></article>
       <article class="proj"><span class="state">En diseño</span><h3>Friday para equipos pequeños</h3><p>Un asistente compartido para un estudio o una pyme, con memoria común y turnos de noche.</p></article>
       <article class="proj"><span class="state idea">Idea</span><h3>El cuaderno, por separado</h3><p>El motor de memoria que usa Friday, para quien construye su propio asistente.</p></article>
     </div>
-    <p class="next">Y después de Friday, productos nuevos, con otros nombres y sobre la misma idea: un modelo al centro y todo lo que necesita para trabajar bien. Los iremos mostrando aquí.</p>
+    <p class="next">Y después de Friday y Capsule, productos nuevos, con otros nombres. Los iremos mostrando aquí.</p>
   </div>
 </section>
 
@@ -345,37 +355,11 @@
   <div class="wrap head">
     <span class="eyebrow">Menciones del primer producto</span>
     <h2>Otros también hablan de Friday.</h2>
-    <p>Veinte páginas ajenas que analizan, citan o continúan el repositorio abierto. Detén la cinta con el cursor y abre la que quieras.</p>
+    <p id="mencionesIntro">Páginas ajenas que analizan, citan o continúan el repositorio abierto. Detén la cinta con el cursor y abre la que quieras.</p>
     <a class="btn ghost" href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Ver el repositorio</a>
   </div>
-  <div class="rail">
-    <div class="track">
-      <a class="clip" href="https://heyaican.com/en/projects/friday/" target="_blank" rel="noopener"><span class="eyebrow">Artículo · análisis</span><h3>heyaican — Friday</h3><p>Ficha dedicada: arquitectura, commits, memoria y rutinas programadas.</p><span class="src"><span>heyaican.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://bitroot.org/guides/build-ai-agent-claude-code-no-code-setup/" target="_blank" rel="noopener"><span class="eyebrow">Guía</span><h3>Bitroot — Build Your Own AI Agent</h3><p>Usa Friday como ejemplo de agente construido sobre Claude Code.</p><span class="src"><span>bitroot.org</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://relatedrepos.com/gh/robonuggets/seedance-skill" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — seedance-skill</h3><p>Friday aparece como repositorio relacionado.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://www.te9.dev/digest/last10-2026-08-15" target="_blank" rel="noopener"><span class="eyebrow">Curación · análisis</span><h3>te9.dev — Last 10 Analyzed</h3><p>Ficha propia del repo: qué es y para qué casos resulta útil.</p><span class="src"><span>te9.dev</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://ainewssmoothie.com/a/personal-assistant-integration-combines-messaging-with-continuous-memo" target="_blank" rel="noopener"><span class="eyebrow">Agregador · editorial</span><h3>AI News Smoothie</h3><p>Friday como fuente de una nota sobre asistentes con memoria continua.</p><span class="src"><span>ainewssmoothie.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://relatedrepos.com/gh/robonuggets/marp-slides" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — marp-slides</h3><p>Friday entre las alternativas y repos relacionados.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://setka.ru/posts/01a00f7e-babe-76f3-94bd-776ce04ae19e" target="_blank" rel="noopener"><span class="eyebrow">Red social tecnológica</span><h3>Setka / hh.ru</h3><p>Publicación en ruso sobre Telegram, memoria y tareas programadas.</p><span class="src"><span>setka.ru</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://t.me/s/open_source_friend?before=5891" target="_blank" rel="noopener"><span class="eyebrow">Canal de open source</span><h3>Telegram — Open Source</h3><p>Publicación completa sobre Friday, con enlace directo a GitHub.</p><span class="src"><span>t.me</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://relatedrepos.com/gh/reysu/ai-life-skills" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — ai-life-skills</h3><p>Junto a proyectos de asistentes, skills y second brains.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://videohighlight.com/v/I41WFsHIlak" target="_blank" rel="noopener"><span class="eyebrow">Video · índice</span><h3>VideoHighlight — 35 Claude Code skills</h3><p>Friday aparece hacia el minuto 10:57 de la selección.</p><span class="src"><span>videohighlight.com</span><span aria-hidden="true">↗</span></span></a>
-    </div>
-  </div>
-  <div class="rail rev">
-    <div class="track">
-      <a class="clip" href="https://github.com/26medias/awesome-ai-repos/blob/main/domains/productivity.md" target="_blank" rel="noopener"><span class="eyebrow">Awesome list</span><h3>26medias / awesome-ai-repos</h3><p>Incluido en Productivity, junto a otros proyectos de agentes.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://x.com/DanKornas/status/2089484918602551423" target="_blank" rel="noopener"><span class="eyebrow">Publicación social</span><h3>X — Dan Kornas</h3><p>Publicación con la tarjeta directa del repositorio.</p><span class="src"><span>x.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://relatedrepos.com/gh/blurred-machine/public-apis" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — public-apis</h3><p>Friday como repositorio comparable.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://github.com/tom-doerr/repo_posts/blob/main/docs/_posts/2026-08-15-missingus3r-friday-showcase.md" target="_blank" rel="noopener"><span class="eyebrow">Publicación · 15 ago 2026</span><h3>tom-doerr / repo_posts</h3><p>Entrada dedicada: un asistente autoevolutivo hecho con Claude Code.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://github.com/LeiGagit/personal-secretary" target="_blank" rel="noopener"><span class="eyebrow">Inspiración · 28 may 2026</span><h3>LeiGagit / personal-secretary</h3><p>Su README reconoce a Friday como inspiración.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://relatedrepos.com/gh/cindiekinzz-coder/NESTstack" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — NESTstack</h3><p>Friday dentro de las recomendaciones relacionadas.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://github.com/vibewatch/vibewatch.github.io/blob/main/docs/twitter/ai-agent/2026-08-18.md" target="_blank" rel="noopener"><span class="eyebrow">Digest · 18 ago 2026</span><h3>VibeWatch — AI Agent Digest</h3><p>Analiza su arquitectura, memoria persistente e integraciones.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://x.com/DanKornas/status/2089485089788821932" target="_blank" rel="noopener"><span class="eyebrow">Publicación social</span><h3>X — Dan Kornas, continuación</h3><p>Segundo post del hilo, con enlace explícito a GitHub.</p><span class="src"><span>x.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://github.com/cunningfolkmedia/claude-jarvis" target="_blank" rel="noopener"><span class="eyebrow">Fork de GitHub</span><h3>cunningfolkmedia / claude-jarvis</h3><p>Fork público que conserva contenido y atribución del proyecto.</p><span class="src"><span>github.com</span><span aria-hidden="true">↗</span></span></a>
-      <a class="clip" href="https://relatedrepos.com/gh/heyu-233/engineering-figure-agent" target="_blank" rel="noopener"><span class="eyebrow">Índice automático</span><h3>RelatedRepos — engineering-figure-agent</h3><p>Otra página del índice donde Friday aparece recomendado.</p><span class="src"><span>relatedrepos.com</span><span aria-hidden="true">↗</span></span></a>
-    </div>
-  </div>
+  <div class="rail"><div class="track" data-rail="0"></div></div>
+  <div class="rail rev"><div class="track" data-rail="1"></div></div>
 </section>
 
 <section class="band peach ask" id="ask">
@@ -383,7 +367,7 @@
     <span class="eyebrow">Está bien detenerse a preguntar</span>
     <h2>¿Tienes preguntas?</h2>
     <div class="faq">
-      <details><summary>¿Tiny Moon Labs es solo Friday?</summary><p>No. Friday es el primer producto. El laboratorio existe para construir varios, todos alrededor de modelos de IA.</p></details>
+      <details><summary>¿Tiny Moon Labs es solo Friday?</summary><p>No. Friday y Capsule son los dos primeros productos, y el laboratorio existe para construir varios más.</p></details>
       <details><summary>¿Por qué ahora?</summary><p>Porque los modelos de lenguaje ya son capaces de sostener trabajo real, y casi todo lo que los rodea está todavía por construirse.</p></details>
       <details><summary>¿Friday necesita una granja de servidores?</summary><p>No. Friday vive en una computadora común y te habla donde ya estás: en Telegram.</p></details>
       <details><summary>¿Y si un modelo se equivoca?</summary><p>Se va a equivocar. Friday anota qué pasó y qué hacer la próxima vez, y lee esa nota antes del siguiente turno.</p></details>
@@ -393,7 +377,7 @@
     </div>
     <div class="jar" id="seat">
       <div class="dock" aria-hidden="true"><span></span><span></span><span></span><svg viewBox="-37 -37 74 74"><use href="#moon"/></svg><i id="jarMoon"></i></div>
-      <div><span class="eyebrow">Lista de espera</span><h3 style="margin-top:8px">Ten una luna pequeña para ti.</h3><p style="color:var(--soft);margin-top:10px">Déjanos un correo y te escribimos cuando haya lugar en Friday o salga algo nuevo del taller.</p>
+      <div><span class="eyebrow">Lista de espera</span><h3 style="margin-top:8px">Ten una luna pequeña para ti.</h3><p style="color:var(--soft);margin-top:10px">Déjanos un correo y te escribimos cuando haya lugar en Friday o salga algo nuevo de Tiny Moon Labs.</p>
         <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Anotado';"><input type="email" placeholder="tu@correo.com" aria-label="Correo" required><button class="btn" type="submit" style="border-radius:0">Enviar</button></form></div>
     </div>
   </div>
@@ -402,7 +386,7 @@
 <section class="end">
   <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="paths" aria-hidden="true"></div>
-  <div class="wrap"><h2>El primero se llama Friday. Vienen más.</h2><a class="btn" href="#seat">Pedir un lugar</a></div>
+  <div class="wrap"><h2>Los primeros son Friday y Capsule. Vienen más.</h2><a class="btn" href="#seat">Pedir un lugar</a></div>
 </section>
 <footer><span>Tiny Moon Labs — Montevideo, Uruguay · tinymoon.ai</span><img src="LATAM%20e-acc.jfif" alt="Latam Accelerationism" width="250" height="58"><span>Prueba de concepto · octubre 2026</span></footer>
 
@@ -463,13 +447,37 @@
     gsap.to('.hero .aurora', {yPercent:18, ease:'none', scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}});
   }
 
-  // each rail holds its clippings twice, so the -50% drift loops without a seam
-  if(!reduce) document.querySelectorAll('.track').forEach(t => [...t.children].forEach(c => { const k = c.cloneNode(true); k.setAttribute('aria-hidden','true'); k.tabIndex = -1; t.appendChild(k); }));
-
   // the light inside each glass surface follows the cursor
-  document.querySelectorAll('.card,.proj,.clip,.console').forEach(el => el.addEventListener('pointermove', e => {
+  const glow = el => el.addEventListener('pointermove', e => {
     const r = el.getBoundingClientRect(); el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
-  }));
+  });
+  document.querySelectorAll('.card,.proj,.prod,.clip,.console').forEach(glow);
+
+  /* ---------- menciones: se leen de menciones.json, que es la única fuente ----------
+     Para sumar una mención alcanza con agregar un objeto al JSON:
+     {titulo, etiqueta, resumen, url, fecha?: "AAAA-MM-DD", descripcion?, extra?}.
+     Se reparten alternadas entre las dos cintas, en el orden del archivo. */
+  const MESES = ['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+  const esc = t => String(t ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const host = u => { try { return new URL(u).hostname.replace(/^www\./,''); } catch(e){ return ''; } };
+  const fecha = f => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(f || ''); return m ? `${+m[3]} ${MESES[+m[2]-1]} ${m[1]}` : ''; };
+  fetch('menciones.json', {cache:'no-cache'}).then(r => { if(!r.ok) throw new Error(r.status); return r.json(); }).then(list => {
+    list = list.filter(m => m && m.url && m.titulo);
+    const tracks = document.querySelectorAll('#menciones .track');
+    list.forEach((m, i) => {
+      const tag = [m.etiqueta, fecha(m.fecha)].filter(Boolean).join(' · ');
+      tracks[i % 2].insertAdjacentHTML('beforeend',
+        `<a class="clip" href="${esc(m.url)}" target="_blank" rel="noopener"><span class="eyebrow">${esc(tag)}</span><h3>${esc(m.titulo)}</h3><p>${esc(m.resumen || m.descripcion)}</p><span class="src"><span>${esc(host(m.url))}</span><span aria-hidden="true">↗</span></span></a>`);
+    });
+    document.getElementById('mencionesIntro').textContent = `${list.length} páginas ajenas que analizan, citan o continúan el repositorio abierto. Detén la cinta con el cursor y abre la que quieras.`;
+    tracks.forEach(t => {
+      t.querySelectorAll('.clip').forEach(glow);
+      // each rail holds its clippings twice, so the -50% drift loops without a seam
+      if(!reduce) [...t.children].forEach(c => { const k = c.cloneNode(true); k.setAttribute('aria-hidden','true'); k.tabIndex = -1; glow(k); t.appendChild(k); });
+    });
+    // las cintas cambian la altura de la página: la ruta de la luna se vuelve a trazar
+    buildRoad(); ScrollTrigger.refresh();
+  }).catch(() => { document.querySelectorAll('#menciones .rail').forEach(r => r.remove()); });
 
   /* ---------- the road: a dotted path through the page's own landmarks ---------- */
   const road = document.getElementById('road'), pathEl = document.getElementById('roadPath'), trav = document.getElementById('traveller');
@@ -480,9 +488,8 @@
     road.setAttribute('width', W); road.setAttribute('height', H); road.setAttribute('viewBox', `0 0 ${W} ${H}`);
     const top = el => el.getBoundingClientRect().top + scrollY, mid = el => top(el) + el.offsetHeight/2;
     const pts = [[W*.80, 150]];
-    pts.push([W*.86, top(document.querySelector('.logos')) - 70]);
     pts.push([W*.06, mid(document.querySelector('.intro'))]);
-    pts.push([W*.94, mid(document.querySelector('.trio'))]);
+    pts.push([W*.95, mid(document.querySelector('.duo'))]);
     document.querySelectorAll('.way').forEach((w,i) => pts.push([i%2 ? W*.05 : W*.95, mid(w)]));
     pts.push([W*.95, mid(document.querySelector('.latam'))]);
     pts.push([W*.04, mid(document.querySelector('.shelf'))]);
@@ -507,11 +514,7 @@
 
   /* ---------- entrances ---------- */
   gsap.from('.hero .wrap > *', {y:30, opacity:0, filter:'blur(10px)', duration:1.1, ease:'power3.out', stagger:.11, delay:.15});
-  gsap.from('.logos span', {opacity:0, y:10, stagger:.08, duration:.6, scrollTrigger:{trigger:'.logos', start:'top 92%'}});
   gsap.from('.intro > div:first-child > *', {y:22, opacity:0, stagger:.09, duration:.8, ease:'power3.out', scrollTrigger:{trigger:'#etapa', start:'top 72%'}});
-  gsap.from('#plate', {scale:.7, opacity:0, duration:1.3, ease:'power3.out', scrollTrigger:{trigger:'#etapa', start:'top 70%'}});
-  gsap.from('#plate .sat', {opacity:0, scale:0, stagger:.15, duration:.6, ease:'back.out(2)', scrollTrigger:{trigger:'#etapa', start:'top 60%'}});
-  gsap.from('.card', {y:40, opacity:0, stagger:.12, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.trio', start:'top 82%'}});
 
   gsap.utils.toArray('.way').forEach((w,i) => {
     const art = w.querySelector('.art'), copy = w.querySelector(':scope > div:last-child');
@@ -525,6 +528,7 @@
   gsap.from('.pts li', {x:-18, opacity:0, stagger:.09, duration:.6, scrollTrigger:{trigger:'.pts', start:'top 84%'}});
   gsap.from('.sky .ln', {drawSVG:'0%', duration:1.4, ease:'power2.inOut', stagger:.18, scrollTrigger:{trigger:'.sky', start:'top 76%'}});
   gsap.from('.sky .city', {opacity:0, stagger:.1, duration:.6, scrollTrigger:{trigger:'.sky', start:'top 76%'}});
+  gsap.from('.prod', {y:46, opacity:0, stagger:.14, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.duo', start:'top 82%'}});
   gsap.from('.proj', {y:46, opacity:0, stagger:.1, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.shelf', start:'top 84%'}});
   gsap.from('.press .head > *', {y:22, opacity:0, stagger:.09, duration:.8, ease:'power3.out', scrollTrigger:{trigger:'.press', start:'top 75%'}});
   gsap.from('.rail', {y:30, opacity:0, stagger:.15, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.rail', start:'top 88%'}});
