@@ -112,13 +112,6 @@
     "descripcion": "Otro post de la misma difusión enlaza explícitamente GitHub y muestra la preview de Friday."
   },
   {
-    "titulo": "Reddit — r/openclaw",
-    "etiqueta": "Post de Reddit",
-    "resumen": "El mismo “Tired of Claws”, publicado en otra comunidad, enlazando Friday.",
-    "url": "https://www.reddit.com/r/openclaw/comments/1sjixkz/tired_of_claws_i_built_my_own_247_ai_assistant/",
-    "descripcion": "Otra publicación/crosspost de “Tired of Claws”, enlazando directamente Friday."
-  },
-  {
     "titulo": "cunningfolkmedia / claude-jarvis",
     "etiqueta": "Fork de GitHub",
     "resumen": "Fork público que conserva contenido y atribución del proyecto.",

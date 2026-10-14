@@ -195,6 +195,8 @@
   .jar input{flex:1;border:0;background:transparent;color:var(--ink);padding:14px 20px;font-family:var(--sans);font-size:16px;outline:none;min-width:0}
   .jar input::placeholder{color:var(--soft)}
   .jar h3{font-size:36px;line-height:1.05}
+  /* en escritorio el frasco empieza vacío: la luna que baja por la página es la que entra */
+  @media (min-width:861px){ #jarMoon{opacity:0} }
   .jarart{width:100%;max-width:280px;height:auto;margin:0 auto;display:block;filter:drop-shadow(0 18px 40px rgba(246,201,107,.18))}
   /* where the moon lands */
   .dock{position:relative;aspect-ratio:1;width:100%;max-width:250px;margin:0 auto;display:grid;place-items:center}
@@ -336,7 +338,7 @@
   <div class="wrap head">
     <h2>Otros también hablan del Lab.</h2>
     <p id="mencionesIntro">Detén la cinta con el cursor y abre la que quieras.</p>
-    <a class="btn ghost" href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Ver el repositorio</a>
+    <a class="btn ghost" href="https://github.com/missingus3r/tml-the-hub" target="_blank" rel="noopener">Ver los repositorios</a>
   </div>
   <div class="rail"><div class="track" data-rail="0"></div></div>
   <div class="rail rev"><div class="track" data-rail="1"></div></div>
