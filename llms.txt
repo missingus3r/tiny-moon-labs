@@ -1,0 +1,19 @@
+# Tiny Moon Labs
+
+> Tiny Moon Labs (TML) es un laboratorio chico de Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA. Sus dos primeros productos son Friday, un asistente personal autónomo sobre Claude Code, y Capsule, una red libre y descentralizada para compartir archivos y publicar sitios. Todo el código es público en GitHub.
+
+Sitio: https://tinymoonlabs.com — también en https://tml.uy y https://tml.com.uy (redirigen al sitio principal). Idioma del sitio: español.
+
+## Productos
+
+- [Friday](https://missingus3r.github.io/friday-showcase/): asistente personal que trabaja de día y de noche sobre Claude Code y conversa por Telegram; tareas programadas, memoria persistente y un cuaderno de reglas que aprende de cada error. Código: https://github.com/missingus3r/friday-showcase
+- [Capsule](https://missingus3r.github.io/CAPSULE/): red libre y descentralizada para mandar archivos y publicar sitios con dirección .capsule, sin cuenta ni identidad; cifrado en el navegador, funciona sin Internet (en la misma wifi o en un archivo en un pendrive). Código: https://github.com/missingus3r/CAPSULE
+
+## Repositorios
+
+- [tml-the-hub](https://github.com/missingus3r/tml-the-hub): índice de todos los productos del Lab, con cada uno como submódulo de git.
+- [tiny-moon-labs](https://github.com/missingus3r/tiny-moon-labs): código de este sitio.
+
+## Más
+
+- [llms-full.txt](https://tinymoonlabs.com/llms-full.txt): versión extendida con el contenido completo del sitio, preguntas frecuentes y menciones.
