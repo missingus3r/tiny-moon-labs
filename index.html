@@ -194,6 +194,14 @@
   .jar form{display:flex;border:1px solid rgba(245,241,232,.3);border-radius:99px;overflow:hidden;background:rgba(255,255,255,.05);margin-top:18px;max-width:440px}
   .jar input{flex:1;border:0;background:transparent;color:var(--ink);padding:14px 20px;font-family:var(--sans);font-size:16px;outline:none;min-width:0}
   .jar input::placeholder{color:var(--soft)}
+  .want{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  .want label{cursor:pointer}
+  .want input{position:absolute;opacity:0;pointer-events:none}
+  .want span{display:inline-block;padding:7px 14px;border:1px solid rgba(245,241,232,.3);border-radius:99px;font-size:14px;color:var(--soft);transition:all .2s}
+  .want input:checked + span{border-color:var(--teal);color:var(--ink);background:rgba(63,208,182,.14)}
+  .want input:focus-visible + span{outline:2px solid var(--teal);outline-offset:2px}
+  .jar .want + form{margin-top:12px}
+  .formMsg{min-height:1.4em;margin-top:10px;font-size:14px;color:var(--teal)}
   .jar h3{font-size:36px;line-height:1.05}
   /* en escritorio el frasco empieza vacío: la luna que baja por la página es la que entra */
   @media (min-width:861px){ #jarMoon{opacity:0} }
@@ -364,8 +372,10 @@
         <g transform="translate(150 178) scale(1.25)" id="jarMoon"><use href="#moon"/></g>
         <g fill="#22201c"><circle cx="100" cy="150" r="1.6"/><circle cx="206" cy="140" r="1.3"/><circle cx="196" cy="226" r="1.6"/><circle cx="96" cy="222" r="1.2"/></g>
       </svg>
-      <div><h3>Ten una luna pequeña para ti.</h3><p style="color:var(--soft);margin-top:10px">Déjanos un correo y te escribimos cuando haya lugar en Friday o salga algo nuevo de Tiny Moon Labs.</p>
-        <form onsubmit="event.preventDefault();this.querySelector('button').textContent='Anotado';"><input type="email" placeholder="tu@correo.com" aria-label="Correo" required><button class="btn" type="submit" style="border-radius:0">Enviar</button></form></div>
+      <div><h3>Ten una luna pequeña para ti.</h3><p style="color:var(--soft);margin-top:10px">Déjanos tu correo si quieres enterarte cuando lancemos algo nuevo, o si te gustaría ser parte del equipo.</p>
+        <div class="want" role="radiogroup" aria-label="Me interesa"><label><input type="radio" name="want" value="Enterarme de lo nuevo" checked><span>Enterarme de lo nuevo</span></label><label><input type="radio" name="want" value="Ser parte del equipo"><span>Ser parte del equipo</span></label></div>
+        <form id="seatForm"><input type="email" name="email" placeholder="tu@correo.com" aria-label="Correo" required><button class="btn" type="submit" style="border-radius:0">Enviar</button></form>
+        <p class="formMsg" id="seatMsg" aria-live="polite"></p></div>
     </div>
   </div>
 </section>
@@ -516,6 +526,24 @@
   // la fecha del pie es la del día en que se abre la página
   { const f = new Intl.DateTimeFormat('es-UY', {month:'long', year:'numeric'}).format(new Date()).replace(' de ', ' ');
     document.getElementById('footDate').textContent = f; }
+  // lista de espera: cada envío cae en el Google Form del Lab (y de ahí en su planilla)
+  { const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSdAHzTHNsfsTEs2MYzTfV7xwTjO1bqUW1qXu1KXGQgKANvmlg/formResponse';
+    const f = document.getElementById('seatForm'), msg = document.getElementById('seatMsg');
+    f.addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = f.querySelector('button'), want = document.querySelector('.want input:checked').value;
+      const body = new URLSearchParams({'entry.1701874570': f.email.value.trim(), 'entry.1272516684': want});
+      btn.disabled = true; btn.textContent = 'Enviando…';
+      try {
+        await fetch(FORM, {method:'POST', mode:'no-cors', body});
+        btn.textContent = 'Anotado'; f.email.value = '';
+        msg.textContent = want === 'Ser parte del equipo' ? 'Gracias. Te escribimos pronto.' : 'Gracias. Te avisamos cuando haya algo nuevo.';
+      } catch {
+        btn.disabled = false; btn.textContent = 'Enviar';
+        msg.textContent = 'No se pudo enviar. Prueba de nuevo en un momento.';
+      }
+    });
+  }
 </script>
 </body>
 </html>
