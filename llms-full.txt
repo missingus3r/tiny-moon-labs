@@ -94,7 +94,6 @@ Páginas de terceros que analizan, citan o continúan los proyectos del Lab:
 - [26medias / awesome-ai-repos](https://github.com/26medias/awesome-ai-repos/blob/main/domains/productivity.md) (Awesome list): Incluido en Productivity, junto a otros proyectos de agentes.
 - [RelatedRepos — seedance-skill](https://relatedrepos.com/gh/robonuggets/seedance-skill) (Índice automático): Friday aparece como repositorio relacionado.
 - [RelatedRepos — marp-slides](https://relatedrepos.com/gh/robonuggets/marp-slides) (Índice automático): Friday entre las alternativas y repos relacionados.
-- [RelatedRepos — ai-life-skills](https://relatedrepos.com/gh/reysu/ai-life-skills) (Índice automático): Junto a proyectos de asistentes, skills y second brains.
 - [RelatedRepos — public-apis](https://relatedrepos.com/gh/blurred-machine/public-apis) (Índice automático): Friday como repositorio comparable.
 - [RelatedRepos — NESTstack](https://relatedrepos.com/gh/cindiekinzz-coder/NESTstack) (Índice automático): Friday dentro de las recomendaciones relacionadas.
 - [RelatedRepos — engineering-figure-agent](https://relatedrepos.com/gh/heyu-233/engineering-figure-agent) (Índice automático): Otra página del índice donde Friday aparece recomendado.
