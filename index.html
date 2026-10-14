@@ -168,6 +168,7 @@
   .press h2{font-size:clamp(34px,4.6vw,62px);line-height:1.04;max-width:17ch;margin:12px auto 12px}
   .press .head p{max-width:52ch;margin:0 auto 22px;color:var(--soft)}
   .rail{overflow:hidden;padding:8px 0 16px;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+  .press .rail{position:relative;z-index:6}  /* la luna viajera (z 5) pasa por detrás de las cintas */
   .rail + .rail{margin-top:6px}
   .track{display:flex;width:max-content;animation:drift 80s linear infinite}
   .rail.rev .track{animation-direction:reverse}
@@ -188,6 +189,7 @@
   .faq summary::after{content:"+";font-family:var(--sans);color:var(--teal);font-size:24px;line-height:1}
   .faq details[open] summary::after{content:"–"}
   .faq p{color:var(--soft);margin-top:10px;max-width:60ch}
+  .faq p a{color:var(--teal)}
   .jar{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center;max-width:860px;margin:10vh auto 0;text-align:left}
   .jar form{display:flex;border:1px solid rgba(245,241,232,.3);border-radius:99px;overflow:hidden;background:rgba(255,255,255,.05);margin-top:18px;max-width:440px}
   .jar input{flex:1;border:0;background:transparent;color:var(--ink);padding:14px 20px;font-family:var(--sans);font-size:16px;outline:none;min-width:0}
@@ -255,7 +257,7 @@
   <div class="paths" aria-hidden="true"></div>
   <div class="wrap">
     <h1>Productos para la era de los <em>modelos.</em></h1>
-    <p>Los LLM y los modelos de IA pasaron a ser el centro de la tecnología. En Tiny Moon Labs construimos productos pequeños y confiables alrededor de ellos. Los dos primeros son Friday y Capsule; no serán los últimos.</p>
+    <p>Los LLM y los modelos de IA pasaron a ser el centro de la tecnología. En Tiny Moon Labs construimos productos pequeños y confiables alrededor de ellos.</p>
     <a class="btn" href="#etapa">Leer la carta</a> &nbsp; <a class="btn ghost" href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Conocer a Friday</a>
   </div>
 </section>
@@ -266,7 +268,7 @@
     <div>
       <h2>El centro de la tecnología se movió.</h2>
       <p>Durante décadas un programa hizo exactamente lo que alguien le había escrito. Hoy en el centro hay un modelo de lenguaje que lee, razona y decide, y casi todo lo demás se está reordenando a su alrededor.</p>
-      <p style="margin-top:12px">Pero un modelo solo no es un producto. Le faltan reloj, memoria, herramientas y criterio para saber cuándo callar. Ese trabajo es el nuestro, y Friday es la primera vez que lo hacemos completo.</p>
+      <p style="margin-top:12px">Durante décadas el software fue algo que se compraba hecho. Eso se terminó. Hoy le pides a un modelo lo que necesitas y lo construye en el momento, a tu medida. El límite ya no es el código: es lo que te animes a imaginar.</p>
       <div class="sig">— Tiny Moon Labs</div>
     </div>
   </div>
@@ -326,22 +328,14 @@
     <div>
       <span class="eyebrow">Desde el sur, para el sur</span>
       <h2>Hecho en Latinoamérica, pensado para Latinoamérica.</h2>
-      <p>La mayoría de los productos de IA se diseña para otra vida: otro idioma, otros horarios, otra forma de pagar, otro papeleo. Nosotros partimos de la nuestra.</p>
-      <ul class="pts">
-        <li><b>En español primero.</b> Y en portugués. No traducido después.</li>
-        <li><b>Por mensajería.</b> Donde la región ya conversa, sin otra aplicación que instalar.</li>
-        <li><b>Con lo nuestro.</b> El dólar del día, el feriado, el trámite, el clima de tu ciudad.</li>
-        <li><b>En equipos modestos.</b> Una computadora común alcanza; no pide infraestructura cara.</li>
-      </ul>
-      <div class="places">Montevideo · Buenos Aires · São Paulo · Santiago · Asunción · Lima · Bogotá · Ciudad de México</div>
     </div>
   </div>
 </section>
 
 <section class="press" id="menciones">
   <div class="wrap head">
-    <h2>Otros también hablan de Friday.</h2>
-    <p id="mencionesIntro">Páginas ajenas que analizan, citan o continúan el repositorio abierto. Detén la cinta con el cursor y abre la que quieras.</p>
+    <h2>Otros también hablan del Lab.</h2>
+    <p id="mencionesIntro">Detén la cinta con el cursor y abre la que quieras.</p>
     <a class="btn ghost" href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Ver el repositorio</a>
   </div>
   <div class="rail"><div class="track" data-rail="0"></div></div>
@@ -352,13 +346,12 @@
   <div class="wrap">
     <h2>¿Tienes preguntas?</h2>
     <div class="faq">
-      <details><summary>¿Tiny Moon Labs es solo Friday?</summary><p>No. Friday y Capsule son los dos primeros productos, y el laboratorio existe para construir varios más.</p></details>
+      <details><summary>¿Qué es Tiny Moon Labs?</summary><p>Un laboratorio chico, en Montevideo, que construye productos de software y los publica abiertos para que cualquiera los use.</p></details>
       <details><summary>¿Por qué ahora?</summary><p>Porque los modelos de lenguaje ya son capaces de sostener trabajo real, y casi todo lo que los rodea está todavía por construirse.</p></details>
-      <details><summary>¿Friday necesita una granja de servidores?</summary><p>No. Friday vive en una computadora común y te habla donde ya estás: en Telegram.</p></details>
-      <details><summary>¿Y si un modelo se equivoca?</summary><p>Se va a equivocar. Friday anota qué pasó y qué hacer la próxima vez, y lee esa nota antes del siguiente turno.</p></details>
-      <details><summary>¿Me va a escribir a las 3 de la mañana?</summary><p>Solo si algo es realmente urgente. Todo lo demás espera a la carta de la mañana.</p></details>
-      <details><summary>¿Funciona en español?</summary><p>Nació en español. Friday trabaja todos los días en español rioplatense, y entiende portugués e inglés.</p></details>
-      <details><summary>¿Puedo ver el código?</summary><p>Sí. La arquitectura de Friday está publicada en GitHub, con sus aciertos y sus errores.</p></details>
+      <details><summary>¿Y si un modelo se equivoca?</summary><p>Se va a equivocar. Por eso diseñamos nuestros productos para que el error se vea, se corrija y no se repita.</p></details>
+      <details><summary>¿Puedo ver el código?</summary><p>Sí. Los repositorios de todos nuestros productos son públicos, <a href="https://github.com/missingus3r" target="_blank" rel="noopener">en GitHub</a>.</p></details>
+      <details><summary>¿Cuánto cuestan?</summary><p>Por ahora no vendemos nada. Los productos son abiertos y se pueden usar libremente.</p></details>
+      <details><summary>¿Puedo proponer una idea o colaborar?</summary><p>Sí. Abre un issue o un pull request en el repositorio de cualquiera de los productos; leemos todo.</p></details>
     </div>
     <div class="jar" id="seat">
       <svg class="jarart" viewBox="0 0 300 300" aria-hidden="true">
@@ -456,7 +449,7 @@
       tracks[i % 2].insertAdjacentHTML('beforeend',
         `<a class="clip" href="${esc(m.url)}" target="_blank" rel="noopener"><span class="eyebrow">${esc(tag)}</span><h3>${esc(m.titulo)}</h3><p>${esc(m.resumen || m.descripcion)}</p><span class="src"><span>${esc(host(m.url))}</span><span aria-hidden="true">↗</span></span></a>`);
     });
-    document.getElementById('mencionesIntro').textContent = `${list.length} páginas ajenas que analizan, citan o continúan el repositorio abierto. Detén la cinta con el cursor y abre la que quieras.`;
+    document.getElementById('mencionesIntro').textContent = `Detén la cinta con el cursor y abre la que quieras.`;
     tracks.forEach(t => {
       t.querySelectorAll('.clip').forEach(glow);
       // each rail holds its clippings twice, so the -50% drift loops without a seam
@@ -511,7 +504,6 @@
   });
 
   gsap.from('.latam .intro > div:last-child > *', {y:22, opacity:0, stagger:.08, duration:.8, ease:'power3.out', scrollTrigger:{trigger:'.latam', start:'top 72%'}});
-  gsap.from('.pts li', {x:-18, opacity:0, stagger:.09, duration:.6, scrollTrigger:{trigger:'.pts', start:'top 84%'}});
   gsap.from('.sky .ln', {drawSVG:'0%', duration:1.4, ease:'power2.inOut', stagger:.18, scrollTrigger:{trigger:'.sky', start:'top 76%'}});
   gsap.from('.sky .city', {opacity:0, stagger:.1, duration:.6, scrollTrigger:{trigger:'.sky', start:'top 76%'}});
   gsap.from('.prod', {y:46, opacity:0, stagger:.14, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.duo', start:'top 82%'}});
