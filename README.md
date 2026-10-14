@@ -1,10 +1,17 @@
-# Tiny Moon Labs
+<p align="center">
+  <img src="favicon.svg" alt="" width="72" height="72">
+</p>
 
-Tiny Moon Labs es un lab con base en Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA.
+<h1 align="center">Tiny Moon Labs</h1>
 
-Este repositorio es el código del sitio del Lab, publicado con GitHub Pages.
+<p align="center">
+  Productos de software abiertos para la era de los modelos de IA.<br>
+  <a href="https://tinymoonlabs.com">tinymoonlabs.com</a> · <a href="https://tml.uy">tml.uy</a> · <a href="https://tml.com.uy">tml.com.uy</a>
+</p>
 
-**Sitio:** [tinymoonlabs.com](https://tinymoonlabs.com) · [tml.uy](https://tml.uy) · [tml.com.uy](https://tml.com.uy)
+---
+
+Tiny Moon Labs es un lab con base en Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA. Este repositorio es el código del sitio del Lab, publicado con GitHub Pages en [tinymoonlabs.com](https://tinymoonlabs.com).
 
 ## Productos
 
