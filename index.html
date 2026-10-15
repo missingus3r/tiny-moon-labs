@@ -354,6 +354,9 @@
   .want input:checked + span{border-color:var(--teal);color:var(--ink);background:rgba(63,208,182,.14)}
   .want input:focus-visible + span{outline:2px solid var(--teal);outline-offset:2px}
   .jar .want + form{margin-top:12px}
+  .jar textarea{display:block;width:100%;max-width:440px;margin-top:10px;padding:12px 18px;border:1px solid rgba(245,241,232,.3);border-radius:18px;background:rgba(255,255,255,.05);color:var(--ink);font-family:var(--sans);font-size:16px;resize:vertical;outline:none}
+  .jar textarea::placeholder{color:var(--soft)}
+  .jar textarea[hidden]{display:none}
   .formMsg{min-height:1.4em;margin-top:10px;font-size:14px;color:var(--teal)}
   .jar h3{font-size:36px;line-height:1.05}
   /* en escritorio el frasco empieza vacío: la luna que baja por la página es la que entra */
@@ -526,9 +529,10 @@
         <g transform="translate(150 178) scale(1.25)" id="jarMoon"><use href="#moon"/></g>
         <g fill="#22201c"><circle cx="100" cy="150" r="1.6"/><circle cx="206" cy="140" r="1.3"/><circle cx="196" cy="226" r="1.6"/><circle cx="96" cy="222" r="1.2"/></g>
       </svg>
-      <div><h3>Ten una luna pequeña para ti.</h3><p style="color:var(--soft);margin-top:10px">Déjanos tu correo si quieres enterarte cuando lancemos algo nuevo, o si te gustaría ser parte del equipo.</p>
-        <div class="want" role="radiogroup" aria-label="Me interesa"><label><input type="radio" name="want" value="Enterarme de lo nuevo" checked><span>Enterarme de lo nuevo</span></label><label><input type="radio" name="want" value="Ser parte del equipo"><span>Ser parte del equipo</span></label></div>
+      <div><h3>Ten una luna pequeña para ti.</h3><p style="color:var(--soft);margin-top:10px">Déjanos tu correo si quieres enterarte cuando lancemos algo nuevo, si te gustaría ser parte del equipo o si quieres escribirnos.</p>
+        <div class="want" role="radiogroup" aria-label="Me interesa"><label><input type="radio" name="want" value="Enterarme de lo nuevo" checked><span>Enterarme de lo nuevo</span></label><label><input type="radio" name="want" value="Ser parte del equipo"><span>Ser parte del equipo</span></label><label><input type="radio" name="want" value="Mandar un mensaje"><span>Mandar un mensaje</span></label></div>
         <form id="seatForm"><input type="email" name="email" placeholder="tu@correo.com" aria-label="Correo" required><button class="btn" type="submit" style="border-radius:0">Enviar</button></form>
+        <textarea id="seatMsgText" name="mensaje" rows="4" maxlength="2000" placeholder="Escribe tu mensaje" aria-label="Mensaje" hidden></textarea>
         <p class="formMsg" id="seatMsg" aria-live="polite"></p></div>
     </div>
   </div>
@@ -682,16 +686,23 @@
     document.getElementById('footDate').textContent = f; }
   // lista de espera: cada envío cae en el Google Form del Lab (y de ahí en su planilla)
   { const FORM = 'https://docs.google.com/forms/d/e/1FAIpQLSdAHzTHNsfsTEs2MYzTfV7xwTjO1bqUW1qXu1KXGQgKANvmlg/formResponse';
-    const f = document.getElementById('seatForm'), msg = document.getElementById('seatMsg');
+    const f = document.getElementById('seatForm'), msg = document.getElementById('seatMsg'), txt = document.getElementById('seatMsgText');
+    // la caja de texto aparece solo con "Mandar un mensaje", y ahí es obligatoria
+    document.querySelectorAll('.want input').forEach(r => r.addEventListener('change', () => {
+      const on = document.querySelector('.want input:checked').value === 'Mandar un mensaje';
+      txt.hidden = !on; txt.required = on; if(on) txt.focus();
+    }));
     f.addEventListener('submit', async e => {
       e.preventDefault();
       const btn = f.querySelector('button'), want = document.querySelector('.want input:checked').value;
+      if(want === 'Mandar un mensaje' && !txt.value.trim()){ txt.focus(); msg.textContent = 'Escribe tu mensaje antes de enviar.'; return; }
       const body = new URLSearchParams({'entry.1701874570': f.email.value.trim(), 'entry.1272516684': want});
+      if(want === 'Mandar un mensaje') body.set('entry.117766545', txt.value.trim());
       btn.disabled = true; btn.textContent = 'Enviando…';
       try {
         await fetch(FORM, {method:'POST', mode:'no-cors', body});
-        btn.textContent = 'Anotado'; f.email.value = '';
-        msg.textContent = want === 'Ser parte del equipo' ? 'Gracias. Te escribimos pronto.' : 'Gracias. Te avisamos cuando haya algo nuevo.';
+        btn.textContent = want === 'Mandar un mensaje' ? 'Enviado' : 'Anotado'; f.email.value = ''; txt.value = '';
+        msg.textContent = want === 'Mandar un mensaje' ? 'Gracias. Leemos tu mensaje y te respondemos.' : want === 'Ser parte del equipo' ? 'Gracias. Te escribimos pronto.' : 'Gracias. Te avisamos cuando haya algo nuevo.';
       } catch {
         btn.disabled = false; btn.textContent = 'Enviar';
         msg.textContent = 'No se pudo enviar. Prueba de nuevo en un momento.';
