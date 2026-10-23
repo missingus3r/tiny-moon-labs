@@ -27,3 +27,15 @@ Todos los productos, reunidos en un solo lugar: [tml-the-hub](https://github.com
 - `index.html`: la página completa.
 - `menciones.json`: las menciones externas que muestra la sección "Otros también hablan del Lab". Para sumar una, se agrega un objeto con `titulo`, `etiqueta`, `resumen`, `url`, `descripcion` y, si se conoce, `fecha`.
 - `robots.txt`, `sitemap.xml`, `llms.txt` y `llms-full.txt`: para buscadores, agentes y servicios de IA.
+
+## Nota: la luna y el jarrón
+
+En escritorio, una luna baja por la página siguiendo una línea punteada y termina dentro del jarrón
+del formulario (`#jarMoon`). La ruta se mide contra la página (`buildRoad()` en `index.html`), así que
+si la página cambia de alto después de trazarla, la luna queda corta, arriba del jarrón. Pasó al sumar
+las tarjetas de AA Tube y AA Disney, y pasaba también al abrir una pregunta o el mensaje del formulario.
+
+Desde entonces la ruta se vuelve a trazar sola cada vez que cambia el alto de la página. Al agregar
+productos, tarjetas o secciones no hay que tocar nada; solo sumar un punto en `buildRoad()` si la
+sección nueva tiene que ser una parada del camino. Para probarlo: bajar hasta el final y ver que la
+luna entra al jarrón, también con alguna pregunta abierta.

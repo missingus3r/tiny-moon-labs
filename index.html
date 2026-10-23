@@ -685,9 +685,11 @@
 
   /* ---------- the road: a dotted path through the page's own landmarks ---------- */
   const road = document.getElementById('road'), pathEl = document.getElementById('roadPath'), trav = document.getElementById('traveller');
-  let tween;
+  let tween, drawTween;
   function buildRoad(){
     if(innerWidth <= 860) return;
+    // la capa de la ruta también ocupa alto: se achica antes de medir, si no la página nunca se encoge
+    road.setAttribute('height', 0);
     const H = document.documentElement.scrollHeight, W = document.documentElement.clientWidth;
     road.setAttribute('width', W); road.setAttribute('height', H); road.setAttribute('viewBox', `0 0 ${W} ${H}`);
     const top = el => el.getBoundingClientRect().top + scrollY, mid = el => top(el) + el.offsetHeight/2;
@@ -703,16 +705,31 @@
     let d = `M${pts[0][0]} ${pts[0][1]}`;
     for(let i=1;i<pts.length;i++){ const [x0,y0] = pts[i-1], [x1,y1] = pts[i], my = (y0+y1)/2; d += ` C${x0} ${my} ${x1} ${my} ${x1} ${y1}`; }
     pathEl.setAttribute('d', d);
-    if(tween){ tween.scrollTrigger && tween.scrollTrigger.kill(); tween.kill(); }
+    // al rehacer la ruta se matan los dos tweens anteriores (antes la línea punteada se acumulaba)
+    [tween, drawTween].forEach(t => { if(t){ t.scrollTrigger && t.scrollTrigger.kill(); t.kill(); } });
     gsap.set(trav, {xPercent:-50, yPercent:-50});
     tween = gsap.to(trav, {ease:'none', motionPath:{path:pathEl, align:pathEl, alignOrigin:[.5,.5]},
       rotation:reduce ? 0 : 300,
       scrollTrigger:{trigger:document.body, start:'top top', end:'bottom bottom', scrub:1.2}});
     // the dotted line is drawn ahead of the moon as you go
-    gsap.fromTo(pathEl, {strokeDasharray:'2 9', strokeDashoffset:0, clipPath:'inset(0 0 100% 0)'}, {clipPath:'inset(0 0 0% 0)', ease:'none',
+    drawTween = gsap.fromTo(pathEl, {strokeDasharray:'2 9', strokeDashoffset:0, clipPath:'inset(0 0 100% 0)'}, {clipPath:'inset(0 0 0% 0)', ease:'none',
       scrollTrigger:{trigger:document.body, start:'top top', end:'bottom bottom', scrub:.6}});
   }
   addEventListener('load', () => { buildRoad(); ScrollTrigger.refresh(); });
+  /* NOTA: la ruta de la luna se mide contra la página, y su punto final es el jarrón (#jarMoon).
+     Si la página cambia de alto después de trazarla (tarjetas nuevas en Productos, una pregunta
+     abierta, el textarea del formulario, fuentes que cargan tarde, las cintas de menciones), la luna
+     termina arriba del jarrón. Por eso se vuelve a trazar sola cada vez que cambia el alto: al
+     sumar secciones o tarjetas no hace falta tocar nada acá; solo agregar un punto en buildRoad()
+     si la sección nueva tiene que ser una parada del camino. */
+  let lastH = 0, ht;
+  new ResizeObserver(([e]) => {
+    // el alto del contenido de body, no scrollHeight: ese incluye la capa de la ruta
+    const h = e.contentRect.height;
+    if(Math.abs(h - lastH) < 2) return;
+    lastH = h;
+    clearTimeout(ht); ht = setTimeout(() => { buildRoad(); ScrollTrigger.refresh(); }, 150);
+  }).observe(document.body);
   let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { sizeSky(); buildRoad(); ScrollTrigger.refresh(); }, 250); });
 
   /* ---------- entrances ---------- */
