@@ -28,6 +28,14 @@ Todos los productos, reunidos en un solo lugar: [tml-the-hub](https://github.com
 - `menciones.json`: las menciones externas que muestra la sección "Otros también hablan del Lab". Para sumar una, se agrega un objeto con `titulo`, `etiqueta`, `resumen`, `url`, `descripcion` y, si se conoce, `fecha`.
 - `robots.txt`, `sitemap.xml`, `llms.txt` y `llms-full.txt`: para buscadores, agentes y servicios de IA.
 
+## Nota: tarjetas de Productos
+
+Las tarjetas (`.prod`) usan `subgrid`: cada una ocupa 4 filas de la grilla (encabezado, frase, lista,
+botones) y las comparte con su vecina, así la lista y los botones quedan alineados aunque una frase
+tenga más líneas. Una tarjeta nueva tiene que mantener esos 4 hijos en ese orden. Además la transición
+de `transform` va solo en `:hover`: si está en reposo, la animación de entrada de GSAP termina a mitad
+de camino y cada tarjeta queda corrida a una altura distinta (le pasaba a Capsule).
+
 ## Nota: la luna y el jarrón
 
 En escritorio, una luna baja por la página siguiendo una línea punteada y termina dentro del jarrón
