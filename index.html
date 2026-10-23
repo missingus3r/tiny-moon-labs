@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tiny Moon Labs — productos para la era de los modelos</title>
 <meta name="description" content="Tiny Moon Labs es un laboratorio de Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA: Friday, un asistente personal sobre Claude Code, y Capsule, una red libre y descentralizada para compartir archivos y publicar sitios.">
-<meta name="keywords" content="Tiny Moon Labs, TML, inteligencia artificial, IA, LLM, modelos de lenguaje, agentes de IA, asistente personal, Claude Code, Friday, Capsule, red descentralizada, código abierto, open source, Uruguay, Montevideo, Latinoamérica">
+<meta name="keywords" content="Tiny Moon Labs, TML, inteligencia artificial, IA, LLM, modelos de lenguaje, agentes de IA, asistente personal, Claude Code, Friday, Capsule, AA Tube, AA Disney, Android Auto, red descentralizada, código abierto, open source, Uruguay, Montevideo, Latinoamérica">
 <meta name="author" content="Tiny Moon Labs">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="theme-color" content="#07090f">
@@ -95,6 +95,38 @@
    "image": "https://tinymoonlabs.com/assets/capsule-mark.svg",
    "sameAs": [
     "https://github.com/missingus3r/CAPSULE"
+   ],
+   "publisher": {
+    "@id": "https://tinymoonlabs.com/#org"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "name": "AA Tube",
+   "url": "https://github.com/missingus3r/aa-tube",
+   "applicationCategory": "MultimediaApplication",
+   "operatingSystem": "Android",
+   "isAccessibleForFree": true,
+   "description": "App para Android que muestra YouTube en la pantalla de Android Auto, con la cuenta del usuario, para usar con el auto estacionado: al moverse el auto la pantalla se cierra y el audio sigue.",
+   "image": "https://tinymoonlabs.com/assets/aa-tube.svg",
+   "sameAs": [
+    "https://github.com/missingus3r/aa-tube"
+   ],
+   "publisher": {
+    "@id": "https://tinymoonlabs.com/#org"
+   }
+  },
+  {
+   "@type": "SoftwareApplication",
+   "name": "AA Disney",
+   "url": "https://github.com/missingus3r/aa-disney",
+   "applicationCategory": "MultimediaApplication",
+   "operatingSystem": "Android",
+   "isAccessibleForFree": true,
+   "description": "App para Android que muestra Disney+ en la pantalla de Android Auto, con la cuenta del usuario, para usar con el auto estacionado: al moverse el auto la pantalla se cierra y el audio sigue.",
+   "image": "https://tinymoonlabs.com/assets/aa-disney.svg",
+   "sameAs": [
+    "https://github.com/missingus3r/aa-disney"
    ],
    "publisher": {
     "@id": "https://tinymoonlabs.com/#org"
@@ -312,6 +344,8 @@
   .prod li{padding:8px 0 8px 22px;border-top:1px solid var(--rule);position:relative}
   .prod li::before{content:"";position:absolute;left:2px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--teal)}
   .prod.capsule li::before{background:#ef7959}
+  .prod.aatube li::before{background:#ff3b30}
+  .prod.aadisney li::before{background:#7fd8ff}
   .prod .cta{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px}
 
   /* menciones: two rails of clippings drifting in opposite directions */
@@ -444,8 +478,8 @@
   <div class="wrap">
     <div class="head">
       <span class="eyebrow">Productos de Tiny Moon Labs</span>
-      <h2>Los dos primeros, ya funcionando.</h2>
-      <p>Friday y Capsule son los dos primeros productos de Tiny Moon Labs. Los dos son de código abierto y se pueden usar hoy.</p>
+      <h2>Los primeros, ya funcionando.</h2>
+      <p>Friday, Capsule, AA Tube y AA Disney son los primeros productos de Tiny Moon Labs. Todos son de código abierto y se pueden usar hoy.</p>
     </div>
     <div class="duo">
       <article class="prod friday">
@@ -467,6 +501,26 @@
           <li>Funciona sin Internet: en la misma red wifi, o en un archivo que llevas en un pendrive.</li>
         </ul>
         <div class="cta"><a class="btn" href="https://missingus3r.github.io/CAPSULE/" target="_blank" rel="noopener">Conocer Capsule</a><a class="btn ghost" href="https://github.com/missingus3r/CAPSULE" target="_blank" rel="noopener">Repositorio</a></div>
+      </article>
+      <article class="prod aatube">
+        <div class="top"><img class="mark" src="assets/aa-tube.svg" alt="" width="64" height="64"><h3>AA Tube</h3></div>
+        <p class="tag">YouTube en la pantalla de Android Auto, con tu cuenta, para ver videos con el auto estacionado.</p>
+        <ul>
+          <li>Tus suscripciones, tu historial y tu Premium, en la pantalla del auto.</li>
+          <li>Se controla tocando la pantalla, con la barra propia o con los botones del volante.</li>
+          <li>Al arrancar, Android Auto cierra la pantalla y el audio sigue sonando.</li>
+        </ul>
+        <div class="cta"><a class="btn" href="https://github.com/missingus3r/aa-tube" target="_blank" rel="noopener">Repositorio</a></div>
+      </article>
+      <article class="prod aadisney">
+        <div class="top"><img class="mark" src="assets/aa-disney.svg" alt="" width="64" height="64"><h3>AA Disney</h3></div>
+        <p class="tag">Disney+ en la pantalla de Android Auto, con tu cuenta, para ver películas y series con el auto estacionado.</p>
+        <ul>
+          <li>Tus perfiles y tu lista, con el video protegido reproduciéndose en el auto.</li>
+          <li>Barra de avance en la tarjeta de medios y control desde el volante.</li>
+          <li>Al arrancar, Android Auto cierra la pantalla y el audio sigue sonando.</li>
+        </ul>
+        <div class="cta"><a class="btn" href="https://github.com/missingus3r/aa-disney" target="_blank" rel="noopener">Repositorio</a></div>
       </article>
     </div>
   </div>

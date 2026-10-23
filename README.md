@@ -17,6 +17,8 @@ Tiny Moon Labs es un lab con base en Montevideo, Uruguay, que construye producto
 
 - **[Friday](https://missingus3r.github.io/friday-showcase/)**: un asistente personal que trabaja de día y de noche sobre Claude Code y te habla por Telegram. [Código](https://github.com/missingus3r/friday-showcase)
 - **[Capsule](https://missingus3r.github.io/CAPSULE/)**: una red libre y descentralizada para mandar archivos y publicar sitios, sin cuenta y sin pedir permiso. [Código](https://github.com/missingus3r/CAPSULE)
+- **[AA Tube](https://github.com/missingus3r/aa-tube)**: YouTube en la pantalla de Android Auto, con tu cuenta, para usar con el auto estacionado.
+- **[AA Disney](https://github.com/missingus3r/aa-disney)**: Disney+ en la pantalla de Android Auto, con tu cuenta, para usar con el auto estacionado.
 
 Todos los productos, reunidos en un solo lugar: [tml-the-hub](https://github.com/missingus3r/tml-the-hub).
 

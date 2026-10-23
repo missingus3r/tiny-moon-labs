@@ -1,6 +1,6 @@
 # Tiny Moon Labs
 
-> Tiny Moon Labs (TML) es un laboratorio chico de Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA. Sus dos primeros productos son Friday, un asistente personal autónomo sobre Claude Code, y Capsule, una red libre y descentralizada para compartir archivos y publicar sitios. Todo el código es público en GitHub.
+> Tiny Moon Labs (TML) es un laboratorio chico de Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA. Sus primeros productos son Friday, un asistente personal autónomo sobre Claude Code; Capsule, una red libre y descentralizada para compartir archivos y publicar sitios; y AA Tube y AA Disney, que llevan YouTube y Disney+ a la pantalla de Android Auto para usar con el auto estacionado. Todo el código es público en GitHub.
 
 Sitio: https://tinymoonlabs.com — también en https://tml.uy y https://tml.com.uy (redirigen al sitio principal). Idioma del sitio: español.
 
@@ -8,6 +8,8 @@ Sitio: https://tinymoonlabs.com — también en https://tml.uy y https://tml.com
 
 - [Friday](https://missingus3r.github.io/friday-showcase/): asistente personal que trabaja de día y de noche sobre Claude Code y conversa por Telegram; tareas programadas, memoria persistente y un cuaderno de reglas que aprende de cada error. Código: https://github.com/missingus3r/friday-showcase
 - [Capsule](https://missingus3r.github.io/CAPSULE/): red libre y descentralizada para mandar archivos y publicar sitios con dirección .capsule, sin cuenta ni identidad; cifrado en el navegador, funciona sin Internet (en la misma wifi o en un archivo en un pendrive). Código: https://github.com/missingus3r/CAPSULE
+- [AA Tube](https://github.com/missingus3r/aa-tube): app para Android que muestra YouTube en la pantalla de Android Auto, con la cuenta del usuario, para usar con el auto estacionado; al moverse el auto, Android Auto cierra la pantalla y el audio sigue. Código: https://github.com/missingus3r/aa-tube
+- [AA Disney](https://github.com/missingus3r/aa-disney): app para Android que muestra Disney+ en la pantalla de Android Auto, con la cuenta del usuario y el video protegido con DRM, para usar con el auto estacionado. Código: https://github.com/missingus3r/aa-disney
 
 ## Repositorios
 
@@ -49,6 +51,26 @@ Una red libre y descentralizada para mandar archivos y publicar sitios, sin cuen
 - Funciona sin Internet: en la misma red wifi, o en un archivo que se lleva en un pendrive.
 
 Sitio: https://missingus3r.github.io/CAPSULE/ · Código: https://github.com/missingus3r/CAPSULE
+
+## AA Tube
+
+YouTube en la pantalla de Android Auto, con tu cuenta, para ver videos con el auto estacionado.
+
+- Tus suscripciones, tu historial y tu Premium, en la pantalla del auto.
+- Se controla tocando la pantalla, con la barra propia o con los botones del volante.
+- Al arrancar, Android Auto cierra la pantalla y el audio sigue sonando.
+
+Código: https://github.com/missingus3r/aa-tube
+
+## AA Disney
+
+Disney+ en la pantalla de Android Auto, con tu cuenta, para ver películas y series con el auto estacionado.
+
+- Tus perfiles y tu lista, con el video protegido reproduciéndose en el auto.
+- Barra de avance en la tarjeta de medios y control desde el volante.
+- Al arrancar, Android Auto cierra la pantalla y el audio sigue sonando.
+
+Código: https://github.com/missingus3r/aa-disney
 
 ## Hecho en Latinoamérica
 
