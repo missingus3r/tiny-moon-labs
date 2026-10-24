@@ -24,7 +24,7 @@ Todos los productos, reunidos en un solo lugar: [tml-the-hub](https://github.com
 
 ## En el taller
 
-- **[Archivo en vidrio](https://tinymoonlabs.com/vidrio.html)**: demo y posible proyecto futuro, no un producto. Una simulación 3D de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. [Abrir la demo](https://tinymoonlabs.com/grabador-5d/)
+- **[Archivo en vidrio](https://tinymoonlabs.com/vidrio.html)**: demo y posible proyecto futuro, no un producto. Una simulación 3D de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. [Abrir la demo](https://tinymoonlabs.com/grabador-5d/) · [Código](https://github.com/missingus3r/archivo-en-vidrio)
 
 ## Archivos
 

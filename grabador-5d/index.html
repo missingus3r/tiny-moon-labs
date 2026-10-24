@@ -25,6 +25,9 @@
   #side header p { margin: 4px 0 0; color: var(--mut); font-size: 12px; }
   #side header p.demo { color: #ffc46b; font-size: 11.5px; }
   #side header p.demo a { color: #ffc46b; }
+  #side .hrow { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .backlab { flex: none; color: #c9d2dc; text-decoration: none; font-size: 11.5px; font-weight: 700; letter-spacing: .3px; border: 1px solid #34445c; border-radius: 99px; padding: 4px 11px; background: #1a2230; transition: border-color .2s, color .2s; }
+  .backlab:hover { color: #fff; border-color: #3fd0b6; }
   .tabs { display: flex; border-bottom: 1px solid var(--line); }
   .tabs button { flex: 1; background: none; border: 0; padding: 10px 6px; color: var(--mut); cursor: pointer; border-bottom: 2px solid transparent; font-weight: 600; }
   .tabs button.on { color: var(--tx); border-bottom-color: var(--acc); }
@@ -188,7 +191,7 @@
 
 <aside id="side">
   <header>
-    <h1><i></i>Grabador 5D DIY</h1>
+    <div class="hrow"><h1><i></i>Grabador 5D DIY</h1><a class="backlab" href="../index.html#productos" title="Volver a Tiny Moon Labs">← Volver al Lab</a></div>
     <p>Escritura y lectura de voxels en vidrio de sílice · láser de femtosegundos + cámara de polarización</p>
     <p class="demo">Demo conceptual de <a href="../vidrio.html">Tiny Moon Labs</a>: una simulación, no un producto.</p>
   </header>

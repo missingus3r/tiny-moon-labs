@@ -13,11 +13,12 @@ Sitio: https://tinymoonlabs.com — también en https://tml.uy y https://tml.com
 
 ## En el taller (demos, no son productos)
 
-- [Archivo en vidrio](https://tinymoonlabs.com/vidrio.html): demo y posible proyecto futuro. Simulación 3D interactiva de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. Incluye marco teórico, lista de partes con precios en Uruguay y el armado paso a paso. No hay máquina construida ni nada a la venta. Demo: https://tinymoonlabs.com/grabador-5d/
+- [Archivo en vidrio](https://tinymoonlabs.com/vidrio.html): demo y posible proyecto futuro. Simulación 3D interactiva de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. Incluye marco teórico, lista de partes con precios en Uruguay y el armado paso a paso. No hay máquina construida ni nada a la venta. Demo: https://tinymoonlabs.com/grabador-5d/ · Código (MIT): https://github.com/missingus3r/archivo-en-vidrio
 
 ## Repositorios
 
 - [tml-the-hub](https://github.com/missingus3r/tml-the-hub): índice de todos los productos del Lab, con cada uno como submódulo de git.
+- [archivo-en-vidrio](https://github.com/missingus3r/archivo-en-vidrio): código de la demo "Archivo en vidrio" (en el taller, no es un producto).
 - [tiny-moon-labs](https://github.com/missingus3r/tiny-moon-labs): código de este sitio.
 
 ## Más

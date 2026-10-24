@@ -13,11 +13,12 @@ Sitio: https://tinymoonlabs.com — también en https://tml.uy y https://tml.com
 
 ## En el taller (demos, no son productos)
 
-- [Archivo en vidrio](https://tinymoonlabs.com/vidrio.html): demo y posible proyecto futuro. Simulación 3D interactiva de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. Demo: https://tinymoonlabs.com/grabador-5d/
+- [Archivo en vidrio](https://tinymoonlabs.com/vidrio.html): demo y posible proyecto futuro. Simulación 3D interactiva de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. Demo: https://tinymoonlabs.com/grabador-5d/ · Código (MIT): https://github.com/missingus3r/archivo-en-vidrio
 
 ## Repositorios
 
 - [tml-the-hub](https://github.com/missingus3r/tml-the-hub): índice de todos los productos del Lab, con cada uno como submódulo de git.
+- [archivo-en-vidrio](https://github.com/missingus3r/archivo-en-vidrio): código de la demo "Archivo en vidrio" (en el taller, no es un producto).
 - [tiny-moon-labs](https://github.com/missingus3r/tiny-moon-labs): código de este sitio.
 
 ## Más
@@ -85,7 +86,7 @@ Un experimento de hardware del taller: grabar datos dentro de un bloque de vidri
 - Inspiración: Microsoft Project Silica (SOSP 2023, ACM Transactions on Storage 2025, Nature 2026) y el almacenamiento 5D de la Universidad de Southampton (2016). Tiny Moon Labs no tiene relación con ninguno de los dos.
 - La demo: máquina de tres ejes en 3D con dos diseños. El 5D real, con láser de femtosegundos, cuesta ≈ US$ 52.000, casi todo el láser usado. El 3D económico, con láser de fibra de nanosegundos y codificación de 1 a 3 bits por celda, cuesta ≈ US$ 2.300. Incluye grabación y lectura simuladas, lista de partes con precios en Uruguay y el armado y la calibración paso a paso.
 
-Página: https://tinymoonlabs.com/vidrio.html · Demo: https://tinymoonlabs.com/grabador-5d/
+Página: https://tinymoonlabs.com/vidrio.html · Demo: https://tinymoonlabs.com/grabador-5d/ · Código: https://github.com/missingus3r/archivo-en-vidrio
 
 ## Hecho en Latinoamérica
 
