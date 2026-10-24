@@ -442,7 +442,8 @@
     .prod{padding:26px 22px 24px}
     .proj.wide{grid-template-columns:1fr;gap:14px}
     .clip{width:264px}
-    header nav a:not(.btn){display:none}
+    /* el menú tiene un solo link (Proyectos): se mantiene visible también en el celular */
+    header nav a{margin-left:0}
     header .btn{padding:9px 14px;font-size:11px;margin-left:0}
     #road,#traveller{display:none}
     .dock svg{display:block}
@@ -475,7 +476,7 @@
 
 <header>
   <div class="logo"><svg width="26" height="26" viewBox="-37 -37 74 74"><use href="#moon"/></svg>Tiny Moon Labs</div>
-  <nav><a href="#etapa">La etapa</a><a href="#productos">Productos</a><a href="vidrio.html">Vidrio</a><a href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Friday</a><a href="#latam">Latinoamérica</a><a href="#ask">Preguntas</a><a class="btn" href="#seat" style="margin-left:22px">Pedir un lugar</a></nav>
+  <nav><a href="#productos">Proyectos</a></nav>
 </header>
 
 <section class="hero">
@@ -485,7 +486,7 @@
   <div class="wrap">
     <h1>Productos para la era de los <em>modelos.</em></h1>
     <p>Los LLM y los modelos de IA pasaron a ser el centro de la tecnología. En Tiny Moon Labs construimos productos pequeños y confiables alrededor de ellos.</p>
-    <a class="btn" href="#etapa">Leer la carta</a> &nbsp; <a class="btn ghost" href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Conocer a Friday</a>
+    <a class="btn" href="#etapa">Leer la carta</a> &nbsp; <a class="btn ghost" href="#productos">Proyectos</a>
   </div>
 </section>
 
