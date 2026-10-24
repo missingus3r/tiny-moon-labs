@@ -11,6 +11,10 @@ Sitio: https://tinymoonlabs.com — también en https://tml.uy y https://tml.com
 - [AA Tube](https://github.com/missingus3r/aa-tube): app para Android que muestra YouTube en la pantalla de Android Auto, con la cuenta del usuario, para usar con el auto estacionado; al moverse el auto, Android Auto cierra la pantalla y el audio sigue. Código: https://github.com/missingus3r/aa-tube
 - [AA Disney](https://github.com/missingus3r/aa-disney): app para Android que muestra Disney+ en la pantalla de Android Auto, con la cuenta del usuario y el video protegido con DRM, para usar con el auto estacionado. Código: https://github.com/missingus3r/aa-disney
 
+## En el taller (demos, no son productos)
+
+- [Archivo en vidrio](https://tinymoonlabs.com/vidrio.html): demo y posible proyecto futuro. Simulación 3D interactiva de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. Demo: https://tinymoonlabs.com/grabador-5d/
+
 ## Repositorios
 
 - [tml-the-hub](https://github.com/missingus3r/tml-the-hub): índice de todos los productos del Lab, con cada uno como submódulo de git.
@@ -71,6 +75,17 @@ Disney+ en la pantalla de Android Auto, con tu cuenta, para ver películas y ser
 - Al arrancar, Android Auto cierra la pantalla y el audio sigue sonando.
 
 Código: https://github.com/missingus3r/aa-disney
+
+## Archivo en vidrio (demo · posible proyecto futuro)
+
+Un experimento de hardware del taller: grabar datos dentro de un bloque de vidrio con un láser y leerlos con una cámara. Por ahora es una simulación interactiva, no un producto: no hay máquina construida, nada está a la venta y los precios son un relevamiento de octubre de 2026 en Uruguay.
+
+- Por qué: los medios digitales (discos, cintas, memorias flash) se degradan y obligan a migrar los datos cada pocos años; el vidrio grabado no necesita energía para conservarse y dura miles de años según ensayos de envejecimiento acelerado.
+- Cómo funciona: un pulso de femtosegundos enfocado dentro del vidrio solo lo modifica en el foco (absorción no lineal). Las nanorrejillas birrefringentes que se forman guardan datos en 5 dimensiones: posición X, Y, Z, orientación del eje lento y retardancia. Se leen con microscopía de polarización: luz circular y un analizador que gira, con 4 fotos por zona.
+- Inspiración: Microsoft Project Silica (SOSP 2023, ACM Transactions on Storage 2025, Nature 2026) y el almacenamiento 5D de la Universidad de Southampton (2016). Tiny Moon Labs no tiene relación con ninguno de los dos.
+- La demo: máquina de tres ejes en 3D con dos diseños. El 5D real, con láser de femtosegundos, cuesta ≈ US$ 52.000, casi todo el láser usado. El 3D económico, con láser de fibra de nanosegundos y codificación de 1 a 3 bits por celda, cuesta ≈ US$ 2.300. Incluye grabación y lectura simuladas, lista de partes con precios en Uruguay y el armado y la calibración paso a paso.
+
+Página: https://tinymoonlabs.com/vidrio.html · Demo: https://tinymoonlabs.com/grabador-5d/
 
 ## Hecho en Latinoamérica
 

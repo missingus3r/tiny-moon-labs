@@ -1,0 +1,568 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Archivo en vidrio — Tiny Moon Labs</title>
+<meta name="description" content="Demo de Tiny Moon Labs: grabar datos dentro de vidrio con un láser y leerlos con una cámara. Marco teórico, inspiración en Microsoft Project Silica y una simulación 3D interactiva.">
+<meta name="keywords" content="Tiny Moon Labs, archivo en vidrio, almacenamiento en vidrio, almacenamiento 5D, Project Silica, láser de femtosegundos, voxels, nanorrejillas, preservación digital, Uruguay">
+<meta name="author" content="Tiny Moon Labs">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#07090f">
+<link rel="canonical" href="https://tinymoonlabs.com/vidrio.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tiny Moon Labs">
+<meta property="og:locale" content="es_UY">
+<meta property="og:url" content="https://tinymoonlabs.com/vidrio.html">
+<meta property="og:title" content="Archivo en vidrio — Tiny Moon Labs">
+<meta property="og:description" content="Datos que duran lo que dura el vidrio: una demo del taller, inspirada en Microsoft Project Silica. No es un producto: es un posible proyecto futuro.">
+<meta property="og:image" content="https://tinymoonlabs.com/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Archivo en vidrio — Tiny Moon Labs">
+<meta name="twitter:description" content="Grabar datos dentro de vidrio con un láser y leerlos con una cámara. Demo y posible proyecto futuro.">
+<meta name="twitter:image" content="https://tinymoonlabs.com/assets/og.jpg">
+<link rel="icon" href="grabador-5d/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#07090f; --bg2:#0c101a; --ink:#f5f1e8; --soft:#a9a59b; --rule:rgba(245,241,232,.14); --teal:#3fd0b6; --gold:#f6c96b; --violet:#8b7bff; --blue:#5aa9ff; --red:#ff8a65;
+    --serif:"Playfair Display", Georgia, serif; --sans:"Karla", system-ui, sans-serif; --mono:ui-monospace, "Cascadia Code", Consolas, Menlo, monospace; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg);scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);font-weight:500}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.015em}
+  a{color:var(--teal)}
+  .btn{position:relative;z-index:5;display:inline-block;white-space:nowrap;background:linear-gradient(100deg,var(--teal),#8ae6cf);color:#04130f;text-decoration:none;border-radius:99px;padding:12px 24px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border:0;cursor:pointer;box-shadow:0 8px 30px -8px rgba(63,208,182,.6);transition:transform .2s, box-shadow .2s, background .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px -8px rgba(63,208,182,.85)}
+  .btn.ghost{background:rgba(255,255,255,.04);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(245,241,232,.35)}
+  .btn.ghost:hover{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px var(--ink)}
+
+  header{display:flex;justify-content:space-between;align-items:center;padding:20px 28px;max-width:1120px;margin:0 auto;position:relative;z-index:6}
+  header .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:20px;white-space:nowrap;color:var(--ink);text-decoration:none}
+  header nav a{color:var(--ink);text-decoration:none;margin-left:22px;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+  header nav a:not(.btn):hover{color:var(--teal)}
+  header nav a.here{color:var(--teal)}
+
+  /* hero: the glass block and the laser that writes inside it */
+  .hero{position:relative;overflow:hidden;margin-top:-84px;padding:calc(84px + 9vh) 0 10vh;min-height:92vh;display:flex;align-items:center}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:26%;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+  .aurora{position:absolute;inset:0;pointer-events:none;filter:blur(90px);opacity:.7}
+  .aurora i{position:absolute;border-radius:50%}
+  .aurora i:nth-child(1){width:44vw;height:44vw;left:-10vw;top:-8vw;background:radial-gradient(circle,rgba(90,169,255,.6),transparent 65%);animation:drift1 18s ease-in-out infinite alternate}
+  .aurora i:nth-child(2){width:40vw;height:40vw;right:-8vw;top:6vh;background:radial-gradient(circle,rgba(139,123,255,.65),transparent 65%);animation:drift2 22s ease-in-out infinite alternate}
+  .aurora i:nth-child(3){width:34vw;height:34vw;left:34vw;bottom:-16vw;background:radial-gradient(circle,rgba(255,138,101,.4),transparent 65%);animation:drift1 26s ease-in-out infinite alternate-reverse}
+  @keyframes drift1{to{transform:translate(70px,50px) scale(1.15)}}
+  @keyframes drift2{to{transform:translate(-80px,40px) scale(1.12)}}
+  .hero .wrap{z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;width:100%}
+  .hero h1{font-size:clamp(42px,6.4vw,92px);line-height:.98;margin:14px 0 0}
+  .hero h1 em{background:linear-gradient(100deg,var(--blue) 10%,var(--violet) 55%,var(--gold) 95%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+  .hero p{max-width:46ch;margin:22px 0 24px;color:#cfcabf;font-size:18px}
+  .hero .btn{margin:6px 6px 6px 0}
+  .stamp{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:9px 16px;border:1px dashed rgba(246,201,107,.6);border-radius:99px;color:var(--gold);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .stamp b{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);animation:blink 2.4s ease-in-out infinite}
+  @keyframes blink{50%{opacity:.25}}
+
+  .glass{width:100%;max-width:470px;margin:0 auto;display:block;overflow:visible}
+  .glass .edge{fill:none;stroke:rgba(245,241,232,.55);stroke-width:1.4;stroke-linejoin:round}
+  .glass .face{stroke:none}
+  .glass .beam{stroke:var(--red);stroke-width:3;stroke-linecap:round;filter:drop-shadow(0 0 6px var(--red));animation:pulse 1.6s ease-in-out infinite}
+  .glass .cone{fill:url(#coneg);opacity:.85;animation:pulse 1.6s ease-in-out infinite}
+  .glass .focus{fill:#fff;filter:drop-shadow(0 0 8px #fff) drop-shadow(0 0 22px var(--red));animation:flash 1.6s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.45}}
+  @keyframes flash{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.7)}}
+  .glass .focus{transform-box:fill-box;transform-origin:center}
+  .glass .vox{opacity:0;animation:appear 9s linear infinite}
+  @keyframes appear{0%{opacity:0}4%{opacity:1}88%{opacity:1}100%{opacity:0}}
+
+  /* bands */
+  .band{padding:12vh 0;position:relative;overflow:clip}
+  .mint{background:radial-gradient(70% 70% at 50% 0%,rgba(63,208,182,.13),transparent 70%)}
+  .butter{background:radial-gradient(60% 90% at 0% 50%,rgba(246,201,107,.11),transparent 70%)}
+  .peach{background:radial-gradient(70% 60% at 50% 100%,rgba(139,123,255,.16),transparent 70%)}
+  .sky{background:radial-gradient(60% 60% at 100% 30%,rgba(90,169,255,.13),transparent 70%)}
+  .head{text-align:center;margin-bottom:44px}
+  .head h2{font-size:clamp(34px,4.6vw,62px);line-height:1.04;max-width:18ch;margin:12px auto 14px}
+  .head p{max-width:58ch;margin:0 auto;color:var(--soft)}
+
+  /* the warning that this is a demo */
+  .notice{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;max-width:900px;margin:0 auto;padding:26px 30px;border:1px solid rgba(246,201,107,.4);border-radius:18px;background:linear-gradient(165deg,rgba(246,201,107,.1),rgba(246,201,107,.02)),var(--bg2)}
+  .notice .ic{font-family:var(--serif);font-style:italic;font-size:46px;line-height:1;color:var(--gold)}
+  .notice h3{font-size:24px;margin-bottom:6px}
+  .notice p{color:#d6d0c4}
+  .notice ul{margin:10px 0 0 18px;color:#d6d0c4}
+  .notice li{margin:3px 0}
+
+  /* glass surfaces with a light that follows the cursor */
+  .card{position:relative;overflow:hidden;border:1px solid var(--rule);border-radius:18px;background:linear-gradient(165deg,rgba(255,255,255,.085),rgba(255,255,255,.02)),var(--bg2);padding:28px}
+  .card::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(90,169,255,.24),transparent 62%);opacity:0;transition:opacity .35s;pointer-events:none}
+  .card:hover::before{opacity:1}
+  .card > *{position:relative}
+  .card .n{font-family:var(--serif);font-size:42px;line-height:1;background:linear-gradient(120deg,var(--blue),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+  .card h3{font-size:23px;margin:12px 0 8px;line-height:1.15}
+  .card p{color:var(--soft);font-size:15.5px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+
+  /* media lifetimes */
+  .media{max-width:900px;margin:40px auto 0;border-top:1px solid var(--rule)}
+  .media .row{display:grid;grid-template-columns:170px 1fr 1fr;gap:18px;padding:14px 4px;border-bottom:1px solid var(--rule);align-items:center}
+  .media .row b{font-family:var(--serif);font-size:20px;font-weight:500}
+  .media .row span{color:var(--soft);font-size:15px}
+  .media .bar{height:8px;border-radius:99px;background:rgba(245,241,232,.08);overflow:hidden}
+  .media .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--red),var(--gold))}
+  .media .row.glassrow .bar i{background:linear-gradient(90deg,var(--teal),var(--blue),var(--violet))}
+  .media small{display:block;color:var(--soft);font-size:12.5px;margin-top:10px}
+
+  /* theory: numbered blocks with a diagram each */
+  .theory{display:grid;gap:26px}
+  .tblock{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding:30px 0;border-top:1px solid var(--rule)}
+  .tblock:nth-child(even) .fig{order:2}
+  .tblock h3{font-size:clamp(26px,2.8vw,36px);line-height:1.1;margin:8px 0 12px}
+  .tblock p{color:#cfcabf;margin-bottom:10px}
+  .tblock .k{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:19px}
+  .fig{border:1px solid var(--rule);border-radius:18px;background:var(--bg2);padding:18px;position:relative}
+  .fig svg{width:100%;display:block}
+  .fig figcaption{color:var(--soft);font-size:13px;margin-top:10px;text-align:center}
+  .formula{font-family:var(--mono);font-size:14.5px;background:#05070c;border:1px solid var(--rule);border-radius:12px;padding:14px 16px;margin:12px 0;color:#e8e2d6;line-height:1.8}
+  .formula em{color:var(--teal);font-style:normal}
+  .types{list-style:none;margin:10px 0}
+  .types li{padding:10px 0;border-top:1px solid var(--rule);color:#cfcabf}
+  .types li b{color:var(--ink)}
+  .types li:last-child{border-bottom:1px solid var(--rule)}
+  .types .tag{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;border-radius:99px;padding:2px 9px;margin-right:8px;border:1px solid rgba(245,241,232,.35)}
+
+  /* Silica timeline */
+  .timeline{position:relative;max-width:860px;margin:0 auto;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--blue),var(--violet),var(--gold))}
+  .tl{position:relative;padding:0 0 30px}
+  .tl::before{content:"";position:absolute;left:-31px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--blue);box-shadow:0 0 14px rgba(90,169,255,.6)}
+  .tl .yr{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:22px}
+  .tl h3{font-size:24px;margin:2px 0 6px}
+  .tl p{color:var(--soft);max-width:62ch}
+  .took{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+  .took ul{list-style:none;margin-top:10px}
+  .took li{padding:9px 0;border-top:1px solid var(--rule);color:#cfcabf;font-size:15.5px}
+  .took li b{color:var(--ink)}
+
+  /* the demo */
+  .demo-cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
+  .price{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .price div{border:1px solid var(--rule);border-radius:16px;padding:16px 22px;min-width:240px;text-align:center;background:var(--bg2)}
+  .price b{display:block;font-family:var(--serif);font-size:32px;font-weight:500;color:var(--gold)}
+  .price span{color:var(--soft);font-size:14px}
+
+  /* next steps */
+  .steps{counter-reset:s;max-width:860px;margin:0 auto;list-style:none}
+  .steps li{counter-increment:s;display:grid;grid-template-columns:54px 1fr;gap:14px;padding:16px 0;border-top:1px solid var(--rule)}
+  .steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--serif);font-style:italic;font-size:28px;color:var(--teal);line-height:1.1}
+  .steps li b{display:block;font-family:var(--serif);font-weight:500;font-size:21px;margin-bottom:2px}
+  .steps li span{color:var(--soft)}
+
+  .sources{max-width:860px;margin:0 auto;list-style:none}
+  .sources li{padding:12px 0;border-top:1px solid var(--rule)}
+  .sources a{color:var(--ink);text-decoration:none;font-family:var(--serif);font-size:19px}
+  .sources a:hover{color:var(--teal)}
+  .sources span{display:block;color:var(--soft);font-size:14px}
+
+  .end{text-align:center;padding:15vh 0 17vh;position:relative;overflow:hidden;border-top:1px solid var(--rule)}
+  .end h2{font-size:clamp(36px,5.6vw,78px);line-height:1.02;max-width:15ch;margin:0 auto 26px}
+  .end .aurora{opacity:.45}
+  footer{background:#030408;color:var(--ink);border-top:1px solid var(--rule);padding:26px 28px;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;flex-wrap:wrap;gap:8px 24px}
+  footer img{display:block;width:250px;height:58px;object-fit:cover;mix-blend-mode:lighten}
+  footer a{color:var(--ink);text-decoration:none}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:860px){
+    .hero .wrap,.tblock,.grid2,.took{grid-template-columns:1fr;gap:28px}
+    .tblock:nth-child(even) .fig{order:0}
+    .grid4{grid-template-columns:1fr 1fr}
+    .media .row{grid-template-columns:1fr;gap:6px}
+    header nav a:not(.btn){display:none}
+    header .btn{padding:9px 14px;font-size:11px;margin-left:0}
+    .aurora{filter:blur(60px)}
+    .notice{grid-template-columns:1fr}
+  }
+  @media (max-width:520px){ .grid4{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion: reduce){
+    .aurora i,.glass .beam,.glass .cone,.glass .focus,.stamp b{animation:none}
+    .glass .vox{animation:none;opacity:1}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="h2" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(-52)"><line x1="0" y1="0" x2="0" y2="3.2" stroke="#22201c" stroke-width=".8"/></pattern>
+    <g id="moon"><circle r="30" fill="#fbf5ea" stroke="#22201c" stroke-width="1.6"/><path d="M0-30a30 30 0 0 1 0 60a40 40 0 0 0 0-60z" fill="url(#h2)"/><circle cx="-11" cy="-8" r="5" fill="none" stroke="#22201c" stroke-width="1"/><circle cx="-4" cy="12" r="3.2" fill="none" stroke="#22201c" stroke-width="1"/><circle cx="-17" cy="8" r="2" fill="none" stroke="#22201c" stroke-width="1"/></g>
+  </defs>
+</svg>
+
+<header>
+  <a class="logo" href="index.html"><svg width="26" height="26" viewBox="-37 -37 74 74"><use href="#moon"/></svg>Tiny Moon Labs</a>
+  <nav><a href="index.html">Inicio</a><a href="#porque">Por qué</a><a href="#teoria">Marco teórico</a><a href="#silica">Inspiración</a><a href="#demo">La demo</a><a class="btn" href="grabador-5d/" style="margin-left:22px">Abrir la demo</a></nav>
+</header>
+
+<section class="hero">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Tiny Moon Labs · en el taller · demo de hardware</span>
+      <h1>Datos que duran lo que dura el <em>vidrio.</em></h1>
+      <p>Un láser enfocado dentro de un bloque de vidrio deja puntos microscópicos que guardan bits, y una cámara los vuelve a leer. No necesita energía para conservarse, el agua no lo daña y lo que se escribe no se borra. Esta página explica la idea y lleva a una simulación 3D de cómo podría construirse en Uruguay.</p>
+      <a class="btn" href="grabador-5d/">Abrir la demo</a><a class="btn ghost" href="#teoria">Leer el marco teórico</a>
+      <div><span class="stamp"><b></b>Es una demo · posible proyecto futuro</span></div>
+    </div>
+    <svg class="glass" viewBox="0 0 460 440" role="img" aria-label="Un bloque de vidrio con un haz láser que enfoca en su interior y puntos grabados en capas">
+      <defs>
+        <linearGradient id="coneg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a65" stop-opacity=".05"/><stop offset="1" stop-color="#ff8a65" stop-opacity=".55"/></linearGradient>
+        <linearGradient id="faceL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa9ff" stop-opacity=".16"/><stop offset="1" stop-color="#8b7bff" stop-opacity=".06"/></linearGradient>
+        <linearGradient id="faceR" x1="1" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5aa9ff" stop-opacity=".1"/><stop offset="1" stop-color="#3fd0b6" stop-opacity=".05"/></linearGradient>
+        <linearGradient id="faceT" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#f5f1e8" stop-opacity=".1"/><stop offset="1" stop-color="#5aa9ff" stop-opacity=".14"/></linearGradient>
+      </defs>
+      <!-- caras del bloque -->
+      <path class="face" d="M230 120 L400 200 L230 280 L60 200 Z" fill="url(#faceT)"/>
+      <path class="face" d="M60 200 L230 280 L230 430 L60 350 Z" fill="url(#faceL)"/>
+      <path class="face" d="M230 280 L400 200 L400 350 L230 430 Z" fill="url(#faceR)"/>
+      <!-- voxels en capas (se generan por script) -->
+      <g id="voxels"></g>
+      <!-- haz y foco -->
+      <path class="cone" d="M206 10 L254 10 L232 292 L228 292 Z"/>
+      <line class="beam" x1="230" y1="0" x2="230" y2="150"/>
+      <circle class="focus" cx="230" cy="292" r="6"/>
+      <!-- aristas -->
+      <path class="edge" d="M230 120 L400 200 L400 350 L230 430 L60 350 L60 200 Z"/>
+      <path class="edge" d="M60 200 L230 280 L400 200 M230 280 V430" style="stroke-opacity:.5"/>
+    </svg>
+  </div>
+</section>
+
+<section class="band" style="padding-top:4vh">
+  <div class="wrap">
+    <div class="notice reveal">
+      <div class="ic">!</div>
+      <div>
+        <h3>Esto es una demo, no un producto.</h3>
+        <p>Es una exploración del taller y un posible proyecto futuro de Tiny Moon Labs. Hoy existe como simulación interactiva:</p>
+        <ul>
+          <li>No construimos la máquina todavía y no hay nada a la venta.</li>
+          <li>Los precios son un relevamiento de octubre de 2026 en Uruguay. Algunos son estimados y todos pueden cambiar.</li>
+          <li>Las medidas de la animación están exageradas para que se vean. No es un plano de fabricación.</li>
+          <li>No tenemos relación con Microsoft ni con la Universidad de Southampton: citamos su trabajo publicado.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band mint" id="porque">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Por qué hace falta</span>
+      <h2>Guardamos más que nunca, en medios que duran menos que nosotros.</h2>
+      <p>Casi todo lo digital vive en discos, cintas y memorias que se degradan. Para no perder los datos hay que copiarlos cada pocos años, para siempre. El archivo es justo lo que casi nunca se lee pero no se puede perder.</p>
+    </div>
+    <div class="grid4">
+      <div class="card reveal"><div class="n">i.</div><h3>Lo digital se borra solo</h3><p>Un disco rígido se cambia cada pocos años. La cinta aguanta más, pero exige migrar de generación. Una memoria flash guardada sin corriente va perdiendo carga.</p></div>
+      <div class="card reveal"><div class="n">ii.</div><h3>Migrar no termina nunca</h3><p>Cada copia cuesta energía, equipos y horas, y es una oportunidad de error. El costo de un archivo no es guardarlo: es mantenerlo vivo.</p></div>
+      <div class="card reveal"><div class="n">iii.</div><h3>Hay cosas que deben durar siglos</h3><p>Escrituras y protocolos notariales, historias clínicas, archivos públicos, patrimonio cultural, datos científicos, las claves de una empresa.</p></div>
+      <div class="card reveal"><div class="n">iv.</div><h3>El vidrio no pide cuidados</h3><p>No necesita energía para conservar, no le afectan los campos magnéticos ni el agua, aguanta temperaturas muy altas y lo escrito no se puede borrar ni alterar sin que se note.</p></div>
+    </div>
+    <div class="media reveal" aria-label="Vida útil orientativa de cada medio">
+      <div class="row"><b>Disco rígido</b><div class="bar"><i style="width:6%"></i></div><span>años de servicio, con energía y reemplazos</span></div>
+      <div class="row"><b>Cinta magnética</b><div class="bar"><i style="width:16%"></i></div><span>décadas, migrando de generación de lector</span></div>
+      <div class="row"><b>Memoria flash</b><div class="bar"><i style="width:4%"></i></div><span>pierde carga si queda sin alimentación</span></div>
+      <div class="row glassrow"><b>Vidrio grabado</b><div class="bar"><i style="width:100%"></i></div><span>miles de años según ensayos de envejecimiento acelerado</span></div>
+      <small>Escala ilustrativa, no lineal. Las cifras del vidrio son extrapolaciones de laboratorio (ver fuentes al final).</small>
+    </div>
+    <p class="reveal" style="max-width:66ch;margin:40px auto 0;text-align:center;color:#d6d0c4;font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.45">Y una razón nuestra: Friday escribe todos los días en su cuaderno. Los modelos generan memoria. Parte de esa memoria tendría que durar más que el disco donde vive.</p>
+  </div>
+</section>
+
+<section class="band sky" id="teoria">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Marco teórico</span>
+      <h2>Cómo se escribe un bit dentro del vidrio.</h2>
+      <p>Cuatro ideas alcanzan para entenderlo: la luz solo actúa donde se concentra, esa marca puede tener forma y orientación, se lee con luz polarizada, y el vidrio es casi eterno.</p>
+    </div>
+    <div class="theory">
+
+      <div class="tblock reveal">
+        <div>
+          <span class="k">1 · Absorción no lineal</span>
+          <h3>La luz atraviesa el vidrio, salvo en un punto.</h3>
+          <p>El vidrio es transparente a la luz del láser. Pero un pulso de femtosegundos (una milbillonésima de segundo) enfocado con un objetivo de microscopio concentra tanta intensidad en el foco que el material absorbe varios fotones a la vez solo ahí.</p>
+          <p>Fuera del foco no pasa nada, así que se puede modificar un punto microscópico en lo profundo del bloque sin tocar la superficie. Ese punto es un <b>voxel</b>, un píxel en tres dimensiones, y moviendo el foco se escriben capas una debajo de otra.</p>
+        </div>
+        <figure class="fig">
+          <svg viewBox="0 0 420 260" aria-hidden="true">
+            <defs><linearGradient id="c2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff8a65" stop-opacity=".08"/><stop offset="1" stop-color="#ff8a65" stop-opacity=".6"/></linearGradient>
+              <radialGradient id="hot"><stop offset="0" stop-color="#fff"/><stop offset=".35" stop-color="#ffcf9f"/><stop offset="1" stop-color="#ff8a65" stop-opacity="0"/></radialGradient></defs>
+            <rect x="30" y="110" width="360" height="130" rx="6" fill="rgba(90,169,255,.08)" stroke="rgba(245,241,232,.45)"/>
+            <text x="38" y="230" fill="#a9a59b" font-size="12" font-family="Karla">vidrio</text>
+            <path d="M150 20 H270 L212 178 H208 Z" fill="url(#c2)"/>
+            <rect x="140" y="12" width="140" height="14" rx="7" fill="#1b2230" stroke="rgba(245,241,232,.4)"/>
+            <text x="292" y="23" fill="#a9a59b" font-size="12" font-family="Karla">objetivo</text>
+            <circle cx="210" cy="178" r="20" fill="url(#hot)"/>
+            <circle cx="210" cy="178" r="3.5" fill="#fff"/>
+            <path d="M240 178 H330" stroke="#f6c96b" stroke-dasharray="3 4"/>
+            <text x="336" y="182" fill="#f6c96b" font-size="12" font-family="Karla">foco ≈ 1 µm</text>
+            <g fill="#5aa9ff" opacity=".7"><circle cx="110" cy="208" r="2.5"/><circle cx="130" cy="208" r="2.5"/><circle cx="150" cy="208" r="2.5"/><circle cx="270" cy="208" r="2.5"/><circle cx="290" cy="208" r="2.5"/><circle cx="310" cy="208" r="2.5"/></g>
+            <text x="94" y="196" fill="#a9a59b" font-size="11" font-family="Karla">capa ya escrita</text>
+          </svg>
+          <figcaption>Solo en el foco hay intensidad suficiente para modificar el vidrio.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tblock reveal">
+        <div>
+          <span class="k">2 · Tres tipos de marca</span>
+          <h3>Según la energía y la duración del pulso, el vidrio cambia de distinta forma.</h3>
+          <ul class="types">
+            <li><span class="tag">Tipo I</span><b>Cambio suave del índice de refracción.</b> Es la base de las guías de luz escritas con láser, y un principio cercano al de los "voxels de fase" más recientes.</li>
+            <li><span class="tag" style="border-color:var(--teal);color:var(--teal)">Tipo II</span><b>Nanorrejillas birrefringentes</b> que se ordenan solas, perpendiculares a la polarización del láser. Son la base del almacenamiento 5D.</li>
+            <li><span class="tag" style="border-color:var(--red);color:var(--red)">Tipo III</span><b>Microvacíos y fisuras.</b> Es lo que hacen los láseres de nanosegundos de los souvenirs de cristal 3D, y lo que usa la versión económica de la demo.</li>
+          </ul>
+        </div>
+        <figure class="fig">
+          <svg viewBox="0 0 420 240" aria-hidden="true">
+            <g font-family="Karla" font-size="12" fill="#a9a59b">
+              <circle cx="80" cy="110" r="38" fill="rgba(90,169,255,.18)" stroke="rgba(90,169,255,.6)"/>
+              <text x="80" y="176" text-anchor="middle">Tipo I · índice</text>
+              <g transform="translate(210 110)">
+                <ellipse rx="40" ry="40" fill="rgba(63,208,182,.1)" stroke="rgba(63,208,182,.6)"/>
+                <g stroke="#3fd0b6" stroke-width="2.2" transform="rotate(30)"><line x1="-26" y1="-24" x2="-26" y2="24"/><line x1="-16" y1="-32" x2="-16" y2="32"/><line x1="-6" y1="-36" x2="-6" y2="36"/><line x1="4" y1="-36" x2="4" y2="36"/><line x1="14" y1="-32" x2="14" y2="32"/><line x1="24" y1="-26" x2="24" y2="26"/></g>
+              </g>
+              <text x="210" y="176" text-anchor="middle">Tipo II · nanorrejilla</text>
+              <g transform="translate(340 110)" stroke="#ff8a65" stroke-width="2" fill="none">
+                <path d="M-6-30 L4-12 L-10 2 L6 18 L-2 32"/><path d="M4-12 L22-18"/><path d="M-10 2 L-28 8"/><path d="M6 18 L24 26"/>
+                <circle r="5" fill="#ff8a65" fill-opacity=".5"/>
+              </g>
+              <text x="340" y="176" text-anchor="middle">Tipo III · microfisura</text>
+              <text x="210" y="222" text-anchor="middle" fill="#f6c96b">la orientación de la rejilla sigue a la polarización del láser</text>
+            </g>
+          </svg>
+          <figcaption>Más energía o pulsos más largos pasan de un tipo al siguiente.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tblock reveal">
+        <div>
+          <span class="k">3 · Las cinco dimensiones</span>
+          <h3>Un voxel guarda más de un bit si tiene orientación e intensidad.</h3>
+          <p>Las tres primeras dimensiones son la posición X, Y, Z. Las otras dos salen de la nanorrejilla: la <b>orientación de su eje lento θ</b>, que la fija la polarización del láser al escribir, y la <b>retardancia δ</b>, cuánto desfasa la luz, que la fija la energía del pulso.</p>
+          <p>En la demo se usan 4 orientaciones y 2 niveles de retardancia, o sea 3 bits por voxel. Microsoft llegó a codificar 8 orientaciones por voxel.</p>
+          <div class="formula">bits por voxel = log₂(<em>orientaciones</em> × <em>niveles de δ</em>) = log₂(4 × 2) = 3</div>
+        </div>
+        <figure class="fig">
+          <svg viewBox="0 0 420 250" aria-hidden="true" id="fiveD"></svg>
+          <figcaption>Cada color es una orientación; el tamaño, la retardancia.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tblock reveal">
+        <div>
+          <span class="k">4 · Lectura por polarización</span>
+          <h3>Una cámara, un filtro que gira y cuatro fotos.</h3>
+          <p>Debajo del vidrio hay luz polarizada en forma circular, y delante de la cámara, un analizador que gira. Con fotos a 0°, 45°, 90° y 135° se calcula, para cada voxel, hacia dónde apunta y cuánto desfasa la luz:</p>
+          <div class="formula">θ = ½ · atan2(<em>I₄₅</em> − <em>I₁₃₅</em>, <em>I₀</em> − <em>I₉₀</em>)<br>δ ∝ √((<em>I₀</em> − <em>I₉₀</em>)² + (<em>I₄₅</em> − <em>I₁₃₅</em>)²)</div>
+          <p>Leer es solo mirar: no hay contacto ni desgaste. Microsoft además decodifica las imágenes con aprendizaje automático, y en su trabajo más reciente lo hace con una sola cámara.</p>
+        </div>
+        <figure class="fig">
+          <svg viewBox="0 0 420 230" aria-hidden="true">
+            <g font-family="Karla" font-size="12" fill="#a9a59b">
+              <rect x="20" y="96" width="44" height="40" rx="6" fill="#f6c96b" fill-opacity=".85"/><text x="42" y="156" text-anchor="middle">luz</text>
+              <line x1="64" y1="116" x2="372" y2="116" stroke="#f6c96b" stroke-opacity=".5" stroke-width="2"/>
+              <rect x="92" y="86" width="8" height="60" fill="#8b7bff" fill-opacity=".8"/><text x="96" y="168" text-anchor="middle">polarizador</text><text x="96" y="182" text-anchor="middle">circular</text>
+              <rect x="140" y="70" width="80" height="92" rx="6" fill="rgba(90,169,255,.12)" stroke="rgba(245,241,232,.45)"/>
+              <g fill="#3fd0b6"><ellipse cx="166" cy="100" rx="4" ry="9" transform="rotate(30 166 100)"/><ellipse cx="192" cy="118" rx="4" ry="9" transform="rotate(-45 192 118)"/><ellipse cx="170" cy="138" rx="4" ry="9"/></g>
+              <text x="180" y="182" text-anchor="middle">vidrio</text>
+              <g transform="translate(262 116)"><circle r="26" fill="none" stroke="#5aa9ff" stroke-width="2"/><line x1="-22" y1="0" x2="22" y2="0" stroke="#5aa9ff" stroke-width="2"><animateTransform attributeName="transform" type="rotate" values="0;45;90;135;180" keyTimes="0;.25;.5;.75;1" dur="4s" calcMode="discrete" repeatCount="indefinite"/></line></g>
+              <text x="262" y="168" text-anchor="middle">analizador</text><text x="262" y="182" text-anchor="middle">0 · 45 · 90 · 135°</text>
+              <rect x="316" y="94" width="58" height="44" rx="7" fill="#1b2230" stroke="rgba(245,241,232,.45)"/><circle cx="345" cy="116" r="10" fill="#0c101a" stroke="#5aa9ff"/><text x="345" y="160" text-anchor="middle">cámara</text>
+            </g>
+          </svg>
+          <figcaption>Cuatro intensidades por voxel alcanzan para recuperar θ y δ.</figcaption>
+        </figure>
+      </div>
+
+      <div class="tblock reveal">
+        <div>
+          <span class="k">5 · Por qué el vidrio dura</span>
+          <h3>Un material que ya es estable a escala geológica.</h3>
+          <p>La sílice fundida casi no reacciona con el ambiente y las nanorrejillas son estables hasta temperaturas muy altas. En 2016, la Universidad de Southampton informó estabilidad térmica hasta 1.000 °C y una vida útil extrapolada de 13.800 millones de años a 190 °C.</p>
+          <p>Microsoft, con vidrio borosilicato común, estima al menos 10.000 años a partir de ensayos de envejecimiento acelerado. Son extrapolaciones de laboratorio, no mediciones directas, pero en cualquier escenario superan por órdenes de magnitud a cualquier medio magnético.</p>
+        </div>
+        <figure class="fig">
+          <svg viewBox="0 0 420 220" aria-hidden="true">
+            <g font-family="Karla" font-size="12" fill="#a9a59b">
+              <line x1="30" y1="170" x2="400" y2="170" stroke="rgba(245,241,232,.35)"/>
+              <g fill="#ff8a65"><rect x="44" y="150" width="34" height="20" rx="3"/><rect x="104" y="138" width="34" height="32" rx="3"/><rect x="164" y="160" width="34" height="10" rx="3"/></g>
+              <rect x="244" y="32" width="34" height="138" rx="3" fill="url(#vg)"/>
+              <rect x="320" y="12" width="34" height="158" rx="3" fill="url(#vg)" opacity=".7"/>
+              <defs><linearGradient id="vg" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#3fd0b6"/><stop offset="1" stop-color="#8b7bff"/></linearGradient></defs>
+              <text x="61" y="190" text-anchor="middle">disco</text><text x="121" y="190" text-anchor="middle">cinta</text><text x="181" y="190" text-anchor="middle">flash</text>
+              <text x="261" y="190" text-anchor="middle">vidrio</text><text x="261" y="204" text-anchor="middle" font-size="10.5">≥10.000 años</text>
+              <text x="337" y="190" text-anchor="middle">sílice</text><text x="337" y="204" text-anchor="middle" font-size="10.5">extrapolado</text>
+              <text x="30" y="24" fill="#f6c96b">escala logarítmica, orientativa</text>
+            </g>
+          </svg>
+          <figcaption>Vida útil orientativa en escala logarítmica.</figcaption>
+        </figure>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="band butter" id="silica">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Inspiración</span>
+      <h2>Microsoft Project Silica.</h2>
+      <p>La idea no es nuestra. Microsoft Research lleva años construyendo un sistema de archivo en vidrio a escala de nube, sobre la base académica de Southampton. Esta demo es un intento de llevar ese camino a escala de taller.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl reveal"><span class="yr">2016</span><h3>Southampton presenta el almacenamiento 5D</h3><p>Nanoestructuras escritas con láser de femtosegundos en sílice fundida, con posición, tamaño y orientación como dimensiones. Anuncian 360 TB por disco, estabilidad hasta 1.000 °C y una vida útil extrapolada en miles de millones de años.</p></div>
+      <div class="tl reveal"><span class="yr">2019</span><h3>Superman, guardado en vidrio</h3><p>Microsoft y Warner Bros. graban la película <i>Superman</i> (1978) en una placa de vidrio de cuarzo de 75 × 75 × 2 mm, como prueba de concepto de Project Silica.</p></div>
+      <div class="tl reveal"><span class="yr">2023</span><h3>Un sistema de archivo para la nube</h3><p>En el congreso SOSP, Microsoft presenta Silica como el primer sistema de almacenamiento en la nube para archivo construido sobre vidrio de cuarzo: placas del tamaño de un DVD con cientos de capas de voxels, y hardware y software diseñados juntos a partir de la carga real de archivo de una nube pública. En 2025 sale una versión ampliada en <i>ACM Transactions on Storage</i>.</p></div>
+      <div class="tl reveal"><span class="yr">2026</span><h3>Vidrio común y voxels de fase</h3><p>En <i>Nature</i>, el equipo pasa a vidrio borosilicato, el mismo de la vajilla de cocina, más barato y fácil de conseguir. Agrega "voxels de fase" escritos con un solo pulso y lectura con una sola cámara. Reporta varios terabytes en una placa de 2 mm y al menos 10.000 años de duración estimada.</p></div>
+    </div>
+    <div class="took">
+      <div class="card reveal"><h3>Lo que tomamos</h3><ul>
+        <li><b>Escribir una vez, leer siempre.</b> El archivo no se reescribe: se agrega.</li>
+        <li><b>Leer sin tocar.</b> Una cámara y luz polarizada, en el mismo eje que el láser.</li>
+        <li><b>Decodificar con estadística.</b> El ruido se corrige al leer, no al grabar.</li>
+        <li><b>Pensar el sistema entero</b>, no solo el material.</li>
+      </ul></div>
+      <div class="card reveal"><h3>Lo que cambiamos</h3><ul>
+        <li><b>Escala de taller:</b> una máquina de tres ejes con perfiles de aluminio y piezas que se consiguen en Uruguay.</li>
+        <li><b>Una versión económica:</b> láser de fibra de nanosegundos y codificación por posición y tamaño, de 1 a 3 bits por celda con el mismo hardware.</li>
+        <li><b>Otro uso:</b> pocos datos y mucho valor, como claves, escrituras, testamentos o índices de archivos, en lugar de petabytes.</li>
+        <li><b>Desde el sur:</b> pensado para archivos y costos de la región.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="band peach" id="demo">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">La demo</span>
+      <h2>Una máquina que todavía no existe, armada pieza por pieza.</h2>
+      <p>Una simulación 3D interactiva hecha en el navegador. Funciona mejor en una computadora.</p>
+    </div>
+    <div class="grid4">
+      <div class="card reveal"><div class="n">i.</div><h3>La máquina en 3D</h3><p>Pórtico de tres ejes, cabezal óptico, láser y electrónica. Puedes orbitar, marcar y aislar cada pieza, o abrirla en despiece.</p></div>
+      <div class="card reveal"><div class="n">ii.</div><h3>Grabar y leer</h3><p>Escribe un mensaje: la máquina lo graba voxel a voxel y lo valida con la cámara. Hay modo 5D y modo económico de 1 a 3 bits, con consola G-code y ruido configurable.</p></div>
+      <div class="card reveal"><div class="n">iii.</div><h3>Piezas y precios</h3><p>Lista completa con tornillería y cables, links y precios relevados en Uruguay, en pesos y en dólares.</p></div>
+      <div class="card reveal"><div class="n">iv.</div><h3>Armado y calibración</h3><p>El modelo económico se arma desde cero, tornillo a tornillo, en 22 pasos, y se calibra en 8 más hasta una prueba final.</p></div>
+    </div>
+    <div class="price reveal">
+      <div><b>≈ US$ 2.300</b><span>3D económico · láser de fibra</span></div>
+      <div><b>≈ US$ 52.000</b><span>5D real · casi todo es el láser de femtosegundos usado</span></div>
+    </div>
+    <p class="reveal" style="text-align:center;color:var(--soft);font-size:14px;margin-top:12px">Relevamiento de octubre de 2026, con óptica genérica y sin flete ni impuestos de importación.</p>
+    <div class="demo-cta reveal"><a class="btn" href="grabador-5d/">Abrir la demo</a><a class="btn ghost" href="#siguiente">Qué falta para que sea real</a></div>
+  </div>
+</section>
+
+<section class="band" id="siguiente">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Estado · posible proyecto futuro</span>
+      <h2>Lo que haría falta para pasar de la pantalla al banco.</h2>
+      <p>Hoy no hay fecha ni compromiso. Si el proyecto avanza, iría en este orden y lo mostraríamos acá, como todo lo del taller.</p>
+    </div>
+    <ol class="steps">
+      <li class="reveal"><div><b>Validar con un cubo de prueba</b><span>Grabar una grilla con las 4 posiciones y 2 energías en un local de grabado de cristal 3D de Montevideo, sin comprar el láser.</span></div></li>
+      <li class="reveal"><div><b>Medir el error de lectura</b><span>Fotografiar la grilla con una cámara de microscopio y calcular cuántos bits se leen mal en cada codificación.</span></div></li>
+      <li class="reveal"><div><b>Construir la versión económica</b><span>La máquina de tres ejes con láser de fibra: unos US$ 2.300 en piezas.</span></div></li>
+      <li class="reveal"><div><b>Escribir algo que importe</b><span>Un archivo real, con corrección de errores, y releerlo meses después.</span></div></li>
+      <li class="reveal"><div><b>Solo si todo lo anterior funciona</b><span>Buscar socios para el 5D con láser de femtosegundos.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band" style="padding-top:2vh">
+  <div class="wrap">
+    <div class="head reveal" style="margin-bottom:24px"><span class="eyebrow">Fuentes</span></div>
+    <ul class="sources">
+      <li class="reveal"><a href="https://www.microsoft.com/en-us/research/project/project-silica/" target="_blank" rel="noopener">Microsoft Research — Project Silica ↗</a><span>Página del proyecto.</span></li>
+      <li class="reveal"><a href="https://www.microsoft.com/en-us/research/uploads/prod/2023/09/ProjectSilica-SOSP23.pdf" target="_blank" rel="noopener">Project Silica: Towards Sustainable Cloud Archival Storage in Glass (SOSP 2023) ↗</a><span>Anderson, Black, Rowstron y otros. Versión ampliada en ACM Transactions on Storage, 2025.</span></li>
+      <li class="reveal"><a href="https://www.microsoft.com/en-us/research/blog/project-silicas-advances-in-glass-storage-technology/" target="_blank" rel="noopener">Project Silica's advances in glass storage technology ↗</a><span>Microsoft Research, sobre el trabajo publicado en Nature en 2026.</span></li>
+      <li class="reveal"><a href="https://www.orc.soton.ac.uk/news/5108" target="_blank" rel="noopener">Optoelectronics Research Centre — 5D data storage ↗</a><span>Universidad de Southampton, 2016.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="end">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap"><h2>Lo que importa, escrito en vidrio.</h2><a class="btn" href="grabador-5d/">Abrir la demo</a> &nbsp; <a class="btn ghost" href="index.html#productos">Volver al Lab</a></div>
+</section>
+<footer><span><a href="index.html">Tiny Moon Labs</a> — Montevideo, Uruguay</span><img src="LATAM%20e-acc.jfif" alt="Latam Accelerationism" width="250" height="58"><span>Demo · posible proyecto futuro · octubre 2026</span></footer>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NS = 'http://www.w3.org/2000/svg';
+  const COLORS = ['#3fd0b6', '#f6c96b', '#8b7bff', '#5aa9ff'];
+
+  // hero: voxels que aparecen en capas dentro del bloque (proyección isométrica)
+  const g = document.getElementById('voxels');
+  const iso = (x, y, z) => [230 + (x - y) * 17, 200 + (x + y) * 8 + z]; // x,y en celdas, z en px de altura
+  let k = 0;
+  for (let layer = 0; layer < 3; layer++) for (let i = 0; i < 6; i++) for (let j = 0; j < 6; j++) {
+    if ((i * 7 + j * 3 + layer * 5) % 4 === 0) continue;
+    const [px, py] = iso(i - 2.5, j - 2.5, 108 + layer * 34);
+    const c = document.createElementNS(NS, 'ellipse');
+    c.setAttribute('cx', px.toFixed(1)); c.setAttribute('cy', py.toFixed(1));
+    c.setAttribute('rx', 2.6); c.setAttribute('ry', 4.2);
+    c.setAttribute('fill', COLORS[(i + j * 2 + layer) % 4]);
+    c.setAttribute('class', 'vox');
+    c.style.animationDelay = (k++ * 0.085).toFixed(2) + 's';
+    c.style.filter = 'drop-shadow(0 0 3px ' + COLORS[(i + j * 2 + layer) % 4] + ')';
+    g.appendChild(c);
+  }
+
+  // diagrama 5D: grilla de voxels con orientación (color) y retardancia (tamaño)
+  const f = document.getElementById('fiveD');
+  const add = (tag, attrs, parent) => { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); (parent || f).appendChild(e); return e; };
+  add('rect', { x: 20, y: 20, width: 240, height: 210, rx: 10, fill: 'rgba(90,169,255,.06)', stroke: 'rgba(245,241,232,.3)' });
+  for (let r = 0; r < 5; r++) for (let c = 0; c < 6; c++) {
+    const ori = (r * 3 + c * 2 + (r * c) % 3) % 4, ret = (r + c) % 2;
+    const cx = 48 + c * 38, cy = 50 + r * 40;
+    const e = add('ellipse', { cx, cy, rx: 4 + ret * 2, ry: 11 + ret * 4, fill: COLORS[ori], transform: `rotate(${ori * 45} ${cx} ${cy})`, opacity: .9 });
+    if (!reduce) { e.style.transition = 'opacity .4s'; }
+  }
+  const leg = add('g', { 'font-family': 'Karla', 'font-size': 12, fill: '#a9a59b' });
+  ['0°', '45°', '90°', '135°'].forEach((t, i) => {
+    add('ellipse', { cx: 300, cy: 46 + i * 30, rx: 4, ry: 11, fill: COLORS[i], transform: `rotate(${i * 45} 300 ${46 + i * 30})` }, leg);
+    const tx = add('text', { x: 320, y: 50 + i * 30 }, leg); tx.textContent = 'θ = ' + t;
+  });
+  add('ellipse', { cx: 300, cy: 178, rx: 4, ry: 11, fill: '#d8d3c8' }, leg);
+  add('ellipse', { cx: 300, cy: 212, rx: 6, ry: 15, fill: '#d8d3c8' }, leg);
+  const t1 = add('text', { x: 320, y: 182 }, leg); t1.textContent = 'δ baja';
+  const t2 = add('text', { x: 320, y: 216 }, leg); t2.textContent = 'δ alta';
+
+  // aparición suave al hacer scroll
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach((el) => (reduce ? el.classList.add('in') : io.observe(el)));
+
+  // la luz dentro de cada tarjeta sigue al cursor
+  document.querySelectorAll('.card').forEach((el) => el.addEventListener('pointermove', (e) => {
+    const r = el.getBoundingClientRect(); el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+})();
+</script>
+</body>
+</html>

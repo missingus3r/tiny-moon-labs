@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tiny Moon Labs — productos para la era de los modelos</title>
 <meta name="description" content="Tiny Moon Labs es un laboratorio de Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA: Friday, un asistente personal sobre Claude Code, y Capsule, una red libre y descentralizada para compartir archivos y publicar sitios.">
-<meta name="keywords" content="Tiny Moon Labs, TML, inteligencia artificial, IA, LLM, modelos de lenguaje, agentes de IA, asistente personal, Claude Code, Friday, Capsule, AA Tube, AA Disney, Android Auto, red descentralizada, código abierto, open source, Uruguay, Montevideo, Latinoamérica">
+<meta name="keywords" content="Tiny Moon Labs, TML, inteligencia artificial, IA, LLM, modelos de lenguaje, agentes de IA, asistente personal, Claude Code, Friday, Capsule, AA Tube, AA Disney, Android Auto, archivo en vidrio, almacenamiento en vidrio, Project Silica, red descentralizada, código abierto, open source, Uruguay, Montevideo, Latinoamérica">
 <meta name="author" content="Tiny Moon Labs">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="theme-color" content="#07090f">
@@ -128,6 +128,19 @@
    "sameAs": [
     "https://github.com/missingus3r/aa-disney"
    ],
+   "publisher": {
+    "@id": "https://tinymoonlabs.com/#org"
+   }
+  },
+  {
+   "@type": "WebApplication",
+   "name": "Archivo en vidrio",
+   "url": "https://tinymoonlabs.com/vidrio.html",
+   "applicationCategory": "EducationalApplication",
+   "operatingSystem": "Web",
+   "isAccessibleForFree": true,
+   "description": "Demo y posible proyecto futuro: simulación 3D interactiva de una máquina para grabar datos dentro de vidrio con un láser y leerlos con una cámara, inspirada en Microsoft Project Silica, con lista de partes y precios en Uruguay y el armado paso a paso.",
+   "image": "https://tinymoonlabs.com/grabador-5d/favicon.svg",
    "publisher": {
     "@id": "https://tinymoonlabs.com/#org"
    }
@@ -351,6 +364,12 @@
   .prod.aatube li::before{background:#ff3b30}
   .prod.aadisney li::before{background:#7fd8ff}
   .prod .cta{align-self:end;display:flex;flex-wrap:wrap;gap:8px}
+  /* en el taller: un proyecto que todavía es demo, debajo de la grilla de productos que ya funcionan */
+  .lab-next{margin-top:48px;text-align:center}
+  .proj.wide{margin-top:14px;display:grid;grid-template-columns:auto 1fr auto;gap:26px;align-items:center;color:var(--ink);text-decoration:none;text-align:left}
+  .proj.wide h3{margin-top:12px}
+  .proj.wide p{max-width:68ch}
+  .glassmark{width:86px;height:86px;filter:drop-shadow(0 0 18px rgba(90,169,255,.35))}
 
   /* menciones: two rails of clippings drifting in opposite directions */
   .press{padding:11vh 0 12vh;border-top:1px solid var(--rule);overflow:hidden;background:radial-gradient(60% 50% at 50% 0%,rgba(90,169,255,.12),transparent 70%)}
@@ -418,6 +437,7 @@
     .way:nth-of-type(even) .art{order:0}
     .trio,.shelf,.duo{grid-template-columns:1fr}
     .prod{padding:26px 22px 24px}
+    .proj.wide{grid-template-columns:1fr;gap:14px}
     .clip{width:264px}
     header nav a:not(.btn){display:none}
     header .btn{padding:9px 14px;font-size:11px;margin-left:0}
@@ -452,7 +472,7 @@
 
 <header>
   <div class="logo"><svg width="26" height="26" viewBox="-37 -37 74 74"><use href="#moon"/></svg>Tiny Moon Labs</div>
-  <nav><a href="#etapa">La etapa</a><a href="#productos">Productos</a><a href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Friday</a><a href="#latam">Latinoamérica</a><a href="#ask">Preguntas</a><a class="btn" href="#seat" style="margin-left:22px">Pedir un lugar</a></nav>
+  <nav><a href="#etapa">La etapa</a><a href="#productos">Productos</a><a href="vidrio.html">Vidrio</a><a href="https://github.com/missingus3r/friday-showcase" target="_blank" rel="noopener">Friday</a><a href="#latam">Latinoamérica</a><a href="#ask">Preguntas</a><a class="btn" href="#seat" style="margin-left:22px">Pedir un lugar</a></nav>
 </header>
 
 <section class="hero">
@@ -526,6 +546,15 @@
         </ul>
         <div class="cta"><a class="btn" href="https://github.com/missingus3r/aa-disney" target="_blank" rel="noopener">Repositorio</a></div>
       </article>
+    </div>
+    <!-- en el taller: todavía no es un producto, por eso va aparte de la grilla de los que ya funcionan -->
+    <div class="lab-next">
+      <span class="eyebrow">Y en el taller</span>
+      <a class="proj wide" href="vidrio.html">
+        <svg class="glassmark" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 17 L53 29 V50 L32 62 L11 50 V29 Z" fill="rgba(90,169,255,.12)" stroke="#5aa9ff" stroke-width="2" stroke-linejoin="round"/><path d="M11 29 L32 41 L53 29 M32 41 V62" fill="none" stroke="#5aa9ff" stroke-width="1.2" stroke-opacity=".6"/><circle cx="22" cy="43" r="2.6" fill="#3fd0b6"/><circle cx="42" cy="43" r="2.6" fill="#f6c96b"/><circle cx="32" cy="51" r="2.6" fill="#8b7bff"/><path d="M32 2 V31" stroke="#ff8a65" stroke-width="2.6" stroke-linecap="round"/><circle cx="32" cy="33" r="2.6" fill="#fff"/></svg>
+        <div><span class="state idea">Demo · posible proyecto futuro</span><h3>Archivo en vidrio</h3><p>Un experimento de hardware: grabar datos dentro de un cubo de vidrio con un láser y leerlos con una cámara, inspirado en Microsoft Project Silica. Todavía no es un producto: es una simulación 3D interactiva, con la máquina, sus piezas y precios en Uruguay y el armado paso a paso.</p></div>
+        <span class="btn ghost">Ver el proyecto</span>
+      </a>
     </div>
   </div>
 </section>
@@ -752,6 +781,7 @@
   gsap.from('.sky .ln', {drawSVG:'0%', duration:1.4, ease:'power2.inOut', stagger:.18, scrollTrigger:{trigger:'.sky', start:'top 76%'}});
   gsap.from('.sky .city', {opacity:0, stagger:.1, duration:.6, scrollTrigger:{trigger:'.sky', start:'top 76%'}});
   gsap.from('.prod', {y:46, opacity:0, stagger:.14, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.duo', start:'top 82%'}});
+  gsap.from('.lab-next > *', {y:36, opacity:0, stagger:.12, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.lab-next', start:'top 88%'}});
   gsap.from('.press .head > *', {y:22, opacity:0, stagger:.09, duration:.8, ease:'power3.out', scrollTrigger:{trigger:'.press', start:'top 75%'}});
   gsap.from('.rail', {y:30, opacity:0, stagger:.15, duration:.9, ease:'power3.out', scrollTrigger:{trigger:'.rail', start:'top 88%'}});
   gsap.from('.faq details', {y:16, opacity:0, stagger:.08, duration:.6, scrollTrigger:{trigger:'.faq', start:'top 84%'}});

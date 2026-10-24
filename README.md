@@ -22,9 +22,15 @@ Tiny Moon Labs es un lab con base en Montevideo, Uruguay, que construye producto
 
 Todos los productos, reunidos en un solo lugar: [tml-the-hub](https://github.com/missingus3r/tml-the-hub).
 
+## En el taller
+
+- **[Archivo en vidrio](https://tinymoonlabs.com/vidrio.html)**: demo y posible proyecto futuro, no un producto. Una simulación 3D de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. [Abrir la demo](https://tinymoonlabs.com/grabador-5d/)
+
 ## Archivos
 
 - `index.html`: la página completa.
+- `vidrio.html`: la página del proyecto "Archivo en vidrio": marco teórico, inspiración en Project Silica y aviso de que es una demo.
+- `grabador-5d/`: la demo 3D (Three.js, sin compilar). Es una copia: el original se edita aparte y se vuelve a copiar acá.
 - `menciones.json`: las menciones externas que muestra la sección "Otros también hablan del Lab". Para sumar una, se agrega un objeto con `titulo`, `etiqueta`, `resumen`, `url`, `descripcion` y, si se conoce, `fecha`.
 - `robots.txt`, `sitemap.xml`, `llms.txt` y `llms-full.txt`: para buscadores, agentes y servicios de IA.
 

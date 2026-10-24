@@ -11,6 +11,10 @@ Sitio: https://tinymoonlabs.com — también en https://tml.uy y https://tml.com
 - [AA Tube](https://github.com/missingus3r/aa-tube): app para Android que muestra YouTube en la pantalla de Android Auto, con la cuenta del usuario, para usar con el auto estacionado; al moverse el auto, Android Auto cierra la pantalla y el audio sigue. Código: https://github.com/missingus3r/aa-tube
 - [AA Disney](https://github.com/missingus3r/aa-disney): app para Android que muestra Disney+ en la pantalla de Android Auto, con la cuenta del usuario y el video protegido con DRM, para usar con el auto estacionado. Código: https://github.com/missingus3r/aa-disney
 
+## En el taller (demos, no son productos)
+
+- [Archivo en vidrio](https://tinymoonlabs.com/vidrio.html): demo y posible proyecto futuro. Simulación 3D interactiva de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. Incluye marco teórico, lista de partes con precios en Uruguay y el armado paso a paso. No hay máquina construida ni nada a la venta. Demo: https://tinymoonlabs.com/grabador-5d/
+
 ## Repositorios
 
 - [tml-the-hub](https://github.com/missingus3r/tml-the-hub): índice de todos los productos del Lab, con cada uno como submódulo de git.
