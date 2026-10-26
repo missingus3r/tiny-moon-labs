@@ -25,12 +25,15 @@ Todos los productos, reunidos en un solo lugar: [tml-the-hub](https://github.com
 ## En el taller
 
 - **[Archivo en vidrio](https://tinymoonlabs.com/vidrio.html)**: demo y posible proyecto futuro, no un producto. Una simulación 3D de una máquina DIY que graba datos dentro de vidrio con un láser y los lee con una cámara, inspirada en Microsoft Project Silica. [Abrir la demo](https://tinymoonlabs.com/grabador-5d/) · [Código](https://github.com/missingus3r/archivo-en-vidrio)
+- **[Mano biónica](https://tinymoonlabs.com/mano.html)**: demo y posible proyecto futuro, no un producto. Una simulación 3D de una mano robótica de 17 grados de libertad que se mueve con las señales de los músculos del antebrazo (EMG), y también con tu propia mano por cámara web o Leap Motion. [Abrir la demo](https://tinymoonlabs.com/mano-bionica/) · [Código](https://github.com/missingus3r/mano-bionica)
 
 ## Archivos
 
 - `index.html`: la página completa.
 - `vidrio.html`: la página del proyecto "Archivo en vidrio": marco teórico, inspiración en Project Silica y aviso de que es una demo.
 - `grabador-5d/`: la demo 3D (Three.js, sin compilar). Es una copia: el original se edita aparte y se vuelve a copiar acá.
+- `mano.html`: la página del proyecto "Mano biónica": marco teórico, inspiración y aviso de que es una demo.
+- `mano-bionica/`: la demo 3D de la mano. Es una copia del repositorio [mano-bionica](https://github.com/missingus3r/mano-bionica) sin el puente del Leap ni los `.glb`, con los enlaces apuntando a `mano.html`.
 - `menciones.json`: las menciones externas que muestra la sección "Otros también hablan del Lab". Para sumar una, se agrega un objeto con `titulo`, `etiqueta`, `resumen`, `url`, `descripcion` y, si se conoce, `fecha`.
 - `robots.txt`, `sitemap.xml`, `llms.txt` y `llms-full.txt`: para buscadores, agentes y servicios de IA.
 

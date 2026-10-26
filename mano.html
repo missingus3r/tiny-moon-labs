@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mano biónica — Tiny Moon Labs</title>
+<meta name="description" content="Demo de Tiny Moon Labs: una mano robótica de 17 grados de libertad, con los servos adentro, que se mueve con las señales eléctricas de los músculos del antebrazo (EMG). Marco teórico, simulación 3D, piezas y precios en Uruguay, y control con tu propia mano.">
+<meta name="keywords" content="Tiny Moon Labs, mano biónica, mano robótica, electromiografía, EMG, prótesis mioeléctrica, Leap Motion, MediaPipe, servos Feetech, robótica, código abierto, Uruguay">
+<meta name="author" content="Tiny Moon Labs">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="theme-color" content="#07090f">
+<link rel="canonical" href="https://tinymoonlabs.com/mano.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Tiny Moon Labs">
+<meta property="og:locale" content="es_UY">
+<meta property="og:url" content="https://tinymoonlabs.com/mano.html">
+<meta property="og:title" content="Mano biónica — Tiny Moon Labs">
+<meta property="og:description" content="Una mano robótica que se mueve con tus músculos: una demo del taller. No es un producto ni un dispositivo médico: es un posible proyecto futuro.">
+<meta property="og:image" content="https://tinymoonlabs.com/assets/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mano biónica — Tiny Moon Labs">
+<meta name="twitter:description" content="Una mano robótica de 17 grados de libertad que se mueve con las señales de los músculos del antebrazo. Demo y posible proyecto futuro.">
+<meta name="twitter:image" content="https://tinymoonlabs.com/assets/og.jpg">
+<link rel="icon" href="mano-bionica/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..800;1,400..800&family=Karla:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{ --bg:#07090f; --bg2:#0c101a; --ink:#f5f1e8; --soft:#a9a59b; --rule:rgba(245,241,232,.14); --teal:#3fd0b6; --gold:#f6c96b; --violet:#8b7bff; --blue:#5aa9ff; --red:#ff8a65;
+    --serif:"Playfair Display", Georgia, serif; --sans:"Karla", system-ui, sans-serif; --mono:ui-monospace, "Cascadia Code", Consolas, Menlo, monospace; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{background:var(--bg);scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 28px;position:relative}
+  .eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);font-weight:500}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-.015em}
+  a{color:var(--teal)}
+  .btn{position:relative;z-index:5;display:inline-block;white-space:nowrap;background:linear-gradient(100deg,var(--teal),#8ae6cf);color:#04130f;text-decoration:none;border-radius:99px;padding:12px 24px;font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;border:0;cursor:pointer;box-shadow:0 8px 30px -8px rgba(63,208,182,.6);transition:transform .2s, box-shadow .2s, background .2s}
+  .btn:hover{transform:translateY(-2px);box-shadow:0 14px 40px -8px rgba(63,208,182,.85)}
+  .btn.ghost{background:rgba(255,255,255,.04);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(245,241,232,.35)}
+  .btn.ghost:hover{background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px var(--ink)}
+
+  header{display:flex;justify-content:space-between;align-items:center;padding:20px 28px;max-width:1120px;margin:0 auto;position:relative;z-index:6}
+  header .logo{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:20px;white-space:nowrap;color:var(--ink);text-decoration:none}
+  header nav a{color:var(--ink);text-decoration:none;margin-left:22px;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+  header nav a:not(.btn):hover{color:var(--teal)}
+  header nav a.here{color:var(--teal)}
+
+  /* hero: forearm, EMG traces and the robotic hand */
+  .hero{position:relative;overflow:hidden;margin-top:-84px;padding:calc(84px + 9vh) 0 10vh;min-height:92vh;display:flex;align-items:center}
+  .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;height:26%;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+  .aurora{position:absolute;inset:0;pointer-events:none;filter:blur(90px);opacity:.7}
+  .aurora i{position:absolute;border-radius:50%}
+  .aurora i:nth-child(1){width:44vw;height:44vw;left:-10vw;top:-8vw;background:radial-gradient(circle,rgba(90,169,255,.6),transparent 65%);animation:drift1 18s ease-in-out infinite alternate}
+  .aurora i:nth-child(2){width:40vw;height:40vw;right:-8vw;top:6vh;background:radial-gradient(circle,rgba(139,123,255,.65),transparent 65%);animation:drift2 22s ease-in-out infinite alternate}
+  .aurora i:nth-child(3){width:34vw;height:34vw;left:34vw;bottom:-16vw;background:radial-gradient(circle,rgba(255,138,101,.4),transparent 65%);animation:drift1 26s ease-in-out infinite alternate-reverse}
+  @keyframes drift1{to{transform:translate(70px,50px) scale(1.15)}}
+  @keyframes drift2{to{transform:translate(-80px,40px) scale(1.12)}}
+  .hero .wrap{z-index:2;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;width:100%}
+  .hero h1{font-size:clamp(42px,6.4vw,92px);line-height:.98;margin:14px 0 0}
+  .hero h1 em{background:linear-gradient(100deg,var(--blue) 10%,var(--violet) 55%,var(--gold) 95%);-webkit-background-clip:text;background-clip:text;color:transparent;padding-right:.06em}
+  .hero p{max-width:46ch;margin:22px 0 24px;color:#cfcabf;font-size:18px}
+  .hero .btn{margin:6px 6px 6px 0}
+  .stamp{display:inline-flex;align-items:center;gap:10px;margin-top:22px;padding:9px 16px;border:1px dashed rgba(246,201,107,.6);border-radius:99px;color:var(--gold);font-size:12.5px;letter-spacing:.12em;text-transform:uppercase}
+  .stamp b{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);animation:blink 2.4s ease-in-out infinite}
+  @keyframes blink{50%{opacity:.25}}
+
+  @keyframes pulse{50%{opacity:.45}}
+  @keyframes flash{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(.7)}}
+  @keyframes appear{0%{opacity:0}4%{opacity:1}88%{opacity:1}100%{opacity:0}}
+
+
+  .handfig{width:100%;max-width:470px;margin:0 auto;display:block;overflow:visible}
+
+  /* bands */
+  .band{padding:12vh 0;position:relative;overflow:clip}
+  .mint{background:radial-gradient(70% 70% at 50% 0%,rgba(63,208,182,.13),transparent 70%)}
+  .butter{background:radial-gradient(60% 90% at 0% 50%,rgba(246,201,107,.11),transparent 70%)}
+  .peach{background:radial-gradient(70% 60% at 50% 100%,rgba(139,123,255,.16),transparent 70%)}
+  .sky{background:radial-gradient(60% 60% at 100% 30%,rgba(90,169,255,.13),transparent 70%)}
+  .head{text-align:center;margin-bottom:44px}
+  .head h2{font-size:clamp(34px,4.6vw,62px);line-height:1.04;max-width:18ch;margin:12px auto 14px}
+  .head p{max-width:58ch;margin:0 auto;color:var(--soft)}
+
+  /* the warning that this is a demo */
+  .notice{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start;max-width:900px;margin:0 auto;padding:26px 30px;border:1px solid rgba(246,201,107,.4);border-radius:18px;background:linear-gradient(165deg,rgba(246,201,107,.1),rgba(246,201,107,.02)),var(--bg2)}
+  .notice .ic{font-family:var(--serif);font-style:italic;font-size:46px;line-height:1;color:var(--gold)}
+  .notice h3{font-size:24px;margin-bottom:6px}
+  .notice p{color:#d6d0c4}
+  .notice ul{margin:10px 0 0 18px;color:#d6d0c4}
+  .notice li{margin:3px 0}
+
+  /* glass surfaces with a light that follows the cursor */
+  .card{position:relative;overflow:hidden;border:1px solid var(--rule);border-radius:18px;background:linear-gradient(165deg,rgba(255,255,255,.085),rgba(255,255,255,.02)),var(--bg2);padding:28px}
+  .card::before{content:"";position:absolute;inset:0;background:radial-gradient(380px circle at var(--mx,50%) var(--my,0%),rgba(90,169,255,.24),transparent 62%);opacity:0;transition:opacity .35s;pointer-events:none}
+  .card:hover::before{opacity:1}
+  .card > *{position:relative}
+  .card .n{font-family:var(--serif);font-size:42px;line-height:1;background:linear-gradient(120deg,var(--blue),var(--gold));-webkit-background-clip:text;background-clip:text;color:transparent;display:inline-block}
+  .card h3{font-size:23px;margin:12px 0 8px;line-height:1.15}
+  .card p{color:var(--soft);font-size:15.5px}
+  .grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+  .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+
+  /* media lifetimes */
+  .media{max-width:900px;margin:40px auto 0;border-top:1px solid var(--rule)}
+  .media .row{display:grid;grid-template-columns:170px 1fr 1fr;gap:18px;padding:14px 4px;border-bottom:1px solid var(--rule);align-items:center}
+  .media .row b{font-family:var(--serif);font-size:20px;font-weight:500}
+  .media .row span{color:var(--soft);font-size:15px}
+  .media .bar{height:8px;border-radius:99px;background:rgba(245,241,232,.08);overflow:hidden}
+  .media .bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--red),var(--gold))}
+  .media .row.glassrow .bar i{background:linear-gradient(90deg,var(--teal),var(--blue),var(--violet))}
+  .media small{display:block;color:var(--soft);font-size:12.5px;margin-top:10px}
+
+  /* theory: numbered blocks with a diagram each */
+  .theory{display:grid;gap:26px}
+  .tblock{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center;padding:30px 0;border-top:1px solid var(--rule)}
+  .tblock:nth-child(even) .fig{order:2}
+  .tblock h3{font-size:clamp(26px,2.8vw,36px);line-height:1.1;margin:8px 0 12px}
+  .tblock p{color:#cfcabf;margin-bottom:10px}
+  .tblock .k{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:19px}
+  .fig{border:1px solid var(--rule);border-radius:18px;background:var(--bg2);padding:18px;position:relative}
+  .fig svg{width:100%;display:block}
+  .fig figcaption{color:var(--soft);font-size:13px;margin-top:10px;text-align:center}
+  .formula{font-family:var(--mono);font-size:14.5px;background:#05070c;border:1px solid var(--rule);border-radius:12px;padding:14px 16px;margin:12px 0;color:#e8e2d6;line-height:1.8}
+  .formula em{color:var(--teal);font-style:normal}
+  .types{list-style:none;margin:10px 0}
+  .types li{padding:10px 0;border-top:1px solid var(--rule);color:#cfcabf}
+  .types li b{color:var(--ink)}
+  .types li:last-child{border-bottom:1px solid var(--rule)}
+  .types .tag{display:inline-block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;border-radius:99px;padding:2px 9px;margin-right:8px;border:1px solid rgba(245,241,232,.35)}
+
+  /* Silica timeline */
+  .timeline{position:relative;max-width:860px;margin:0 auto;padding-left:34px}
+  .timeline::before{content:"";position:absolute;left:9px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--blue),var(--violet),var(--gold))}
+  .tl{position:relative;padding:0 0 30px}
+  .tl::before{content:"";position:absolute;left:-31px;top:8px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--blue);box-shadow:0 0 14px rgba(90,169,255,.6)}
+  .tl .yr{font-family:var(--serif);font-style:italic;color:var(--gold);font-size:22px}
+  .tl h3{font-size:24px;margin:2px 0 6px}
+  .tl p{color:var(--soft);max-width:62ch}
+  .took{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+  .took ul{list-style:none;margin-top:10px}
+  .took li{padding:9px 0;border-top:1px solid var(--rule);color:#cfcabf;font-size:15.5px}
+  .took li b{color:var(--ink)}
+
+  /* the demo */
+  .demo-cta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:34px}
+  .price{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;margin-top:30px}
+  .price div{border:1px solid var(--rule);border-radius:16px;padding:16px 22px;min-width:240px;text-align:center;background:var(--bg2)}
+  .price b{display:block;font-family:var(--serif);font-size:32px;font-weight:500;color:var(--gold)}
+  .price span{color:var(--soft);font-size:14px}
+
+  /* next steps */
+  .steps{counter-reset:s;max-width:860px;margin:0 auto;list-style:none}
+  .steps li{counter-increment:s;display:grid;grid-template-columns:54px 1fr;gap:14px;padding:16px 0;border-top:1px solid var(--rule)}
+  .steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--serif);font-style:italic;font-size:28px;color:var(--teal);line-height:1.1}
+  .steps li b{display:block;font-family:var(--serif);font-weight:500;font-size:21px;margin-bottom:2px}
+  .steps li span{color:var(--soft)}
+
+  .sources{max-width:860px;margin:0 auto;list-style:none}
+  .sources li{padding:12px 0;border-top:1px solid var(--rule)}
+  .sources a{color:var(--ink);text-decoration:none;font-family:var(--serif);font-size:19px}
+  .sources a:hover{color:var(--teal)}
+  .sources span{display:block;color:var(--soft);font-size:14px}
+
+  .end{text-align:center;padding:15vh 0 17vh;position:relative;overflow:hidden;border-top:1px solid var(--rule)}
+  .end h2{font-size:clamp(36px,5.6vw,78px);line-height:1.02;max-width:15ch;margin:0 auto 26px}
+  .end .aurora{opacity:.45}
+  footer{background:#030408;color:var(--ink);border-top:1px solid var(--rule);padding:26px 28px;display:flex;justify-content:space-between;align-items:center;font-size:12px;letter-spacing:.14em;text-transform:uppercase;flex-wrap:wrap;gap:8px 24px}
+  footer img{display:block;width:250px;height:58px;object-fit:cover;mix-blend-mode:lighten}
+  footer a{color:var(--ink);text-decoration:none}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:860px){
+    .hero .wrap,.tblock,.grid2,.took{grid-template-columns:1fr;gap:28px}
+    .tblock:nth-child(even) .fig{order:0}
+    .grid4{grid-template-columns:1fr 1fr}
+    .media .row{grid-template-columns:1fr;gap:6px}
+    header nav a:not(.btn){display:none}
+    header .btn{padding:9px 14px;font-size:11px;margin-left:0}
+    .aurora{filter:blur(60px)}
+    .notice{grid-template-columns:1fr}
+  }
+  @media (max-width:520px){ .grid4{grid-template-columns:1fr} }
+  @media (prefers-reduced-motion: reduce){
+    .aurora i,.stamp b{animation:none}
+    .reveal{opacity:1;transform:none;transition:none}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <pattern id="h2" width="3.2" height="3.2" patternUnits="userSpaceOnUse" patternTransform="rotate(-52)"><line x1="0" y1="0" x2="0" y2="3.2" stroke="#22201c" stroke-width=".8"/></pattern>
+    <g id="moon"><circle r="30" fill="#fbf5ea" stroke="#22201c" stroke-width="1.6"/><path d="M0-30a30 30 0 0 1 0 60a40 40 0 0 0 0-60z" fill="url(#h2)"/><circle cx="-11" cy="-8" r="5" fill="none" stroke="#22201c" stroke-width="1"/><circle cx="-4" cy="12" r="3.2" fill="none" stroke="#22201c" stroke-width="1"/><circle cx="-17" cy="8" r="2" fill="none" stroke="#22201c" stroke-width="1"/></g>
+  </defs>
+</svg>
+
+<header>
+  <a class="logo" href="index.html"><svg width="26" height="26" viewBox="-37 -37 74 74"><use href="#moon"/></svg>Tiny Moon Labs</a>
+  <nav><a href="index.html">Inicio</a><a href="#porque">Por qué</a><a href="#teoria">Marco teórico</a><a href="#inspiracion">Inspiración</a><a href="#demo">La demo</a><a href="https://github.com/missingus3r/mano-bionica" target="_blank" rel="noopener">Código</a><a class="btn" href="mano-bionica/" style="margin-left:22px">Abrir la demo</a></nav>
+</header>
+
+<section class="hero">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap">
+    <div>
+      <span class="eyebrow">Tiny Moon Labs · en el taller · demo de hardware</span>
+      <h1>Una mano que se mueve con tus <em>músculos.</em></h1>
+      <p>Cuando decides cerrar la mano, los músculos del antebrazo se encienden un instante antes de moverse, y esa electricidad se puede leer desde la piel. Esta página explica cómo una mano robótica casera de 17 articulaciones puede leerla y copiarte, y lleva a una simulación 3D de cómo construirla en Uruguay.</p>
+      <a class="btn" href="mano-bionica/">Abrir la demo</a><a class="btn ghost" href="#teoria">Leer el marco teórico</a>
+      <div><span class="stamp"><b></b>Es una demo · posible proyecto futuro</span></div>
+    </div>
+    <svg class="handfig" viewBox="0 0 460 440" role="img" aria-label="Señales de EMG que salen de un antebrazo y llegan a una mano robótica con articulaciones">
+      <defs>
+        <linearGradient id="armg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6c96b" stop-opacity=".22"/><stop offset="1" stop-color="#ff8a65" stop-opacity=".05"/></linearGradient>
+      </defs>
+      <g transform="translate(-40 -150) scale(1.18)">
+      <!-- antebrazo con los canales del brazalete -->
+      <path d="M60 440 C 52 360, 60 260, 86 200 L 156 200 C 176 260, 182 360, 176 440 Z" fill="url(#armg)" stroke="rgba(245,241,232,.4)" stroke-width="1.3"/>
+      <g id="elecs"></g>
+      <!-- trazas de EMG que viajan hacia la mano -->
+      <g id="traces"></g>
+      <!-- la mano robótica: palma y dedos articulados -->
+      <g id="robot" transform="translate(320 262) scale(1.6)"></g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="band" style="padding-top:4vh">
+  <div class="wrap">
+    <div class="notice reveal">
+      <div class="ic">!</div>
+      <div>
+        <h3>Esto es una demo, no un producto ni un dispositivo médico.</h3>
+        <p>Es una exploración del taller y un posible proyecto futuro de Tiny Moon Labs. Hoy existe como simulación interactiva:</p>
+        <ul>
+          <li>No construimos la mano todavía y no hay nada a la venta.</li>
+          <li>La señal de los músculos es simulada. Con gente real, el reconocimiento de gestos acierta menos que en la pantalla y hay que recalibrar seguido.</li>
+          <li>Los precios son un relevamiento de octubre de 2026 en Uruguay. Algunos son estimados y todos pueden cambiar.</li>
+          <li>No tenemos relación con Hiwonder, Pollen Robotics, AgiBot, Sharpa, Xynova, DexRobot ni ETH Zürich: citamos o tomamos ideas de su trabajo publicado.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band mint" id="porque">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Por qué hace falta</span>
+      <h2>La mano es lo más difícil de copiar, y lo que más falta hace.</h2>
+      <p>Las manos robóticas buenas y las prótesis mioeléctricas existen, pero son caras y cerradas. Queremos ver hasta dónde llega una hecha con piezas que se consiguen acá y con todo el código abierto.</p>
+    </div>
+    <div class="grid4">
+      <div class="card reveal"><div class="n">i.</div><h3>Una mano es una máquina enorme</h3><p>27 huesos y más de veinte movimientos posibles, con los músculos en el antebrazo y tendones que cruzan la muñeca. Copiarla bien es uno de los problemas abiertos de la robótica.</p></div>
+      <div class="card reveal"><div class="n">ii.</div><h3>Las prótesis cuestan una fortuna</h3><p>Una mano mioeléctrica comercial puede costar decenas de miles de dólares. La mayoría de quienes la necesitan en la región no llega a tener una.</p></div>
+      <div class="card reveal"><div class="n">iii.</div><h3>La señal ya está en el cuerpo</h3><p>Cada contracción genera microvoltios en la piel. Con electrodos de gel y un amplificador de pocos dólares se puede leer, y un microcontrolador alcanza para entenderla.</p></div>
+      <div class="card reveal"><div class="n">iv.</div><h3>Abierta y explicada</h3><p>Diseño, código, lista de piezas con precios y armado paso a paso: todo público, para que otros lo mejoren, lo adapten o lo usen para enseñar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band sky" id="teoria">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Marco teórico</span>
+      <h2>Del impulso nervioso a un dedo que se mueve.</h2>
+      <p>Cuatro pasos: el músculo genera una señal, el brazalete la capta, un algoritmo la convierte en una decisión y la mano la ejecuta con servos y bielas.</p>
+    </div>
+    <div class="theory">
+
+      <div class="tblock reveal">
+        <div>
+          <span class="k">i. La señal</span>
+          <h3>Un músculo que se contrae es una tormenta eléctrica.</h3>
+          <p>Cada neurona motora dispara un pequeño potencial en las fibras que controla. Desde la piel se ve la suma de cientos de ellos: un ruido de <b>20 a 450 Hz</b> cuya amplitud, de décimas de milivoltio a cerca de 1 mV, crece con la fuerza. Es la electromiografía de superficie, o EMG.</p>
+          <p>La señal aparece <b>30 a 100 ms antes</b> de que el dedo se mueva: le da ventaja al control.</p>
+        </div>
+        <figure class="fig"><svg id="emgFig" viewBox="0 0 400 220"></svg><figcaption>Señal cruda (arriba) y su envolvente, que mide cuánto se activa el músculo.</figcaption></figure>
+      </div>
+
+      <div class="tblock reveal">
+        <div>
+          <span class="k">ii. El brazalete</span>
+          <h3>Ocho canales alrededor del antebrazo.</h3>
+          <p>Los músculos que mueven los dedos tienen el cuerpo en el antebrazo: los flexores del lado de la palma y los extensores del lado del dorso. Ocho pares de electrodos, a 2 cm entre sí y alineados con las fibras, captan cada zona; un electrodo de referencia va sobre el hueso del codo.</p>
+          <p>Los músculos se mezclan: cada canal escucha varios a la vez y los profundos llegan débiles. Por eso no alcanza con mirar un canal por dedo.</p>
+        </div>
+        <figure class="fig"><svg id="bandFig" viewBox="0 0 400 260"></svg><figcaption>Corte del antebrazo visto desde el codo, con la palma arriba y los 8 canales. Los músculos y sus posiciones salen de un modelo anatómico real.</figcaption></figure>
+      </div>
+
+      <div class="tblock reveal">
+        <div>
+          <span class="k">iii. La decisión</span>
+          <h3>Del ruido a un gesto, cada 25 milisegundos.</h3>
+          <p>Un ESP32 filtra la señal, la corta en ventanas de 150 ms y saca cuatro números por canal: amplitud media, largo de onda, cruces por cero y cambios de pendiente. Con esos 32 números, un clasificador lineal reconoce uno de diez gestos y la amplitud decide cuánto cerrar.</p>
+          <div class="formula">pasabanda <em>20–450 Hz</em> · notch <em>50 Hz</em> (la red de Uruguay)<br>ventana <em>150 ms</em> · paso <em>25 ms</em> · MAV, WL, ZC, SSC × 8 canales<br>LDA → gesto · amplitud → cuánto cierra · latencia ≈ <em>120–250 ms</em></div>
+          <p>Antes de mandar la orden, un filtro antivibración congela la mano cuando la persona está quieta: los servos dejan de temblar.</p>
+        </div>
+        <figure class="fig"><svg id="pipeFig" viewBox="0 0 400 240"></svg><figcaption>La cadena completa, del electrodo al servo.</figcaption></figure>
+      </div>
+
+      <div class="tblock reveal">
+        <div>
+          <span class="k">iv. La mano</span>
+          <h3>17 articulaciones, los motores adentro.</h3>
+          <p>Como las manos diestras comerciales, los motores van dentro de la mano: 16 micro servos en la palma, en las falanges y en el pulgar, y uno más grande en la muñeca. Cada uno mueve su falange con una biela rígida de acero.</p>
+          <ul class="types">
+            <li><span class="tag">diferencial</span><b>Dos servos por dedo</b> tiran de la misma palanca: juntos cierran el dedo, opuestos lo separan.</li>
+            <li><span class="tag">biela en S</span><b>La punta sigue al medio</b>: una biela cruzada hace que la última falange se doble 0,75 de lo que se dobla la del medio, como en un dedo real.</li>
+            <li><span class="tag">pulgar</span><b>Cuatro movimientos</b>, con la oposición que le permite tocar la yema de cada dedo.</li>
+          </ul>
+        </div>
+        <figure class="fig"><svg id="fingerFig" viewBox="0 0 400 240"></svg><figcaption>Un dedo: la biela del servo mueve la falange proximal y la biela en S acopla la punta.</figcaption></figure>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="band butter" id="inspiracion">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Inspiración</span>
+      <h2>Lo que tomamos de otras manos.</h2>
+      <p>La demo junta ideas de kits educativos, manos abiertas de laboratorio y manos diestras industriales.</p>
+    </div>
+    <div class="took">
+      <div class="card reveal"><h3>La construcción</h3><ul>
+        <li><b>Hiwonder uHand</b> · acrílico negro cortado con láser, servos en la palma y bielas de acero en S.</li>
+        <li><b>AmazingHand</b> (Pollen Robotics) · dos micro servos por dedo dentro de la mano, en diferencial.</li>
+        <li><b>ORCA Hand</b> (ETH Zürich) · proporciones y los 17 grados de libertad, con el pulgar de 4.</li>
+      </ul></div>
+      <div class="card reveal"><h3>Las ideas de fondo</h3><ul>
+        <li><b>AgiBot OmniHand, Sharpa Wave, Xynova Prima, DexRobot</b> · motores adentro de la mano y transmisión por bielas.</li>
+        <li><b>Prótesis con reconocimiento de patrones</b> · gestos con LDA más control proporcional, el estándar de la literatura.</li>
+        <li><b>BodyParts3D</b> · los músculos y huesos reales del antebrazo que se ven dentro de la piel en la demo.</li>
+      </ul></div>
+    </div>
+  </div>
+</section>
+
+<section class="band peach" id="demo">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">La demo</span>
+      <h2>Una mano que todavía no existe, armada pieza por pieza.</h2>
+      <p>Una simulación 3D interactiva hecha en el navegador. Funciona mejor en una computadora.</p>
+    </div>
+    <div class="grid4">
+      <div class="card reveal"><div class="n">i.</div><h3>La mano y el brazo en 3D</h3><p>La mano de acrílico con sus servos y bielas, y el brazo de una persona con los músculos reales que se iluminan al activarse. Puedes marcar y aislar cada pieza, o abrirla en despiece.</p></div>
+      <div class="card reveal"><div class="n">ii.</div><h3>La señal y el decodificador</h3><p>EMG simulada en 8 canales, osciloscopio, filtros, reconocimiento de 10 gestos, calibración con matriz de confusión, antivibración y control de cada dedo por separado.</p></div>
+      <div class="card reveal"><div class="n">iii.</div><h3>Con tu propia mano</h3><p>Con la cámara web (MediaPipe, en el navegador) o con un Leap Motion, tu mano reemplaza a la persona simulada y pasa por todo el camino hasta los servos.</p></div>
+      <div class="card reveal"><div class="n">iv.</div><h3>Piezas, precios y armado</h3><p>Lista completa con links y precios relevados en Uruguay, en pesos y en dólares, y 13 pasos de armado más 7 de calibración.</p></div>
+    </div>
+    <div class="price reveal">
+      <div><b>≈ US$ 790</b><span>servos MG90S y sensores de EMG sueltos</span></div>
+      <div><b>≈ US$ 1.280</b><span>servos de bus Feetech y placa ADS1299 de 8 canales</span></div>
+    </div>
+    <p class="reveal" style="text-align:center;color:var(--soft);font-size:14px;margin-top:12px">Relevamiento de octubre de 2026, sin flete ni impuestos de importación.</p>
+    <div class="demo-cta reveal"><a class="btn" href="mano-bionica/">Abrir la demo</a><a class="btn ghost" href="https://github.com/missingus3r/mano-bionica" target="_blank" rel="noopener">Ver el código</a><a class="btn ghost" href="#siguiente">Qué falta para que sea real</a></div>
+    <p class="reveal" style="text-align:center;color:var(--soft);font-size:14px;margin-top:14px">El código es abierto, con licencia MIT: <a href="https://github.com/missingus3r/mano-bionica" target="_blank" rel="noopener">github.com/missingus3r/mano-bionica</a>. Se abre con doble clic, sin instalar nada.</p>
+  </div>
+</section>
+
+<section class="band" id="siguiente">
+  <div class="wrap">
+    <div class="head reveal">
+      <span class="eyebrow">Estado · posible proyecto futuro</span>
+      <h2>Lo que haría falta para pasar de la pantalla al banco.</h2>
+      <p>Hoy no hay fecha ni compromiso. Si el proyecto avanza, iría en este orden y lo mostraríamos acá, como todo lo del taller.</p>
+    </div>
+    <ol class="steps">
+      <li class="reveal"><div><b>Leer un brazo de verdad</b><span>Dos canales con sensores de pocos dólares y un ESP32, para medir ruido, latencia y cuánto cambia la señal de un día a otro.</span></div></li>
+      <li class="reveal"><div><b>Un dedo en el banco</b><span>Cortar las placas de un dedo, montar sus servos y comprobar que la biela en S acopla bien la punta.</span></div></li>
+      <li class="reveal"><div><b>La mano completa</b><span>Los 17 servos con el bus de Feetech, primero controlada desde la computadora o con la cámara web.</span></div></li>
+      <li class="reveal"><div><b>Ocho canales y gente real</b><span>Entrenar con varias personas y medir el acierto fuera de la pantalla.</span></div></li>
+      <li class="reveal"><div><b>Solo si todo lo anterior funciona</b><span>Buscar socios en rehabilitación y prótesis para llevarla más allá del taller.</span></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band" style="padding-top:2vh">
+  <div class="wrap">
+    <div class="head reveal" style="margin-bottom:24px"><span class="eyebrow">Fuentes</span></div>
+    <ul class="sources">
+      <li class="reveal"><a href="https://arxiv.org/html/2504.04259v2" target="_blank" rel="noopener">ORCA: An Open-Source, Reliable, Cost-Effective, Anthropomorphic Robotic Hand ↗</a><span>ETH Zürich, 2025. Código: github.com/orcahand/orca_core.</span></li>
+      <li class="reveal"><a href="https://github.com/pollen-robotics/AmazingHand" target="_blank" rel="noopener">Pollen Robotics — AmazingHand ↗</a><span>Mano abierta con micro servos en diferencial.</span></li>
+      <li class="reveal"><a href="https://github.com/LibEMG/libemg" target="_blank" rel="noopener">LibEMG ↗</a><span>Características, clasificadores y regresión para EMG.</span></li>
+      <li class="reveal"><a href="https://dbarchive.biosciencedbc.jp/en/bodyparts3d/lic.html" target="_blank" rel="noopener">BodyParts3D ↗</a><span>© The Database Center for Life Science, CC BY 4.0. Músculos y huesos del antebrazo de la demo.</span></li>
+      <li class="reveal"><a href="https://www.hiwonder.com/products/uhand-uno" target="_blank" rel="noopener">Hiwonder uHand ↗</a><span>Kit de mano de acrílico con servos en la palma y bielas.</span></li>
+      <li class="reveal"><a href="https://www.agibot.com/products/OmniHand_O10" target="_blank" rel="noopener">AgiBot OmniHand ↗</a><span>También <a href="https://www.sharpa.com/pages/w02" target="_blank" rel="noopener" style="font-family:inherit;font-size:inherit;color:var(--soft);text-decoration:underline">Sharpa Wave</a>, <a href="https://www.xynova.com.cn/en/xynova-prima-1" target="_blank" rel="noopener" style="font-family:inherit;font-size:inherit;color:var(--soft);text-decoration:underline">Xynova Prima 1</a> y <a href="https://www.dex-robot.com/en" target="_blank" rel="noopener" style="font-family:inherit;font-size:inherit;color:var(--soft);text-decoration:underline">DexRobot</a>.</span></li>
+      <li class="reveal"><a href="https://ai.google.dev/edge/mediapipe/solutions/vision/hand_landmarker" target="_blank" rel="noopener">MediaPipe Hand Landmarker ↗</a><span>Seguimiento de la mano con la cámara web, en el navegador.</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="end">
+  <div class="aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="wrap"><h2>Una mano que te copia, hecha con piezas de acá.</h2><a class="btn" href="mano-bionica/">Abrir la demo</a> &nbsp; <a class="btn ghost" href="https://github.com/missingus3r/mano-bionica" target="_blank" rel="noopener">Ver el código</a> &nbsp; <a class="btn ghost" href="index.html#productos">Volver al Lab</a></div>
+</section>
+<footer><span><a href="index.html">Tiny Moon Labs</a> — Montevideo, Uruguay</span><img src="LATAM%20e-acc.jfif" alt="Latam Accelerationism" width="250" height="58"><span>Demo · posible proyecto futuro · octubre 2026</span></footer>
+
+<script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const NS = 'http://www.w3.org/2000/svg';
+  const COLORS = ['#ff5a5a', '#ffb347', '#ffe14a', '#3ddc84', '#4ac2ff', '#8b7bff', '#ff7ad9', '#dfe7ef'];
+  const add = (parent, tag, attrs) => { const e = document.createElementNS(NS, tag); for (const a in attrs) e.setAttribute(a, attrs[a]); parent.appendChild(e); return e; };
+  // ruido con semilla, para que el dibujo sea siempre igual
+  let seed = 7; const rnd = () => { seed = (seed * 9301 + 49297) % 233280; return seed / 233280 - 0.5; };
+
+  // hero: electrodos en el antebrazo, trazas de EMG y la mano robótica
+  const el = document.getElementById('elecs'), tr = document.getElementById('traces'), rb = document.getElementById('robot');
+  [[96, 300], [140, 300], [92, 340], [146, 340]].forEach((p, i) => { add(el, 'circle', { cx: p[0], cy: p[1], r: 7, fill: '#e8eef3', stroke: COLORS[i], 'stroke-width': 2 }); });
+  for (let k = 0; k < 4; k++) {
+    let d = 'M 160 ' + (300 + k * 14);
+    for (let x = 0; x <= 110; x += 3) d += ' L ' + (160 + x) + ' ' + (300 + k * 14 - x * 0.55 + rnd() * (6 + 14 * Math.sin(x / 18) ** 2)).toFixed(1);
+    const p = add(tr, 'path', { d, fill: 'none', stroke: COLORS[k], 'stroke-width': 1.6, opacity: .85 });
+    if (!reduce) p.style.animation = 'pulse 1.8s ' + (k * 0.3).toFixed(1) + 's ease-in-out infinite';
+  }
+  // palma y dedos: segmentos con articulaciones, que se cierran y abren
+  add(rb, 'rect', { x: -48, y: -10, width: 96, height: 84, rx: 12, fill: 'rgba(11,13,16,.9)', stroke: 'rgba(245,241,232,.55)' });
+  for (let i = 0; i < 4; i++) add(rb, 'rect', { x: -38 + i * 21, y: 6 + (i % 2) * 34, width: 13, height: 24, rx: 2, fill: '#2a3140', stroke: '#4a5160' });
+  const fingers = [];
+  [[-36, 64, 36, 22, 18], [-12, 70, 40, 25, 19], [12, 66, 38, 24, 19], [34, 56, 30, 19, 16]].forEach((f) => {
+    const g = add(rb, 'g', { transform: 'translate(' + f[0] + ' -10)' }); fingers.push(g);
+    let y = 0; f.slice(2).forEach((L, j) => {
+      add(g, 'rect', { x: -7, y: -y - L, width: 14, height: L - 2, rx: 6, fill: 'rgba(11,13,16,.95)', stroke: 'rgba(245,241,232,.6)' });
+      add(g, 'circle', { cx: 0, cy: -y, r: 3, fill: '#f6c96b' }); y += L;
+    });
+  });
+  const th = add(rb, 'g', { transform: 'translate(50 40) rotate(40)' });
+  [30, 24].reduce((y, L) => { add(th, 'rect', { x: -7, y: -y - L, width: 14, height: L - 2, rx: 6, fill: 'rgba(11,13,16,.95)', stroke: 'rgba(245,241,232,.6)' }); add(th, 'circle', { cx: 0, cy: -y, r: 3, fill: '#f6c96b' }); return y + L; }, 0);
+  if (!reduce) {
+    const t0 = performance.now();
+    const loop = (t) => {
+      const c = (Math.sin((t - t0) / 900) + 1) / 2; // 0 abierta, 1 cerrada
+      fingers.forEach((g, i) => { const b = g.getAttribute('transform').split(' rotate')[0]; g.setAttribute('transform', b + ' rotate(0) scale(1 ' + (1 - 0.55 * c).toFixed(3) + ')'); });
+      requestAnimationFrame(loop);
+    };
+    requestAnimationFrame(loop);
+  }
+
+  // figura i: EMG cruda y su envolvente
+  const ef = document.getElementById('emgFig');
+  add(ef, 'line', { x1: 20, y1: 80, x2: 380, y2: 80, stroke: 'rgba(245,241,232,.15)' });
+  let raw = 'M 20 80', env = 'M 20 190';
+  for (let x = 0; x <= 360; x += 2) {
+    const a = Math.exp(-((x - 120) ** 2) / 1800) + 0.8 * Math.exp(-((x - 270) ** 2) / 2400) + 0.04;
+    raw += ' L ' + (20 + x) + ' ' + (80 + rnd() * 120 * a).toFixed(1);
+    env += ' L ' + (20 + x) + ' ' + (190 - 70 * a).toFixed(1);
+  }
+  add(ef, 'path', { d: raw, fill: 'none', stroke: '#ffb347', 'stroke-width': 1.1 });
+  add(ef, 'path', { d: env, fill: 'none', stroke: '#3fd0b6', 'stroke-width': 2.4 });
+  add(ef, 'line', { x1: 20, y1: 190, x2: 380, y2: 190, stroke: 'rgba(245,241,232,.15)' });
+
+  // figura ii: corte del antebrazo con los 8 canales
+  const bf = document.getElementById('bandFig');
+  add(bf, 'ellipse', { cx: 200, cy: 130, rx: 110, ry: 90, fill: 'rgba(217,164,135,.12)', stroke: 'rgba(245,241,232,.4)' });
+  [['FDS', 129, .62], ['FCR', 107, .82], ['FCU', -178, .8], ['FDP', 136, .35], ['FPL', 21, .45], ['ECR', -21, .8], ['ED', -66, .8], ['ECU', -104, .78], ['APL', -50, .55]].forEach((m) => {
+    const a = m[1] * Math.PI / 180, x = 200 - Math.cos(a) * 110 * m[2], y = 130 - Math.sin(a) * 90 * m[2];
+    add(bf, 'ellipse', { cx: x, cy: y, rx: 18, ry: 12, fill: 'rgba(168,58,58,.75)', transform: 'rotate(' + (-m[1]) + ' ' + x + ' ' + y + ')' });
+    const t = add(bf, 'text', { x, y: y + 4, 'text-anchor': 'middle', 'font-size': 10, fill: '#f5f1e8', 'font-family': 'Karla' }); t.textContent = m[0];
+  });
+  ['radio', 'cúbito'].forEach((n, i) => add(bf, 'circle', { cx: i ? 225 : 175, cy: 140, r: 9, fill: '#e9e1d0' }));
+  for (let c = 0; c < 8; c++) {
+    const a = (90 - c * 45) * Math.PI / 180, x = 200 - Math.cos(a) * 124, y = 130 - Math.sin(a) * 104;
+    add(bf, 'circle', { cx: x, cy: y, r: 9, fill: '#e8eef3', stroke: COLORS[c], 'stroke-width': 3 });
+    const t = add(bf, 'text', { x: 200 - Math.cos(a) * 148, y: 130 - Math.sin(a) * 126 + 4, 'text-anchor': 'middle', 'font-size': 11, fill: '#a9a59b', 'font-family': 'Karla' }); t.textContent = 'C' + (c + 1);
+  }
+
+  // figura iii: la cadena del electrodo al servo
+  const pf = document.getElementById('pipeFig');
+  const steps = [['electrodos', '8 canales · 1 kHz', '#ffb347'], ['filtros', '20–450 Hz · 50 Hz', '#ffe14a'], ['características', 'MAV · WL · ZC · SSC', '#3ddc84'], ['decodificador', 'LDA · 10 gestos', '#4ac2ff'], ['antivibración', 'filtro · zona muerta', '#8b7bff'], ['17 servos', 'bus serie 1 Mbps', '#3fd0b6']];
+  steps.forEach((s, i) => {
+    const x = 30 + (i % 3) * 120, y = 30 + Math.floor(i / 3) * 110;
+    add(pf, 'rect', { x, y, width: 104, height: 64, rx: 12, fill: 'rgba(255,255,255,.04)', stroke: s[2] });
+    const a = add(pf, 'text', { x: x + 52, y: y + 28, 'text-anchor': 'middle', 'font-size': 13, fill: '#f5f1e8', 'font-family': 'Karla', 'font-weight': 700 }); a.textContent = s[0];
+    const b = add(pf, 'text', { x: x + 52, y: y + 47, 'text-anchor': 'middle', 'font-size': 10, fill: '#a9a59b', 'font-family': 'Karla' }); b.textContent = s[1];
+    if (i % 3 < 2) add(pf, 'path', { d: 'M ' + (x + 106) + ' ' + (y + 32) + ' l 12 0', stroke: '#a9a59b', 'stroke-width': 1.5 });
+  });
+  add(pf, 'path', { d: 'M 322 96 C 322 120, 82 112, 82 138', fill: 'none', stroke: '#a9a59b', 'stroke-width': 1.5, 'stroke-dasharray': '4 4' });
+
+  // figura iv: un dedo con su biela y la biela en S
+  const ff = document.getElementById('fingerFig');
+  add(ff, 'rect', { x: 20, y: 150, width: 120, height: 60, rx: 10, fill: 'rgba(11,13,16,.95)', stroke: 'rgba(245,241,232,.5)' });
+  add(ff, 'rect', { x: 50, y: 160, width: 40, height: 22, rx: 3, fill: '#2a3140', stroke: '#4a5160' });
+  const seg = [[140, 180, 230, 150], [230, 150, 300, 110], [300, 110, 350, 70]];
+  seg.forEach((s) => { add(ff, 'line', { x1: s[0], y1: s[1], x2: s[2], y2: s[3], stroke: 'rgba(245,241,232,.75)', 'stroke-width': 18, 'stroke-linecap': 'round' }); add(ff, 'line', { x1: s[0], y1: s[1], x2: s[2], y2: s[3], stroke: '#0b0d10', 'stroke-width': 14, 'stroke-linecap': 'round' }); });
+  [[140, 180], [230, 150], [300, 110]].forEach((p) => add(ff, 'circle', { cx: p[0], cy: p[1], r: 5, fill: '#f6c96b' }));
+  add(ff, 'path', { d: 'M 82 166 L 120 140 L 168 150', fill: 'none', stroke: '#c9ced6', 'stroke-width': 3 });
+  add(ff, 'path', { d: 'M 214 170 C 250 172, 262 112, 290 128 S 326 92, 334 96', fill: 'none', stroke: '#c9ced6', 'stroke-width': 3 });
+  [['biela del servo', 80, 128], ['biela en S', 262, 196]].forEach((l) => { const t = add(ff, 'text', { x: l[1], y: l[2], 'font-size': 12, fill: '#a9a59b', 'font-family': 'Karla' }); t.textContent = l[0]; });
+
+  // aparición suave al hacer scroll
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll('.reveal').forEach((el) => (reduce ? el.classList.add('in') : io.observe(el)));
+
+  // la luz dentro de cada tarjeta sigue al cursor
+  document.querySelectorAll('.card').forEach((el) => el.addEventListener('pointermove', (e) => {
+    const r = el.getBoundingClientRect(); el.style.setProperty('--mx', (e.clientX - r.left) + 'px'); el.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }));
+})();
+</script>
+</body>
+</html>

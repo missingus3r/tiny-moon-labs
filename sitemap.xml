@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://tinymoonlabs.com/</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://tinymoonlabs.com/</loc><lastmod>2026-10-25</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
   <url><loc>https://tinymoonlabs.com/vidrio.html</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://tinymoonlabs.com/grabador-5d/</loc><lastmod>2026-10-24</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://tinymoonlabs.com/llms.txt</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
-  <url><loc>https://tinymoonlabs.com/llms-full.txt</loc><lastmod>2026-10-24</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://tinymoonlabs.com/mano.html</loc><lastmod>2026-10-25</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://tinymoonlabs.com/mano-bionica/</loc><lastmod>2026-10-25</lastmod><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://tinymoonlabs.com/llms.txt</loc><lastmod>2026-10-25</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
+  <url><loc>https://tinymoonlabs.com/llms-full.txt</loc><lastmod>2026-10-25</lastmod><changefreq>weekly</changefreq><priority>0.5</priority></url>
 </urlset>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tiny Moon Labs — productos para la era de los modelos</title>
 <meta name="description" content="Tiny Moon Labs es un laboratorio de Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA: Friday, un asistente personal sobre Claude Code, y Capsule, una red libre y descentralizada para compartir archivos y publicar sitios.">
-<meta name="keywords" content="Tiny Moon Labs, TML, inteligencia artificial, IA, LLM, modelos de lenguaje, agentes de IA, asistente personal, Claude Code, Friday, Capsule, AA Tube, AA Disney, Android Auto, archivo en vidrio, almacenamiento en vidrio, Project Silica, red descentralizada, código abierto, open source, Uruguay, Montevideo, Latinoamérica">
+<meta name="keywords" content="Tiny Moon Labs, TML, inteligencia artificial, IA, LLM, modelos de lenguaje, agentes de IA, asistente personal, Claude Code, Friday, Capsule, AA Tube, AA Disney, Android Auto, archivo en vidrio, almacenamiento en vidrio, Project Silica, mano biónica, mano robótica, electromiografía, EMG, red descentralizada, código abierto, open source, Uruguay, Montevideo, Latinoamérica">
 <meta name="author" content="Tiny Moon Labs">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
 <meta name="theme-color" content="#07090f">
@@ -143,6 +143,22 @@
    "image": "https://tinymoonlabs.com/grabador-5d/favicon.svg",
    "sameAs": [
     "https://github.com/missingus3r/archivo-en-vidrio"
+   ],
+   "publisher": {
+    "@id": "https://tinymoonlabs.com/#org"
+   }
+  },
+  {
+   "@type": "WebApplication",
+   "name": "Mano biónica",
+   "url": "https://tinymoonlabs.com/mano.html",
+   "applicationCategory": "EducationalApplication",
+   "operatingSystem": "Web",
+   "isAccessibleForFree": true,
+   "description": "Demo y posible proyecto futuro: simulación 3D interactiva de una mano robótica de 17 grados de libertad, con los servos adentro, controlada con las señales eléctricas de los músculos del antebrazo (EMG), con lista de partes y precios en Uruguay, armado paso a paso y control con la propia mano por cámara web o Leap Motion.",
+   "image": "https://tinymoonlabs.com/mano-bionica/favicon.svg",
+   "sameAs": [
+    "https://github.com/missingus3r/mano-bionica"
    ],
    "publisher": {
     "@id": "https://tinymoonlabs.com/#org"
@@ -373,6 +389,7 @@
   .proj.wide h3{margin-top:12px}
   .proj.wide p{max-width:68ch}
   .glassmark{width:86px;height:86px;filter:drop-shadow(0 0 18px rgba(90,169,255,.35))}
+  .handmark{width:86px;height:86px;filter:drop-shadow(0 0 18px rgba(63,208,182,.35))}
 
   /* menciones: two rails of clippings drifting in opposite directions */
   .press{padding:11vh 0 12vh;border-top:1px solid var(--rule);overflow:hidden;background:radial-gradient(60% 50% at 50% 0%,rgba(90,169,255,.12),transparent 70%)}
@@ -557,6 +574,11 @@
       <a class="proj wide" href="vidrio.html">
         <svg class="glassmark" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 17 L53 29 V50 L32 62 L11 50 V29 Z" fill="rgba(90,169,255,.12)" stroke="#5aa9ff" stroke-width="2" stroke-linejoin="round"/><path d="M11 29 L32 41 L53 29 M32 41 V62" fill="none" stroke="#5aa9ff" stroke-width="1.2" stroke-opacity=".6"/><circle cx="22" cy="43" r="2.6" fill="#3fd0b6"/><circle cx="42" cy="43" r="2.6" fill="#f6c96b"/><circle cx="32" cy="51" r="2.6" fill="#8b7bff"/><path d="M32 2 V31" stroke="#ff8a65" stroke-width="2.6" stroke-linecap="round"/><circle cx="32" cy="33" r="2.6" fill="#fff"/></svg>
         <div><span class="state idea">Demo · posible proyecto futuro</span><h3>Archivo en vidrio</h3><p>Un experimento de hardware: grabar datos dentro de un cubo de vidrio con un láser y leerlos con una cámara, inspirado en Microsoft Project Silica. Todavía no es un producto: es una simulación 3D interactiva, con la máquina, sus piezas y precios en Uruguay y el armado paso a paso.</p></div>
+        <span class="btn ghost">Ver el proyecto</span>
+      </a>
+      <a class="proj wide" href="mano.html">
+        <svg class="handmark" viewBox="0 0 64 64" aria-hidden="true"><g fill="none" stroke="#3fd0b6" stroke-width="5" stroke-linecap="round"><path d="M22 40 V16"/><path d="M30 38 V11"/><path d="M38 38 V13"/><path d="M45 40 V19"/><path d="M18 44 L11 34"/></g><rect x="17" y="36" width="32" height="20" rx="8" fill="#3fd0b6"/><path d="M6 60 q6 -8 12 0 t12 0 t12 0 t12 0 t12 0" fill="none" stroke="#ffb347" stroke-width="2.5"/></svg>
+        <div><span class="state idea">Demo · posible proyecto futuro</span><h3>Mano biónica</h3><p>Una mano robótica de 17 articulaciones, con los servos adentro, que se mueve con las señales eléctricas de los músculos del antebrazo. Todavía no es un producto: es una simulación 3D con el brazo y sus músculos reales, la señal y el decodificador, piezas y precios en Uruguay y el armado paso a paso. También la puedes mover con tu propia mano, con la cámara web.</p></div>
         <span class="btn ghost">Ver el proyecto</span>
       </a>
     </div>
