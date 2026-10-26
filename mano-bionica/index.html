@@ -246,7 +246,12 @@
     .tw table { min-width: 540px; }
     /* señal y cámaras: más chicas, arriba; arrancan ocultas para no tapar la máquina (botones de la barra) */
     #scope, #mic { top: 44px; right: 6px; bottom: auto; width: 58vw; }
-    #leapCam { top: 44px; left: 6px; right: auto; bottom: auto; width: 46vw; }
+    /* la cámara en el celu va chica en la esquina para no tapar la mano 3D (Bruno, 26/10) */
+    #leapCam { top: 44px; left: 6px; right: auto; bottom: auto; width: 24vw; max-width: 104px; opacity: .9; }
+    #leapCam .mh { padding: 2px 5px; font-size: 8.5px; white-space: nowrap; overflow: hidden; }
+    #leapCam .mh #leapCamTitle { overflow: hidden; text-overflow: ellipsis; }
+    #leapCam #leapCamInfo { display: none; }
+    #leapCam img, #leapCam canvas { max-height: 13vh; object-fit: contain; }
     #scopeC { height: 128px; }
     #scope .mh, #mic .mh { font-size: 10px; flex-wrap: wrap; gap: 3px; }
     #micView { height: 120px; }
@@ -256,6 +261,8 @@
     :root, body.wide { --side: 320px; }
     #side header p:not(.demo) { display: none; }
     #scope, #mic { width: 240px; }
+    #leapCam { width: 170px; }
+    #leapCam img, #leapCam canvas { max-height: 30vh; object-fit: contain; }
     #scopeC { height: 150px; }
     #micView { height: 150px; }
   }
