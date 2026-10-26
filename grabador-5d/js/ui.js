@@ -180,7 +180,8 @@
   }
   L5.view = function (name) {
     const V = {
-      general: [new T.Vector3(10, 190, -10), 1250, new T.Vector3(0.62, 0.5, 0.75)],
+      // en el celular la vista es angosta: hay que alejarse más para que entre la máquina entera
+      general: [new T.Vector3(10, 190, -10), 1250 * (matchMedia('(max-width: 760px)').matches ? Math.max(1, 1.3 / L5.camera.aspect) : 1), new T.Vector3(0.62, 0.5, 0.75)],
       cristal: [null, 88, new T.Vector3(0.45, 0.8, 0.85)],
       cabezal: [null, 260, new T.Vector3(0.75, 0.25, 0.8)],
       optica: L5.cfg.mode5D ? [new T.Vector3(300, 250, -60), 760, new T.Vector3(0.95, 0.3, 0.55)] : [new T.Vector3(200, 220, -110), 760, new T.Vector3(0.75, 0.35, 0.8)],

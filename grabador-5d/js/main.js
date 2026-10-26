@@ -50,6 +50,8 @@
   };
   window.addEventListener('resize', L5.onResize);
   L5.onResize();
+  // la cámara inicial está pensada para pantalla ancha: en un celular se arranca desde la vista general
+  if (matchMedia('(max-width: 760px)').matches) L5.view('general');
 
   const micEl = document.getElementById('mic');
   const micView = document.getElementById('micView');
