@@ -17,8 +17,13 @@
   // ---------- Lista de partes ----------
   const HAVE_KEY = 'mb-have-v1';
   let have = store.get(HAVE_KEY, {});
-  const items = () => MB.BOM.items.filter((it) => !it.cfg || it.cfg === ui.opt.act || it.cfg === ui.opt.emg);
+  const items = () => MB.BOM.items
+    .filter((it) => (!it.cfg || it.cfg === ui.opt.act || it.cfg === ui.opt.emg) && (!it.tr || it.tr.includes(ui.opt.tr)))
+    // algunas partes cambian de cantidad según la transmisión de los dedos (0 = no va)
+    .map((it) => (it.qtyTr && it.qtyTr[ui.opt.tr] !== undefined ? Object.assign({}, it, { qty: it.qtyTr[ui.opt.tr], spec: (it.specTr && it.specTr[ui.opt.tr]) || it.spec }) : (it.specTr && it.specTr[ui.opt.tr] ? Object.assign({}, it, { spec: it.specTr[ui.opt.tr] }) : it)))
+    .filter((it) => it.qty > 0);
   const itemByKey = (k) => items().find((it) => it.key === k);
+  ui.itemByKey = itemByKey;
   function shown(o) {
     const mats = Array.isArray(o.material) ? o.material : [o.material];
     if (mats.some((m) => m && (m.visible === false || (m.transparent && m.opacity < 0.02)))) return false;
@@ -44,7 +49,7 @@
         const st = subtotal(it); total += st; if (!have[it.key]) missing += st;
         if ((it.source || '').startsWith('import')) imported += st; else local += st;
         if (!it.verified) estim += st;
-        if (it.cat === 'Actuadores') servos += st;
+        if (it.cat === 'Actuadores' || it.cat === 'Transmisión') servos += st;
         if (it.cat === 'Lectura de EMG') emg += st;
         if (q && !(it.name + ' ' + it.spec + ' ' + it.short).toLowerCase().includes(q)) return;
         const modeled = shownTagged(it.key).length > 0;
@@ -66,7 +71,7 @@
     $('#tot').innerHTML = `
       <div><span>Total del sistema</span><b>${fmt(total)}</b></div>
       <div><span>≈ en dólares (${fx.toFixed(2)} UYU/USD)</span><b>${fmtUsd(total / fx)}</b></div>
-      <div><span>Actuadores (${ui.opt.act === 'bus' ? 'bus serie' : 'PWM'})</span><b>${fmt(servos)}</b></div>
+      <div><span>Actuadores y transmisión (${ui.opt.act === 'bus' ? 'bus serie' : 'PWM'}, ${MB.TRANS[ui.opt.tr].n.toLowerCase()})</span><b>${fmt(servos)}</b></div>
       <div><span>Lectura de EMG (${ui.opt.emg === 'ads' ? 'ADS1299' : 'sensores sueltos'})</span><b>${fmt(emg)}</b></div>
       <div><span>Comprado en Uruguay</span><b>${fmt(local)}</b></div>
       <div><span>Importado (sin flete ni impuestos)</span><b>${fmt(imported)}</b></div>

@@ -15,21 +15,25 @@
       n: 'Bielas', sub: 'servos en la mano', demo: 'Rígida: el dedo sigue al servo sin retraso ni juego.',
       pros: 'Simple, precisa y fácil de armar con acrílico y acero.', cons: 'Los servos ocupan la palma y las falanges; la mano pesa.',
       s: { fuerza: 3, velocidad: 4, precision: 4, liviana: 3, amano: 3, silencio: 3, mantenimiento: 4 },
+      asm: '',
     },
     tendones: {
       n: 'Tendones', sub: 'cables y poleas', demo: 'Elástica: unos 60 ms de retraso y un pequeño rebote al frenar.',
       pros: 'Mano muy liviana, motores en el antebrazo, se adapta al objeto.', cons: 'Hay que tensar los cables, se estiran y se gastan.',
       s: { fuerza: 3, velocidad: 5, precision: 2, liviana: 5, amano: 4, silencio: 4, mantenimiento: 2 },
+      asm: 'van 12 servos en el antebrazo en vez de 16 en la mano, cada uno con su carrete. En lugar de bielas, cada tendón pasa por su funda de PTFE en la muñeca y por las poleas de cada articulación hasta la yema. Con la mano abierta y los servos en el centro, tensar con los resortes hasta que no quede ninguno flojo.',
     },
     engranajes: {
       n: 'Engranajes', sub: 'motor y reducción', demo: 'Con juego: al invertir el sentido el dedo se queda quieto 1,7° antes de seguir.',
       pros: 'Mucha fuerza y control fino en cada articulación.', cons: 'Más pesada y ruidosa; el juego entre dientes resta precisión.',
       s: { fuerza: 4, velocidad: 3, precision: 3, liviana: 2, amano: 2, silencio: 2, mantenimiento: 3 },
+      asm: 'en lugar de los servos de los dedos va un micromotor N20 en cada MCP y PIP, con un tren de 3 engranajes hasta el engranaje fijo a la falange. Ajustar la distancia entre ejes para que los dientes engranen sin trabarse. El pulgar y la biela en S de la punta quedan como con bielas.',
     },
     husillo: {
       n: 'Tornillo de rodillos', sub: 'actuador lineal', demo: 'Lenta pero firme: hasta 230°/s y sin temblor.',
       pros: 'La que más fuerza y precisión da; la usan manos humanoides de gama alta.', cons: 'Cara y lenta; casi no se puede mover a mano.',
       s: { fuerza: 5, velocidad: 2, precision: 5, liviana: 2, amano: 1, silencio: 4, mantenimiento: 4 },
+      asm: 'en lugar de los servos de los dedos van actuadores lineales: uno sobre el dorso de la palma por dedo (MCP) y uno sobre cada falange proximal (PIP), con una biela corta de la tuerca a la palanca. Con la mano abierta, llevar cada tuerca al tope de abajo antes de unir la biela. El pulgar y la biela en S de la punta quedan como con bielas.',
     },
   };
   MB.TRANS_KEYS = { fuerza: 'Fuerza', velocidad: 'Velocidad', precision: 'Precisión', liviana: 'Liviana', amano: 'Se mueve a mano', silencio: 'Silenciosa', mantenimiento: 'Poco mantenimiento' };
@@ -87,9 +91,9 @@
     const cols = [-16, 0, 16], rows = [45, 80, 115, 150];
     const spoolAt = [];
     rows.forEach((y) => cols.forEach((x) => {
-      const sv = MB.robotMicro('servoTendon');
+      const sv = MB.robotMicro('servo');
       sv.g.position.set(x, y, -6);
-      bank.add(MB.tag(sv.g, 'servoTendon', { explode: [0, 0, -40] }));
+      bank.add(MB.tag(sv.g, 'servo', { explode: [0, 0, -40] }));
       const sp = MB.mesh(G.cyl(5, 6, 18), 'carretes', 'spool'); sp.rotation.x = Math.PI / 2; sp.position.z = 3; sv.horn.add(MB.tag(sp, 'carretes'));
       [-1, 1].forEach((e) => { const fl = MB.mesh(G.cyl(6.4, 0.8, 18), 'carretes', 'spool'); fl.rotation.x = Math.PI / 2; fl.position.z = 3 + e * 3.2; sv.horn.add(fl); });
       TR.spools.push(sv);
