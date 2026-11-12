@@ -1,6 +1,6 @@
 # Tiny Moon Labs
 
-> Tiny Moon Labs (TML) es un laboratorio chico de Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA. Sus primeros productos son Friday, un asistente personal autónomo sobre Claude Code; Capsule, una red libre y descentralizada para compartir archivos y publicar sitios; y AA Tube y AA Disney, que llevan YouTube y Disney+ a la pantalla de Android Auto para usar con el auto estacionado. Todo el código es público en GitHub.
+> Tiny Moon Labs (TML) es un laboratorio chico de Montevideo, Uruguay, que construye productos de software abiertos para la era de los modelos de IA. También implementa sistemas de IA a medida para empresas públicas y privadas de Uruguay y para personas (https://tinymoonlabs.com/a-medida.html). Sus primeros productos son Friday, un asistente personal autónomo sobre Claude Code; Capsule, una red libre y descentralizada para compartir archivos y publicar sitios; y AA Tube y AA Disney, que llevan YouTube y Disney+ a la pantalla de Android Auto para usar con el auto estacionado. Todo el código es público en GitHub.
 
 Sitio: https://tinymoonlabs.com — también en https://tml.uy y https://tml.com.uy (redirigen al sitio principal). Idioma del sitio: español.
 
@@ -10,6 +10,15 @@ Sitio: https://tinymoonlabs.com — también en https://tml.uy y https://tml.com
 - [Capsule](https://missingus3r.github.io/CAPSULE/): red libre y descentralizada para mandar archivos y publicar sitios con dirección .capsule, sin cuenta ni identidad; cifrado en el navegador, funciona sin Internet (en la misma wifi o en un archivo en un pendrive). Código: https://github.com/missingus3r/CAPSULE
 - [AA Tube](https://github.com/missingus3r/aa-tube): app para Android que muestra YouTube en la pantalla de Android Auto, con la cuenta del usuario, para usar con el auto estacionado; al moverse el auto, Android Auto cierra la pantalla y el audio sigue. Código: https://github.com/missingus3r/aa-tube
 - [AA Disney](https://github.com/missingus3r/aa-disney): app para Android que muestra Disney+ en la pantalla de Android Auto, con la cuenta del usuario y el video protegido con DRM, para usar con el auto estacionado. Código: https://github.com/missingus3r/aa-disney
+
+## Servicios: sistemas de IA a medida (Uruguay)
+
+- [Sistemas de IA a medida](https://tinymoonlabs.com/a-medida.html): Tiny Moon Labs diseña e implementa sistemas de inteligencia artificial a medida para empresas públicas y privadas de Uruguay (organismos, entes, empresas públicas, pymes y grandes empresas) y para personas y profesionales. Primera charla sin costo; formulario de contacto en la página.
+  - Agentes y harnesses de IA: asistentes que trabajan solos, con memoria, tareas programadas, herramientas, registro de lo que hacen y aprobación humana para lo delicado (el ejemplo propio es Friday).
+  - Modelos de lenguaje en servidores propios (on-premise o nube elegida) con vLLM, Ollama o LM Studio: los datos no salen de la red de la organización y el costo es fijo.
+  - Endpoints y APIs de IA con FastAPI y uvicorn, compatibles con el formato de OpenAI, con autenticación por llave y registro de uso.
+  - IA con datos internos (RAG): búsqueda y respuestas sobre documentos, normativa, expedientes, planillas y sistemas internos, con permisos por área, citando la fuente y con los datos en Uruguay.
+  - Para quién: sector público uruguayo (atención a la ciudadanía, búsqueda en normativa y expedientes), empresas privadas (soporte, ventas, tareas administrativas, asistentes internos) y personas (asistente personal, archivo y correo ordenados por IA, modelos en la propia computadora).
 
 ## En el taller (demos, no son productos)
 

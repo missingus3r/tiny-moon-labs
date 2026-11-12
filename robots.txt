@@ -32,6 +32,22 @@ User-agent: MistralAI-User
 User-agent: DeepSeekBot
 User-agent: YouBot
 User-agent: Diffbot
+User-agent: Google-CloudVertexBot
+User-agent: AI2Bot
+User-agent: Ai2Bot-Dolma
+User-agent: PetalBot
+User-agent: Timpibot
+User-agent: ImagesiftBot
+User-agent: Kangaroo Bot
+User-agent: GrokBot
+User-agent: xAI-Bot
+User-agent: Brightbot
+User-agent: Andibot
+User-agent: PhindBot
 Allow: /
 
 Sitemap: https://tinymoonlabs.com/sitemap.xml
+
+# Resumen para modelos de lenguaje
+# https://tinymoonlabs.com/llms.txt
+# https://tinymoonlabs.com/llms-full.txt
