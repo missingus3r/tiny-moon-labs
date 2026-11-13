@@ -168,6 +168,8 @@
   .sources a{color:var(--ink);text-decoration:none;font-family:var(--serif);font-size:19px}
   .sources a:hover{color:var(--teal)}
   .sources span{display:block;color:var(--soft);font-size:14px}
+  .tl-src{display:inline-block;margin-top:8px;font-size:14px;color:var(--teal);text-decoration:none}
+  .tl-src:hover{text-decoration:underline}
 
   .end{text-align:center;padding:15vh 0 17vh;position:relative;overflow:hidden;border-top:1px solid var(--rule)}
   .end h2{font-size:clamp(36px,5.6vw,78px);line-height:1.02;max-width:15ch;margin:0 auto 26px}
@@ -281,7 +283,7 @@
       <div class="row"><b>Cinta magnética</b><div class="bar"><i style="width:16%"></i></div><span>décadas, migrando de generación de lector</span></div>
       <div class="row"><b>Memoria flash</b><div class="bar"><i style="width:4%"></i></div><span>pierde carga si queda sin alimentación</span></div>
       <div class="row glassrow"><b>Vidrio grabado</b><div class="bar"><i style="width:100%"></i></div><span>miles de años según ensayos de envejecimiento acelerado</span></div>
-      <small>Escala ilustrativa, no lineal. Las cifras del vidrio son extrapolaciones de laboratorio (ver fuentes al final).</small>
+      <small>Escala ilustrativa, no lineal. Las cifras del vidrio son extrapolaciones de laboratorio (ver fuentes en Inspiración).</small>
     </div>
     <p class="reveal" style="max-width:66ch;margin:40px auto 0;text-align:center;color:#d6d0c4;font-family:var(--serif);font-style:italic;font-size:21px;line-height:1.45">Y una razón nuestra: Friday escribe todos los días en su cuaderno. Los modelos generan memoria. Parte de esa memoria tendría que durar más que el disco donde vive.</p>
   </div>
@@ -432,10 +434,10 @@
       <p>La idea no es nuestra. Microsoft Research lleva años construyendo un sistema de archivo en vidrio a escala de nube, sobre la base académica de Southampton. Esta demo es un intento de llevar ese camino a escala de taller.</p>
     </div>
     <div class="timeline">
-      <div class="tl reveal"><span class="yr">2016</span><h3>Southampton presenta el almacenamiento 5D</h3><p>Nanoestructuras escritas con láser de femtosegundos en sílice fundida, con posición, tamaño y orientación como dimensiones. Anuncian 360 TB por disco, estabilidad hasta 1.000 °C y una vida útil extrapolada en miles de millones de años.</p></div>
-      <div class="tl reveal"><span class="yr">2019</span><h3>Superman, guardado en vidrio</h3><p>Microsoft y Warner Bros. graban la película <i>Superman</i> (1978) en una placa de vidrio de cuarzo de 75 × 75 × 2 mm, como prueba de concepto de Project Silica.</p></div>
-      <div class="tl reveal"><span class="yr">2023</span><h3>Un sistema de archivo para la nube</h3><p>En el congreso SOSP, Microsoft presenta Silica como el primer sistema de almacenamiento en la nube para archivo construido sobre vidrio de cuarzo: placas del tamaño de un DVD con cientos de capas de voxels, y hardware y software diseñados juntos a partir de la carga real de archivo de una nube pública. En 2025 sale una versión ampliada en <i>ACM Transactions on Storage</i>.</p></div>
-      <div class="tl reveal"><span class="yr">2026</span><h3>Vidrio común y voxels de fase</h3><p>En <i>Nature</i>, el equipo pasa a vidrio borosilicato, el mismo de la vajilla de cocina, más barato y fácil de conseguir. Agrega "voxels de fase" escritos con un solo pulso y lectura con una sola cámara. Reporta varios terabytes en una placa de 2 mm y al menos 10.000 años de duración estimada.</p></div>
+      <div class="tl reveal"><span class="yr">2016</span><h3>Southampton presenta el almacenamiento 5D</h3><p>Nanoestructuras escritas con láser de femtosegundos en sílice fundida, con posición, tamaño y orientación como dimensiones. Anuncian 360 TB por disco, estabilidad hasta 1.000 °C y una vida útil extrapolada en miles de millones de años.</p><a class="tl-src" href="https://www.orc.soton.ac.uk/news/5108" target="_blank" rel="noopener">Fuente: Universidad de Southampton ↗</a></div>
+      <div class="tl reveal"><span class="yr">2019</span><h3>Superman, guardado en vidrio</h3><p>Microsoft y Warner Bros. graban la película <i>Superman</i> (1978) en una placa de vidrio de cuarzo de 75 × 75 × 2 mm, como prueba de concepto de Project Silica.</p><a class="tl-src" href="https://news.microsoft.com/source/features/innovation/ignite-project-silica-superman/" target="_blank" rel="noopener">Fuente: Microsoft ↗</a></div>
+      <div class="tl reveal"><span class="yr">2023</span><h3>Un sistema de archivo para la nube</h3><p>En el congreso SOSP, Microsoft presenta Silica como el primer sistema de almacenamiento en la nube para archivo construido sobre vidrio de cuarzo: placas del tamaño de un DVD con cientos de capas de voxels, y hardware y software diseñados juntos a partir de la carga real de archivo de una nube pública. En 2025 sale una versión ampliada en <i>ACM Transactions on Storage</i>.</p><a class="tl-src" href="https://www.microsoft.com/en-us/research/uploads/prod/2023/09/ProjectSilica-SOSP23.pdf" target="_blank" rel="noopener">Fuente: paper SOSP 2023 ↗</a></div>
+      <div class="tl reveal"><span class="yr">2026</span><h3>Vidrio común y voxels de fase</h3><p>En <i>Nature</i>, el equipo pasa a vidrio borosilicato, el mismo de la vajilla de cocina, más barato y fácil de conseguir. Agrega "voxels de fase" escritos con un solo pulso y lectura con una sola cámara. Reporta varios terabytes en una placa de 2 mm y al menos 10.000 años de duración estimada.</p><a class="tl-src" href="https://www.microsoft.com/en-us/research/blog/project-silicas-advances-in-glass-storage-technology/" target="_blank" rel="noopener">Fuente: Microsoft Research ↗</a></div>
     </div>
     <div class="took">
       <div class="card reveal"><h3>Lo que tomamos</h3><ul>
@@ -451,6 +453,14 @@
         <li><b>Desde el sur:</b> pensado para archivos y costos de la región.</li>
       </ul></div>
     </div>
+    <div class="head reveal" style="margin:40px 0 16px"><span class="eyebrow">Fuentes</span></div>
+    <ul class="sources">
+      <li class="reveal"><a href="https://www.microsoft.com/en-us/research/project/project-silica/" target="_blank" rel="noopener">Microsoft Research — Project Silica ↗</a><span>Página del proyecto.</span></li>
+      <li class="reveal"><a href="https://www.microsoft.com/en-us/research/uploads/prod/2023/09/ProjectSilica-SOSP23.pdf" target="_blank" rel="noopener">Project Silica: Towards Sustainable Cloud Archival Storage in Glass (SOSP 2023) ↗</a><span>Anderson, Black, Rowstron y otros. Versión ampliada en ACM Transactions on Storage, 2025.</span></li>
+      <li class="reveal"><a href="https://www.microsoft.com/en-us/research/blog/project-silicas-advances-in-glass-storage-technology/" target="_blank" rel="noopener">Project Silica's advances in glass storage technology ↗</a><span>Microsoft Research, sobre el trabajo publicado en Nature en 2026.</span></li>
+      <li class="reveal"><a href="https://news.microsoft.com/source/features/innovation/ignite-project-silica-superman/" target="_blank" rel="noopener">Project Silica proof of concept stores Superman on quartz glass ↗</a><span>Microsoft, 2019.</span></li>
+      <li class="reveal"><a href="https://www.orc.soton.ac.uk/news/5108" target="_blank" rel="noopener">Optoelectronics Research Centre — 5D data storage ↗</a><span>Universidad de Southampton, 2016.</span></li>
+    </ul>
   </div>
 </section>
 
@@ -491,18 +501,6 @@
       <li class="reveal"><div><b>Escribir algo que importe</b><span>Un archivo real, con corrección de errores, y releerlo meses después.</span></div></li>
       <li class="reveal"><div><b>Solo si todo lo anterior funciona</b><span>Buscar socios para el 5D con láser de femtosegundos.</span></div></li>
     </ol>
-  </div>
-</section>
-
-<section class="band" style="padding-top:2vh">
-  <div class="wrap">
-    <div class="head reveal" style="margin-bottom:24px"><span class="eyebrow">Fuentes</span></div>
-    <ul class="sources">
-      <li class="reveal"><a href="https://www.microsoft.com/en-us/research/project/project-silica/" target="_blank" rel="noopener">Microsoft Research — Project Silica ↗</a><span>Página del proyecto.</span></li>
-      <li class="reveal"><a href="https://www.microsoft.com/en-us/research/uploads/prod/2023/09/ProjectSilica-SOSP23.pdf" target="_blank" rel="noopener">Project Silica: Towards Sustainable Cloud Archival Storage in Glass (SOSP 2023) ↗</a><span>Anderson, Black, Rowstron y otros. Versión ampliada en ACM Transactions on Storage, 2025.</span></li>
-      <li class="reveal"><a href="https://www.microsoft.com/en-us/research/blog/project-silicas-advances-in-glass-storage-technology/" target="_blank" rel="noopener">Project Silica's advances in glass storage technology ↗</a><span>Microsoft Research, sobre el trabajo publicado en Nature en 2026.</span></li>
-      <li class="reveal"><a href="https://www.orc.soton.ac.uk/news/5108" target="_blank" rel="noopener">Optoelectronics Research Centre — 5D data storage ↗</a><span>Universidad de Southampton, 2016.</span></li>
-    </ul>
   </div>
 </section>
 
